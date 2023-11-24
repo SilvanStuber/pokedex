@@ -9,6 +9,19 @@ body {
     display: flex;
     font-family: 'Open Sans';
     padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.image-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#pokemonImage {
+ height: 240px;
 }
 
 .info-container {
@@ -17,4 +30,8 @@ body {
     border-top-right-radius: 40px;
     margin-top: -40px; 
     min-height: 100px;
+    display: flex;
+
+
 }
+
