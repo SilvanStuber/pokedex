@@ -1,12 +1,17 @@
 let currentPokemon;
+let nameFromPokemon;
+let specificationsOfThePokemon;
+
 
 async function loadPokemon() {
-    let url = `https://pokeapi.co/api/v2/pokemon/1/`; 
-    let response = await fetch(url);
-    currentPokemon = await response.json();
-    let nameFromPokemon = currentPokemon['name'];
-    console.log('Loaded loadPokemon', currentPokemon)
-    console.log(nameFromPokemon)
+    let url = `https://pokeapi.co/api/v2/pokemon/4/`;
+    currentPokemon = await generateJSON(url);
+    generateNameFromPokemon();
+    let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameFromPokemon}`;
+    specificationsOfThePokemon = await generateJSON(urlFromSpecies);
+    console.log('Loaded loadPokemon', currentPokemon);
+    console.log(nameFromPokemon);
+    console.log(specificationsOfThePokemon)
     renderPokemonInfo();
 }
 
@@ -16,7 +21,16 @@ function renderPokemonInfo() {
     document.getElementById('idFromPokemon').innerHTML = `#${currentPokemon['id']}`;
 }
 
-function generateCapitalizeNameOfPokemon() {
-    let currentPokemonName = currentPokemon['name']; //reads the name of the Pokemon from the JSON
-    return currentPokemonName.charAt(0).toUpperCase() + currentPokemonName.slice(1); //since everything is extracted from the JSON as lowercase letters, we use this function to capitalise the first letter
+function generateNameFromPokemon() {
+    nameFromPokemon = currentPokemon['name'];
 }
+
+function generateCapitalizeNameOfPokemon() {
+    return nameFromPokemon.charAt(0).toUpperCase() + nameFromPokemon.slice(1); //since everything is extracted from the JSON as lowercase letters, we use this function to capitalise the first letter
+}
+
+async function generateJSON(url) {
+    let response = await fetch(url);
+    return currentJSON = await response.json();
+}
+
