@@ -14,12 +14,15 @@ body {
     flex-direction: column;
     width: 400px;
     height: 80vh;
+    box-shadow: 5px 5px 8px 10px #d2d1d1;
+    border-radius: 40px;
 }
 
-.head-container {
-    background-color: rgb(251,108,108);
+#headContainer {
     color: white;
-    border-radius: 40px;
+    border-top-left-radius: 40px;
+    border-top-right-radius: 40px;
+    height: 30vh;
 }
 
 .head-line-container {
@@ -34,19 +37,18 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    padding-top: 100px;
 }
 
 #pokemonImage {
- height: 240px;
+ height: 200px;
  z-index: 2;
 }
 
 .info-container {
-    background-color: aqua;
+    background-color: white;
     border-radius: 40px;
-    margin-top: -80px; 
-    min-height: 300px;
+    margin-top: -40px; 
+    height: 60vh;
     display: flex;
 }
 
