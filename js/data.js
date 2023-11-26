@@ -11,6 +11,37 @@ let weightFromPokemonootPound;
 let typeFromPokemonInGerman = [];
 let experienceFromPokemon;
 
+function generateNameFromPokemon() {
+    nameFromPokemon = currentPokemon["name"];
+  }
+  
+  function generateNameOfPokemonInGerman() {
+    nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"];
+  }
+  
+  function generateGeneraOfThePokemonInGerman() {
+    generaOfThePokemonInGerman = specificationsOfThePokemon["genera"]["4"]["genus"];
+  }
+  
+  function generateHeightOfTHePokemon() {
+    heightFromPokemonMeter = currentPokemon["height"] / 10;
+    heightFromPokemonootFoot = (heightFromPokemonMeter * 3.281).toFixed(1);
+  }
+  
+  function generateWeightOfTHePokemon() {
+    weightFromPokemonKilogram = currentPokemon["weight"] / 10;
+    weightFromPokemonootPound = (weightFromPokemonKilogram * 2.205).toFixed(1);
+  }
+  
+  function generateExperienceOfTHePokemon() {
+    experienceFromPokemon = currentPokemon["base_experience"];
+  }
+  
+  async function generateJSON(url) {
+    let response = await fetch(url);
+    return (currentJSON = await response.json());
+  }
+
 function generateBackgroundColor() {
   backgroundColor = specificationsOfThePokemon["color"]["name"];
   console.log();
