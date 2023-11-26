@@ -63,7 +63,8 @@ body {
 .about-container {
     display: flex;
     flex-direction: column;
-    padding-top: 24px;
+    padding-top: 56px;
+    gap: 24px;
 }
 
 .about-text {

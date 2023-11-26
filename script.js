@@ -6,6 +6,8 @@ let backgroundColor;
 let generaOfThePokemonInGerman;
 let heightFromPokemonMeter;
 let heightFromPokemonootFoot;
+let weightFromPokemonKilogram;
+let weightFromPokemonootPound;
 
 async function loadPokemon() {
   let url = `https://pokeapi.co/api/v2/pokemon/1/`;
@@ -16,10 +18,11 @@ async function loadPokemon() {
   generateNameOfPokemonInGerman();
   generateGeneraOfThePokemonInGerman();
   generateHeightOfTHePokemon();
+  generateWeightOfTHePokemon();
   console.log("Loaded loadPokemon", currentPokemon);
-  console.log(heightFromPokemonMeter);
+  console.log(weightFromPokemonKilogram);
   console.log(specificationsOfThePokemon);
-  console.log(heightFromPokemonootFoot);
+  console.log(weightFromPokemonootPound);
   renderPokemonInfo();
 }
 
@@ -30,7 +33,9 @@ function renderPokemonInfo() {
   document.getElementById("headContainer").style = generateBackgroundColor();
   document.getElementById("genraOfPokemon").innerHTML = generaOfThePokemonInGerman;
   document.getElementById("heightMeter").innerHTML = `${heightFromPokemonMeter} m`;
-  document.getElementById("heightFoot").innerHTML = `${heightFromPokemonootFoot} ft`;  
+  document.getElementById("heightFoot").innerHTML = `${heightFromPokemonootFoot} ft`; 
+  document.getElementById("weightKilogram").innerHTML = `${weightFromPokemonKilogram} m`;
+  document.getElementById("weightPound").innerHTML = `${weightFromPokemonootPound} ft`; 
 }
 
 function generateNameFromPokemon() {
@@ -84,7 +89,12 @@ function generateGeneraOfThePokemonInGerman() {
 
 function generateHeightOfTHePokemon() {
   heightFromPokemonMeter = currentPokemon["height"] / 10;
-  heightFromPokemonootFoot = (heightFromPokemonMeter * 3.281).toFixed(2);
+  heightFromPokemonootFoot = (heightFromPokemonMeter * 3.281).toFixed(1);
+}
+
+function generateWeightOfTHePokemon() {
+  weightFromPokemonKilogram = currentPokemon["weight"] / 10;
+  weightFromPokemonootPound = (weightFromPokemonKilogram * 2.205).toFixed(1);
 }
 
 async function generateJSON(url) {
