@@ -9,6 +9,7 @@ let heightFromPokemonootFoot;
 let weightFromPokemonKilogram;
 let weightFromPokemonootPound;
 let typeFromPokemonInGerman = [];
+let experienceFromPokemon;
 
 function generateBackgroundColor() {
   backgroundColor = specificationsOfThePokemon["color"]["name"];
@@ -110,9 +111,7 @@ function generateTypeInGerman() {
     }
     if (typeFromPokemon === "shadow") {
       typeFromPokemonInGerman.push("Schatten");
-    } else {
-      console.log(`${typeFromPokemon} does not exist`);
-    }
+    } 
   }
 }
 

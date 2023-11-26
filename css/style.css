@@ -32,6 +32,18 @@ body {
   padding-right: 24px;
 }
 
+#typePokemon {
+  gap: 24px;
+  padding-bottom: 24px;
+ }
+
+ .type-pokemon-text {
+  padding-left: 12px;
+  padding-right: 12px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 24px;
+ }
+
 .image-container {
   display: flex;
   justify-content: center;
@@ -78,6 +90,3 @@ body {
 .bold-text {
  width: 100px;
 }
- #typePokemon {
-  gap: 24px;
- }
