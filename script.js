@@ -3,28 +3,29 @@ let nameFromPokemon;
 let specificationsOfThePokemon;
 let nameFromPokemonGerman;
 let backgroundColor;
+let generaOfThePokemonInGerman;
 
 async function loadPokemon() {
-  let url = `https://pokeapi.co/api/v2/pokemon/143/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/8/`;
   currentPokemon = await generateJSON(url);
   generateNameFromPokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameFromPokemon}`;
   specificationsOfThePokemon = await generateJSON(urlFromSpecies);
   generateNameOfPokemonInGerman();
+  generateGeneraOfThePokemonInGerman();
   console.log("Loaded loadPokemon", currentPokemon);
-  console.log(nameFromPokemon);
+  console.log(generaOfThePokemonInGerman);
   console.log(specificationsOfThePokemon);
   renderPokemonInfo();
 }
 
 function renderPokemonInfo() {
   document.getElementById("pokemonName").innerHTML = nameFromPokemonGerman;
-  document.getElementById("pokemonImage").src =
-    currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
-  document.getElementById(
-    "idFromPokemon"
-  ).innerHTML = `#${currentPokemon["id"]}`;
+  document.getElementById("pokemonImage").src = currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
+  document.getElementById("idFromPokemon").innerHTML = `#${currentPokemon["id"]}`;
   document.getElementById("headContainer").style = generateBackgroundColor();
+  document.getElementById("genraOfPokemon").innerHTML = generaOfThePokemonInGerman;
+  
 }
 
 function generateNameFromPokemon() {
@@ -37,7 +38,7 @@ function generateNameOfPokemonInGerman() {
 
 function generateBackgroundColor() {
   backgroundColor = specificationsOfThePokemon["color"]["name"];
-  console.log(backgroundColor);
+  console.log();
   if (backgroundColor == "white") {
     return `background-color: rgb(165, 196, 243);`;
   }
@@ -68,8 +69,12 @@ function generateBackgroundColor() {
   if (backgroundColor === "black") {
     return `background-color: rgb(0,0,0);`;
   } else {
-    console.log("errorColor");
+    console.log(`${backgroundColor} does not exist`);
   }
+}
+
+async function generateGeneraOfThePokemonInGerman() {
+  generaOfThePokemonInGerman = specificationsOfThePokemon["genera"]["4"]["genus"];
 }
 
 async function generateJSON(url) {

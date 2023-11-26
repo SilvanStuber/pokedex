@@ -1,54 +1,68 @@
 body {
-    margin: 0;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #pokedex {
-    font-family: 'Open Sans';
-    margin-left: 24px;
-    margin-right: 24px;
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-    height: 80vh;
-    box-shadow: 5px 5px 8px 10px #d2d1d1;
-    border-radius: 40px;
+  font-family: "Open Sans";
+  margin-left: 24px;
+  margin-right: 24px;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 80vh;
+  box-shadow: 5px 5px 8px 10px #d2d1d1;
+  border-radius: 40px;
 }
 
 #headContainer {
-    color: white;
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
-    height: 30vh;
+  color: white;
+  border-top-left-radius: 40px;
+  border-top-right-radius: 40px;
+  height: 35vh;
 }
 
 .head-line-container {
-    display: flex;
-    justify-content: space-between;
-    padding-left: 24px;
-    padding-right: 24px;
+  display: flex;
+  justify-content: space-between;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
-.image-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
+#genraOfPokemon {
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-bottom: 24px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 #pokemonImage {
- height: 200px;
- z-index: 2;
+  height: 200px;
+  z-index: 2;
 }
 
 .info-container {
-    background-color: white;
-    border-radius: 40px;
-    margin-top: -40px; 
-    height: 60vh;
-    display: flex;
+  background-color: white;
+  border-radius: 40px;
+  margin-top: -40px;
+  height: 60vh;
+  display: flex;
 }
 
+.card-selection-container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  padding-top: 64px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
