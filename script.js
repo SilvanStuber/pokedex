@@ -4,18 +4,22 @@ let specificationsOfThePokemon;
 let nameFromPokemonGerman;
 let backgroundColor;
 let generaOfThePokemonInGerman;
+let heightFromPokemonMeter;
+let heightFromPokemonootFoot;
 
 async function loadPokemon() {
-  let url = `https://pokeapi.co/api/v2/pokemon/8/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/1/`;
   currentPokemon = await generateJSON(url);
   generateNameFromPokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameFromPokemon}`;
   specificationsOfThePokemon = await generateJSON(urlFromSpecies);
   generateNameOfPokemonInGerman();
   generateGeneraOfThePokemonInGerman();
+  generateHeightOfTHePokemon();
   console.log("Loaded loadPokemon", currentPokemon);
-  console.log(generaOfThePokemonInGerman);
+  console.log(heightFromPokemonMeter);
   console.log(specificationsOfThePokemon);
+  console.log(heightFromPokemonootFoot);
   renderPokemonInfo();
 }
 
@@ -25,7 +29,8 @@ function renderPokemonInfo() {
   document.getElementById("idFromPokemon").innerHTML = `#${currentPokemon["id"]}`;
   document.getElementById("headContainer").style = generateBackgroundColor();
   document.getElementById("genraOfPokemon").innerHTML = generaOfThePokemonInGerman;
-  
+  document.getElementById("heightMeter").innerHTML = `${heightFromPokemonMeter} m`;
+  document.getElementById("heightFoot").innerHTML = `${heightFromPokemonootFoot} ft`;  
 }
 
 function generateNameFromPokemon() {
@@ -73,8 +78,13 @@ function generateBackgroundColor() {
   }
 }
 
-async function generateGeneraOfThePokemonInGerman() {
+function generateGeneraOfThePokemonInGerman() {
   generaOfThePokemonInGerman = specificationsOfThePokemon["genera"]["4"]["genus"];
+}
+
+function generateHeightOfTHePokemon() {
+  heightFromPokemonMeter = currentPokemon["height"] / 10;
+  heightFromPokemonootFoot = (heightFromPokemonMeter * 3.281).toFixed(2);
 }
 
 async function generateJSON(url) {

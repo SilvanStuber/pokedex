@@ -13,7 +13,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 400px;
-  height: 80vh;
+  height: 800px;
   box-shadow: 5px 5px 8px 10px #d2d1d1;
   border-radius: 40px;
 }
@@ -22,7 +22,7 @@ body {
   color: white;
   border-top-left-radius: 40px;
   border-top-right-radius: 40px;
-  height: 35vh;
+  height: 350px;
 }
 
 .head-line-container {
@@ -30,12 +30,6 @@ body {
   justify-content: space-between;
   padding-left: 24px;
   padding-right: 24px;
-}
-
-#genraOfPokemon {
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-bottom: 24px;
 }
 
 .image-container {
@@ -54,15 +48,32 @@ body {
   background-color: white;
   border-radius: 40px;
   margin-top: -40px;
-  height: 60vh;
+  height: 680px;
   display: flex;
+  flex-direction: column;
 }
 
 .card-selection-container {
   display: flex;
   justify-content: space-around;
   width: 100%;
-  padding-top: 64px;
-  padding-left: 24px;
-  padding-right: 24px;
+  padding-top: 56px;
+}
+
+.about-container {
+    display: flex;
+    flex-direction: column;
+    padding-top: 24px;
+}
+
+.about-text {
+   display: flex;
+   justify-content: flex-start;
+   align-items: center;
+   padding-left: 24px;
+   gap: 24px;
+}
+
+.bold-text {
+ width: 60px;
 }
