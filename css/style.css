@@ -78,3 +78,6 @@ body {
 .bold-text {
  width: 100px;
 }
+ #typePokemon {
+  gap: 24px;
+ }
