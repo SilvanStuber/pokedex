@@ -34,8 +34,9 @@ function renderPokemonInfo() {
   document.getElementById("genraOfPokemon").innerHTML = generaOfThePokemonInGerman;
   document.getElementById("heightMeter").innerHTML = `${heightFromPokemonMeter} m`;
   document.getElementById("heightFoot").innerHTML = `${heightFromPokemonootFoot} ft`; 
-  document.getElementById("weightKilogram").innerHTML = `${weightFromPokemonKilogram} m`;
-  document.getElementById("weightPound").innerHTML = `${weightFromPokemonootPound} ft`; 
+  document.getElementById("weightKilogram").innerHTML = `${weightFromPokemonKilogram} kg`;
+  document.getElementById("weightPound").innerHTML = `${weightFromPokemonootPound} lbs`;
+  document.getElementById("habitatPokemon").innerHTML = generateHabitatInGerman(); 
 }
 
 function generateNameFromPokemon() {
@@ -49,7 +50,7 @@ function generateNameOfPokemonInGerman() {
 function generateBackgroundColor() {
   backgroundColor = specificationsOfThePokemon["color"]["name"];
   console.log();
-  if (backgroundColor == "white") {
+  if (backgroundColor === "white") {
     return `background-color: rgb(165, 196, 243);`;
   }
   if (backgroundColor === "red") {
@@ -100,4 +101,38 @@ function generateWeightOfTHePokemon() {
 async function generateJSON(url) {
   let response = await fetch(url);
   return (currentJSON = await response.json());
+}
+
+function generateHabitatInGerman() {
+  habitatFromPokemon = specificationsOfThePokemon["habitat"]["name"];
+  console.log(habitatFromPokemon);
+  if (habitatFromPokemon === "cave") {
+    return `Höhle`;
+  }
+  if (habitatFromPokemon === "forest") {
+    return `Wald`;
+  }
+  if (habitatFromPokemon === "grassland") {
+    return `Wiese`;
+  }
+  if (habitatFromPokemon === "mountain") {
+    return `Berge`;
+  }
+  if (habitatFromPokemon === "rare") {
+    return `selten`;
+  }
+  if (habitatFromPokemon === "rough-terrain") {
+    return `unebenes Gebiet`;
+  }
+  if (habitatFromPokemon === "sea") {
+    return `Meer`;
+  }
+  if (habitatFromPokemon === "urban") {
+    return `Stadt`;
+  }
+  if (habitatFromPokemon === "waters-edge") {
+    return `Gewässerrand`;
+  } else {
+    console.log(`${habitatFromPokemon} does not exist`);
+  }
 }
