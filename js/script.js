@@ -60,17 +60,17 @@ function renderImageOfThePokemon() {
 }
 
 function loadAbout() {
-  removeCSS();
+  renderRemoveCSS();
   document.getElementById("aboutSelection").classList.add("border-bottom");
 }
 
 function loadStats() {
-  removeCSS();
+  renderRemoveCSS();
   document.getElementById("statsSelection").classList.add("border-bottom");
 }
 
 function loadEvolution() {
-  removeCSS();
+  renderRemoveCSS();
   document.getElementById("evolutionSelection").classList.add("border-bottom");
 }
 
@@ -89,6 +89,7 @@ function renderWeightOfTHePokemonToCard() {
 }
 
 function renderHabitatInGermanToCard() {
+  renderRemoveCSS();
   if (!specificationsOfThePokemon["habitat"]) {
     document.getElementById("habitatContainer").classList.add("d-none");
   } else {
@@ -97,6 +98,7 @@ function renderHabitatInGermanToCard() {
 }
 
 function renderExperienceOfTHePokemonToCard() {
+  renderRemoveCSS();
   if (!currentPokemon["base_experience"]) {
     document.getElementById("experienceContainer").classList.add("d-none");
   } else {
@@ -105,7 +107,7 @@ function renderExperienceOfTHePokemonToCard() {
   }
 }
 
-function removeCSS() {
+function renderRemoveCSS() {
   document.getElementById("aboutSelection").classList.remove("border-bottom");
   document.getElementById("statsSelection").classList.remove("border-bottom");
   document.getElementById("evolutionSelection").classList.remove("border-bottom");
