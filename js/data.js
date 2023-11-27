@@ -1,3 +1,7 @@
+////////////////render functions are in the script.js folder and the generate functions and global variables are in the data.js folder////////////////
+
+let url;
+let urlFromSpecies;
 let currentPokemon;
 let nameFromPokemon;
 let specificationsOfThePokemon;
@@ -13,6 +17,14 @@ let experienceFromPokemon;
 let habitatFromPokemonInEnglish;
 let habitatFromPokemonInGerman;
 
+async function generateImportFriomAPI() {
+  let url = `https://pokeapi.co/api/v2/pokemon/9/`;
+  currentPokemon = await generateJSON(url);
+  generateNameFromPokemon();
+  let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameFromPokemon}`;
+  specificationsOfThePokemon = await generateJSON(urlFromSpecies);
+}
+
 function generateNameFromPokemon() {
   nameFromPokemon = currentPokemon["name"];
 }
@@ -22,8 +34,7 @@ function generateNameOfPokemonInGerman() {
 }
 
 function generateGeneraOfThePokemonInGerman() {
-  generaOfThePokemonInGerman =
-    specificationsOfThePokemon["genera"]["4"]["genus"];
+  generaOfThePokemonInGerman = specificationsOfThePokemon["genera"]["4"]["genus"];
 }
 
 function generateHeightOfTHePokemon() {
@@ -36,49 +47,42 @@ function generateWeightOfTHePokemon() {
   weightFromPokemonootPound = (weightFromPokemonKilogram * 2.205).toFixed(1);
 }
 
-function generateExperienceOfTHePokemon() {
-  experienceFromPokemon = currentPokemon["base_experience"];
-}
-
 async function generateJSON(url) {
   let response = await fetch(url);
   return (currentJSON = await response.json());
 }
 
 function generateBackgroundColor() {
-  backgroundColor = specificationsOfThePokemon["color"]["name"];
-  console.log();
-  if (backgroundColor === "white") {
-    return `background-color: rgb(165, 196, 243);`;
+  backgroundColorFromPokemon = specificationsOfThePokemon["color"]["name"];
+  if (backgroundColorFromPokemon === "white") {
+    backgroundColor = `background-color: rgb(165, 196, 243);`;
   }
-  if (backgroundColor === "red") {
-    return `background-color: rgb(251,108,108);`;
+  if (backgroundColorFromPokemon === "red") {
+    backgroundColor = `background-color: rgb(251,108,108);`;
   }
-  if (backgroundColor === "green") {
-    return `background-color: rgb(72,207,177);`;
+  if (backgroundColorFromPokemon === "green") {
+    backgroundColor = `background-color: rgb(72,207,177);`;
   }
-  if (backgroundColor === "blue") {
-    return `background-color: rgb(118,189,254);`;
+  if (backgroundColorFromPokemon === "blue") {
+    backgroundColor = `background-color: rgb(118,189,254);`;
   }
-  if (backgroundColor === "brown") {
-    return `background-color: rgb(137,80,48);`;
+  if (backgroundColorFromPokemon === "brown") {
+    backgroundColor = `background-color: rgb(137,80,48);`;
   }
-  if (backgroundColor === "yellow") {
-    return `background-color: rgb(255,216,111);`;
+  if (backgroundColorFromPokemon === "yellow") {
+    backgroundColor = `background-color: rgb(255,216,111);`;
   }
-  if (backgroundColor === "gray") {
-    return `background-color: rgb(102, 103, 106);`;
+  if (backgroundColorFromPokemon === "gray") {
+    backgroundColor = `background-color: rgb(102, 103, 106);`;
   }
-  if (backgroundColor === "purple") {
-    return `background-color: rgb(65,5,114);`;
+  if (backgroundColorFromPokemon === "purple") {
+    backgroundColor = `background-color: rgb(65,5,114);`;
   }
-  if (backgroundColor === "pink") {
-    return `background-color: rgb(247,102,173);`;
+  if (backgroundColorFromPokemon === "pink") {
+    backgroundColor = `background-color: rgb(247,102,173);`;
   }
-  if (backgroundColor === "black") {
-    return `background-color: rgb(0,0,0);`;
-  } else {
-    console.log(`${backgroundColor} does not exist`);
+  if (backgroundColorFromPokemon === "black") {
+    backgroundColor = `background-color: rgb(0,0,0);`;
   }
 }
 
@@ -150,37 +154,32 @@ function generateTypeInGerman() {
 }
 
 function generateHabitatInGerman() {
-  if (!specificationsOfThePokemon["habitat"]) {
-    document.getElementById("habitatContainer").classList.add("d-none");
-  } else {
-    habitatFromPokemonInEnglish = specificationsOfThePokemon["habitat"]["name"];
-    if (habitatFromPokemonInEnglish === "cave") {
-      habitatFromPokemonInGerman = `Höhle`;
-    }
-    if (habitatFromPokemonInEnglish === "forest") {
-      habitatFromPokemonInGerman = `Wald`;
-    }
-    if (habitatFromPokemonInEnglish === "grassland") {
-      habitatFromPokemonInGerman = `Wiese`;
-    }
-    if (habitatFromPokemonInEnglish === "mountain") {
-      habitatFromPokemonInGerman = `Berge`;
-    }
-    if (habitatFromPokemonInEnglish === "rare") {
-      habitatFromPokemonInGerman = `selten`;
-    }
-    if (habitatFromPokemonInEnglish === "rough-terrain") {
-      habitatFromPokemonInGerman =`unebenes Gebiet`;
-    }
-    if (habitatFromPokemonInEnglish === "sea") {
-      habitatFromPokemonInGerman = `Meer`;
-    }
-    if (habitatFromPokemonInEnglish === "urban") {
-      habitatFromPokemonInGerman = `Stadt`;
-    }
-    if (habitatFromPokemonInEnglish === "waters-edge") {
-      habitatFromPokemonInGerman = `Gewässerrand`;
-    }
-    document.getElementById("habitatPokemon").innerHTML = habitatFromPokemonInGerman;
+  habitatFromPokemonInEnglish = specificationsOfThePokemon["habitat"]["name"];
+  if (habitatFromPokemonInEnglish === "cave") {
+    habitatFromPokemonInGerman = `Höhle`;
+  }
+  if (habitatFromPokemonInEnglish === "forest") {
+    habitatFromPokemonInGerman = `Wald`;
+  }
+  if (habitatFromPokemonInEnglish === "grassland") {
+    habitatFromPokemonInGerman = `Wiese`;
+  }
+  if (habitatFromPokemonInEnglish === "mountain") {
+    habitatFromPokemonInGerman = `Berge`;
+  }
+  if (habitatFromPokemonInEnglish === "rare") {
+    habitatFromPokemonInGerman = `selten`;
+  }
+  if (habitatFromPokemonInEnglish === "rough-terrain") {
+    habitatFromPokemonInGerman = `unebenes Gebiet`;
+  }
+  if (habitatFromPokemonInEnglish === "sea") {
+    habitatFromPokemonInGerman = `Meer`;
+  }
+  if (habitatFromPokemonInEnglish === "urban") {
+    habitatFromPokemonInGerman = `Stadt`;
+  }
+  if (habitatFromPokemonInEnglish === "waters-edge") {
+    habitatFromPokemonInGerman = `Gewässerrand`;
   }
 }
