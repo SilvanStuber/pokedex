@@ -1,5 +1,5 @@
 async function loadPokemon() {
-  let url = `https://pokeapi.co/api/v2/pokemon/27/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/100/`;
   currentPokemon = await generateJSON(url);
   generateNameFromPokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameFromPokemon}`;
@@ -19,8 +19,7 @@ async function loadPokemon() {
 
 function renderPokemonInfo() {
   document.getElementById("pokemonName").innerHTML = nameFromPokemonGerman;
-  document.getElementById("pokemonImage").src =
-    currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
+  loadImageOfThePokemon();
   document.getElementById(
     "idFromPokemon"
   ).innerHTML = `#${currentPokemon["id"]}`;
@@ -46,9 +45,43 @@ function renderPokemonInfo() {
   document.getElementById(
     "weightPound"
   ).innerHTML = `${weightFromPokemonootPound} lbs`;
-  document.getElementById("habitatPokemon").innerHTML =
-    generateHabitatInGerman();
+  generateHabitatInGerman();
   document.getElementById(
     "experiencePokemon"
   ).innerHTML = `${experienceFromPokemon} exp`;
 }
+
+function loadImageOfThePokemon() {
+  let imageFromPokemon =
+    currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
+  if (imageFromPokemon) {
+    document.getElementById("pokemonImage").src = imageFromPokemon;
+  } else {
+    document.getElementById("pokemonImage").src =
+      currentPokemon["sprites"]["other"]["home"]["front_default"];
+  }
+}
+
+function loadAbout() {
+  removeCSS();
+  document.getElementById("aboutSelection").classList.add("border-bottom");
+}
+
+function loadStats() {
+  removeCSS();
+  document.getElementById("statsSelection").classList.add("border-bottom");
+}
+
+function loadEvolution() {
+  removeCSS();
+  document.getElementById("evolutionSelection").classList.add("border-bottom");
+}
+
+function removeCSS() {
+  document.getElementById("aboutSelection").classList.remove("border-bottom");
+  document.getElementById("statsSelection").classList.remove("border-bottom");
+  document.getElementById("evolutionSelection").classList.remove("border-bottom");
+  document.getElementById("habitatContainer").classList.remove("d-none");
+}
+
+

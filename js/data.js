@@ -10,37 +10,40 @@ let weightFromPokemonKilogram;
 let weightFromPokemonootPound;
 let typeFromPokemonInGerman = [];
 let experienceFromPokemon;
+let habitatFromPokemonInEnglish;
+let habitatFromPokemonInGerman;
 
 function generateNameFromPokemon() {
-    nameFromPokemon = currentPokemon["name"];
-  }
-  
-  function generateNameOfPokemonInGerman() {
-    nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"];
-  }
-  
-  function generateGeneraOfThePokemonInGerman() {
-    generaOfThePokemonInGerman = specificationsOfThePokemon["genera"]["4"]["genus"];
-  }
-  
-  function generateHeightOfTHePokemon() {
-    heightFromPokemonMeter = currentPokemon["height"] / 10;
-    heightFromPokemonootFoot = (heightFromPokemonMeter * 3.281).toFixed(1);
-  }
-  
-  function generateWeightOfTHePokemon() {
-    weightFromPokemonKilogram = currentPokemon["weight"] / 10;
-    weightFromPokemonootPound = (weightFromPokemonKilogram * 2.205).toFixed(1);
-  }
-  
-  function generateExperienceOfTHePokemon() {
-    experienceFromPokemon = currentPokemon["base_experience"];
-  }
-  
-  async function generateJSON(url) {
-    let response = await fetch(url);
-    return (currentJSON = await response.json());
-  }
+  nameFromPokemon = currentPokemon["name"];
+}
+
+function generateNameOfPokemonInGerman() {
+  nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"];
+}
+
+function generateGeneraOfThePokemonInGerman() {
+  generaOfThePokemonInGerman =
+    specificationsOfThePokemon["genera"]["4"]["genus"];
+}
+
+function generateHeightOfTHePokemon() {
+  heightFromPokemonMeter = currentPokemon["height"] / 10;
+  heightFromPokemonootFoot = (heightFromPokemonMeter * 3.281).toFixed(1);
+}
+
+function generateWeightOfTHePokemon() {
+  weightFromPokemonKilogram = currentPokemon["weight"] / 10;
+  weightFromPokemonootPound = (weightFromPokemonKilogram * 2.205).toFixed(1);
+}
+
+function generateExperienceOfTHePokemon() {
+  experienceFromPokemon = currentPokemon["base_experience"];
+}
+
+async function generateJSON(url) {
+  let response = await fetch(url);
+  return (currentJSON = await response.json());
+}
 
 function generateBackgroundColor() {
   backgroundColor = specificationsOfThePokemon["color"]["name"];
@@ -80,7 +83,7 @@ function generateBackgroundColor() {
 }
 
 function generateTypeInGerman() {
-    typeFromPokemonInGerman = [];
+  typeFromPokemonInGerman = [];
   for (let i = 0; i < currentPokemon["types"].length; i++) {
     const typeFromPokemon = currentPokemon["types"][i]["type"]["name"];
     if (typeFromPokemon === "normal") {
@@ -142,40 +145,42 @@ function generateTypeInGerman() {
     }
     if (typeFromPokemon === "shadow") {
       typeFromPokemonInGerman.push("Schatten");
-    } 
+    }
   }
 }
 
 function generateHabitatInGerman() {
-  habitatFromPokemon = specificationsOfThePokemon["habitat"]["name"];
-  console.log(habitatFromPokemon);
-  if (habitatFromPokemon === "cave") {
-    return `Höhle`;
-  }
-  if (habitatFromPokemon === "forest") {
-    return `Wald`;
-  }
-  if (habitatFromPokemon === "grassland") {
-    return `Wiese`;
-  }
-  if (habitatFromPokemon === "mountain") {
-    return `Berge`;
-  }
-  if (habitatFromPokemon === "rare") {
-    return `selten`;
-  }
-  if (habitatFromPokemon === "rough-terrain") {
-    return `unebenes Gebiet`;
-  }
-  if (habitatFromPokemon === "sea") {
-    return `Meer`;
-  }
-  if (habitatFromPokemon === "urban") {
-    return `Stadt`;
-  }
-  if (habitatFromPokemon === "waters-edge") {
-    return `Gewässerrand`;
+  if (!specificationsOfThePokemon["habitat"]) {
+    document.getElementById("habitatContainer").classList.add("d-none");
   } else {
-    console.log(`${habitatFromPokemon} does not exist`);
+    habitatFromPokemonInEnglish = specificationsOfThePokemon["habitat"]["name"];
+    if (habitatFromPokemonInEnglish === "cave") {
+      habitatFromPokemonInGerman = `Höhle`;
+    }
+    if (habitatFromPokemonInEnglish === "forest") {
+      habitatFromPokemonInGerman = `Wald`;
+    }
+    if (habitatFromPokemonInEnglish === "grassland") {
+      habitatFromPokemonInGerman = `Wiese`;
+    }
+    if (habitatFromPokemonInEnglish === "mountain") {
+      habitatFromPokemonInGerman = `Berge`;
+    }
+    if (habitatFromPokemonInEnglish === "rare") {
+      habitatFromPokemonInGerman = `selten`;
+    }
+    if (habitatFromPokemonInEnglish === "rough-terrain") {
+      habitatFromPokemonInGerman =`unebenes Gebiet`;
+    }
+    if (habitatFromPokemonInEnglish === "sea") {
+      habitatFromPokemonInGerman = `Meer`;
+    }
+    if (habitatFromPokemonInEnglish === "urban") {
+      habitatFromPokemonInGerman = `Stadt`;
+    }
+    if (habitatFromPokemonInEnglish === "waters-edge") {
+      habitatFromPokemonInGerman = `Gewässerrand`;
+    }
+    document.getElementById("habitatPokemon").innerHTML = habitatFromPokemonInGerman;
   }
 }
