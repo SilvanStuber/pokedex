@@ -3,39 +3,47 @@
 let url;
 let urlFromSpecies;
 let currentPokemon;
-let nameFromPokemon;
+let nameUrlFromPokemon;
 let specificationsOfThePokemon;
-let nameFromPokemonGerman;
+let nameFromPokemon;
 let backgroundColor;
-let generaOfThePokemonInGerman;
+let generaOfThePokemon;
 let heightFromPokemonMeter;
 let heightFromPokemonootFoot;
 let weightFromPokemonKilogram;
 let weightFromPokemonootPound;
 let typeFromPokemon = [];
 let experienceFromPokemon;
-let habitatFromPokemonInEnglish;
-let habitatFromPokemonInGerman;
+let habitatPokemon;
+let habitatFromPokemon;
 let theLanguageIsGerman = true;
 
 async function generateImportFriomAPI() {
-  let url = `https://pokeapi.co/api/v2/pokemon/9/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/6/`;
   currentPokemon = await generateJSON(url);
-  generateVariableNamePokemon();
-  let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameFromPokemon}`;
+  generateUrlNamePokemon();
+  let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
   specificationsOfThePokemon = await generateJSON(urlFromSpecies);
 }
 
-function generateVariableNamePokemon() {
-  nameFromPokemon = currentPokemon["name"];
+function generateUrlNamePokemon() {
+  nameUrlFromPokemon = currentPokemon["name"];
 }
 
 function generateNamePokemon() {
-  nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"];
+  if (theLanguageIsGerman === false) {
+    nameFromPokemon = specificationsOfThePokemon["names"]["8"]["name"];
+  } else {
+    nameFromPokemon = specificationsOfThePokemon["names"]["5"]["name"];
+  }
 }
 
 function generateGeneraPokemon() {
-  generaOfThePokemonInGerman = specificationsOfThePokemon["genera"]["4"]["genus"];
+  if (theLanguageIsGerman === false) {
+    generaOfThePokemon = specificationsOfThePokemon["genera"]["7"]["genus"];
+  } else {
+    generaOfThePokemon = specificationsOfThePokemon["genera"]["4"]["genus"];
+  }
 }
 
 function generateHeightPokemon() {
@@ -93,117 +101,108 @@ function generateType() {
     const typePokemon = currentPokemon["types"][i]["type"]["name"];
     if (theLanguageIsGerman === false) {
       let type = typePokemon.charAt(0).toUpperCase() + typePokemon.slice(1);
-      typeFromPokemon.push(type)
+      typeFromPokemon.push(type);
     } else {
-    if (typePokemon === "normal") {
-      typeFromPokemon.push("Normal");
+      if (typePokemon === "normal") {
+        typeFromPokemon.push("Normal");
+      }
+      if (typePokemon === "fighting") {
+        typeFromPokemon.push("Kampf");
+      }
+      if (typePokemon === "flying") {
+        typeFromPokemon.push("Flug");
+      }
+      if (typePokemon === "poison") {
+        typeFromPokemon.push("Gift");
+      }
+      if (typePokemon === "ground") {
+        typeFromPokemon.push("Boden");
+      }
+      if (typePokemon === "rock") {
+        typeFromPokemon.push("Gestein");
+      }
+      if (typePokemon === "bug") {
+        typeFromPokemon.push("Käfer");
+      }
+      if (typePokemon === "ghost") {
+        typeFromPokemon.push("Geist");
+      }
+      if (typePokemon === "steel") {
+        typeFromPokemon.push("Stahl");
+      }
+      if (typePokemon === "fire") {
+        typeFromPokemon.push("Feuer");
+      }
+      if (typePokemon === "water") {
+        typeFromPokemon.push("Wasser");
+      }
+      if (typePokemon === "grass") {
+        typeFromPokemon.push("Pflanze");
+      }
+      if (typePokemon === "electric") {
+        typeFromPokemon.push("Elektro");
+      }
+      if (typePokemon === "psychic") {
+        typeFromPokemon.push("Psycho");
+      }
+      if (typePokemon === "ice") {
+        typeFromPokemon.push("Eis");
+      }
+      if (typePokemon === "dragon") {
+        typeFromPokemon.push("Drache");
+      }
+      if (typePokemon === "dark") {
+        typeFromPokemon.push("Unlicht");
+      }
+      if (typePokemon === "fairy") {
+        typeFromPokemon.push("Fee");
+      }
+      if (typePokemon === "unknown") {
+        typeFromPokemon.push("Unbekannt");
+      }
+      if (typePokemon === "shadow") {
+        typeFromPokemon.push("Schatten");
+      }
     }
-    if (typePokemon === "fighting") {
-      typeFromPokemon.push("Kampf");
-    }
-    if (typePokemon === "flying") {
-      typeFromPokemon.push("Flug");
-    }
-    if (typePokemon === "poison") {
-      typeFromPokemon.push("Gift");
-    }
-    if (typePokemon === "ground") {
-      typeFromPokemon.push("Boden");
-    }
-    if (typePokemon === "rock") {
-      typeFromPokemon.push("Gestein");
-    }
-    if (typePokemon === "bug") {
-      typeFromPokemon.push("Käfer");
-    }
-    if (typePokemon === "ghost") {
-      typeFromPokemon.push("Geist");
-    }
-    if (typePokemon === "steel") {
-      typeFromPokemon.push("Stahl");
-    }
-    if (typePokemon === "fire") {
-      typeFromPokemon.push("Feuer");
-    }
-    if (typePokemon === "water") {
-      typeFromPokemon.push("Wasser");
-    }
-    if (typePokemon === "grass") {
-      typeFromPokemon.push("Pflanze");
-    }
-    if (typePokemon === "electric") {
-      typeFromPokemon.push("Elektro");
-    }
-    if (typePokemon === "psychic") {
-      typeFromPokemon.push("Psycho");
-    }
-    if (typePokemon === "ice") {
-      typeFromPokemon.push("Eis");
-    }
-    if (typePokemon === "dragon") {
-      typeFromPokemon.push("Drache");
-    }
-    if (typePokemon === "dark") {
-      typeFromPokemon.push("Unlicht");
-    }
-    if (typePokemon === "fairy") {
-      typeFromPokemon.push("Fee");
-    }
-    if (typePokemon === "unknown") {
-      typeFromPokemon.push("Unbekannt");
-    }
-    if (typePokemon === "shadow") {
-      typeFromPokemon.push("Schatten");
-    }
-  }
   }
 }
 
 function generateHabitat() {
-  habitatFromPokemonInEnglish = specificationsOfThePokemon["habitat"]["name"];
-  if (habitatFromPokemonInEnglish === "cave") {
-    habitatFromPokemonInGerman = `Höhle`;
-  }
-  if (habitatFromPokemonInEnglish === "forest") {
-    habitatFromPokemonInGerman = `Wald`;
-  }
-  if (habitatFromPokemonInEnglish === "grassland") {
-    habitatFromPokemonInGerman = `Wiese`;
-  }
-  if (habitatFromPokemonInEnglish === "mountain") {
-    habitatFromPokemonInGerman = `Berge`;
-  }
-  if (habitatFromPokemonInEnglish === "rare") {
-    habitatFromPokemonInGerman = `selten`;
-  }
-  if (habitatFromPokemonInEnglish === "rough-terrain") {
-    habitatFromPokemonInGerman = `unebenes Gebiet`;
-  }
-  if (habitatFromPokemonInEnglish === "sea") {
-    habitatFromPokemonInGerman = `Meer`;
-  }
-  if (habitatFromPokemonInEnglish === "urban") {
-    habitatFromPokemonInGerman = `Stadt`;
-  }
-  if (habitatFromPokemonInEnglish === "waters-edge") {
-    habitatFromPokemonInGerman = `Gewässerrand`;
+  habitatPokemon = specificationsOfThePokemon["habitat"]["name"];
+  if (theLanguageIsGerman === false) {
+    let habitat = habitatPokemon.charAt(0).toUpperCase() + habitatPokemon.slice(1);
+    habitatFromPokemon = habitat;
+  } else {
+    if (habitatPokemon === "cave") {
+      habitatFromPokemon = `Höhle`;
+    }
+    if (habitatPokemon === "forest") {
+      habitatFromPokemon = `Wald`;
+    }
+    if (habitatPokemon === "grassland") {
+      habitatFromPokemon = `Wiese`;
+    }
+    if (habitatPokemon === "mountain") {
+      habitatFromPokemon = `Berge`;
+    }
+    if (habitatPokemon === "rare") {
+      habitatFromPokemon = `selten`;
+    }
+    if (habitatPokemon === "rough-terrain") {
+      habitatFromPokemon = `unebenes Gebiet`;
+    }
+    if (habitatPokemon === "sea") {
+      habitatFromPokemon = `Meer`;
+    }
+    if (habitatPokemon === "urban") {
+      habitatFromPokemon = `Stadt`;
+    }
+    if (habitatPokemon === "waters-edge") {
+      habitatFromPokemon = `Gewässerrand`;
+    }
   }
 }
 
-function generatePopUpCard() {
-
-}
+function generatePopUpCard() {}
 
 function generateAboutSectionPopUpCard() {}
-
-function renderEnglish() {
-  theLanguageIsGerman = false;
-  loadPokemon();
-}
-
-function renderGerman() {
-  theLanguageIsGerman = true;
-  loadPokemon();
-}
-
-function 

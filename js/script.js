@@ -11,9 +11,7 @@ async function loadPokemon() {
   generateWeightPokemon();
   generateHabitat();
   console.log("Loaded loadPokemon", currentPokemon);
-  console.log(weightFromPokemonKilogram);
   console.log(specificationsOfThePokemon);
-  console.log(experienceFromPokemon);
   renderPopUpCard();
 }
 
@@ -43,7 +41,7 @@ function emptyArray() {
 }
 
 function renderNamePokemonPopUpCard() {
-  document.getElementById("pokemonName").innerHTML = nameFromPokemonGerman;
+  document.getElementById("pokemonName").innerHTML = nameFromPokemon;
 }
 
 function renderIdPokemonPopUpCard() {
@@ -51,7 +49,7 @@ function renderIdPokemonPopUpCard() {
 }
 
 function renderTypePopUpCard() {
-  document.getElementById("typePokemon").innerHTML += ``;
+  document.getElementById("typePokemon").innerHTML = ``;
   for (let i = 0; i < typeFromPokemon.length; i++) {
     let type = typeFromPokemon[i];
     document.getElementById("typePokemon").innerHTML += `<span class="type-pokemon-text">${type}</span>`;
@@ -92,7 +90,7 @@ function loadEvolutionPopUpCard() {
 }
 
 function renderGeneraPokemonPopUpCard() {
-  document.getElementById("genraOfPokemon").innerHTML = generaOfThePokemonInGerman;
+  document.getElementById("genraOfPokemon").innerHTML = generaOfThePokemon;
 }
 
 function renderHeightPokemonPopUpCard() {
@@ -110,7 +108,7 @@ function renderHabitatPopUpCard() {
   if (!specificationsOfThePokemon["habitat"]) {
     document.getElementById("habitatContainer").classList.add("d-none");
   } else {
-    document.getElementById("habitatPokemon").innerHTML = habitatFromPokemonInGerman;
+    document.getElementById("habitatPokemon").innerHTML = habitatFromPokemon;
   }
 }
 
