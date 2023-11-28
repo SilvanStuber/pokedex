@@ -1,4 +1,4 @@
-////////////////render functions are in the script.js folder and the generate functions and global variables are in the data.js folder////////////////
+////////////////render functions are located in the script.js file and the generation functions and global variables in the data.js file////////////////
 
 let url;
 let urlFromSpecies;
@@ -12,37 +12,38 @@ let heightFromPokemonMeter;
 let heightFromPokemonootFoot;
 let weightFromPokemonKilogram;
 let weightFromPokemonootPound;
-let typeFromPokemonInGerman = [];
+let typeFromPokemon = [];
 let experienceFromPokemon;
 let habitatFromPokemonInEnglish;
 let habitatFromPokemonInGerman;
+let theLanguageIsGerman = true;
 
 async function generateImportFriomAPI() {
   let url = `https://pokeapi.co/api/v2/pokemon/9/`;
   currentPokemon = await generateJSON(url);
-  generateNameFromPokemon();
+  generateVariableNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameFromPokemon}`;
   specificationsOfThePokemon = await generateJSON(urlFromSpecies);
 }
 
-function generateNameFromPokemon() {
+function generateVariableNamePokemon() {
   nameFromPokemon = currentPokemon["name"];
 }
 
-function generateNameOfPokemonInGerman() {
+function generateNamePokemon() {
   nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"];
 }
 
-function generateGeneraOfThePokemonInGerman() {
+function generateGeneraPokemon() {
   generaOfThePokemonInGerman = specificationsOfThePokemon["genera"]["4"]["genus"];
 }
 
-function generateHeightOfTHePokemon() {
+function generateHeightPokemon() {
   heightFromPokemonMeter = currentPokemon["height"] / 10;
   heightFromPokemonootFoot = (heightFromPokemonMeter * 3.281).toFixed(1);
 }
 
-function generateWeightOfTHePokemon() {
+function generateWeightPokemon() {
   weightFromPokemonKilogram = currentPokemon["weight"] / 10;
   weightFromPokemonootPound = (weightFromPokemonKilogram * 2.205).toFixed(1);
 }
@@ -86,74 +87,79 @@ function generateBackgroundColor() {
   }
 }
 
-function generateTypeInGerman() {
-  typeFromPokemonInGerman = [];
+function generateType() {
+  typeFromPokemon = [];
   for (let i = 0; i < currentPokemon["types"].length; i++) {
-    const typeFromPokemon = currentPokemon["types"][i]["type"]["name"];
-    if (typeFromPokemon === "normal") {
-      typeFromPokemonInGerman.push("Normal");
+    const typePokemon = currentPokemon["types"][i]["type"]["name"];
+    if (theLanguageIsGerman === false) {
+      let type = typePokemon.charAt(0).toUpperCase() + typePokemon.slice(1);
+      typeFromPokemon.push(type)
+    } else {
+    if (typePokemon === "normal") {
+      typeFromPokemon.push("Normal");
     }
-    if (typeFromPokemon === "fighting") {
-      typeFromPokemonInGerman.push("Kampf");
+    if (typePokemon === "fighting") {
+      typeFromPokemon.push("Kampf");
     }
-    if (typeFromPokemon === "flying") {
-      typeFromPokemonInGerman.push("Flug");
+    if (typePokemon === "flying") {
+      typeFromPokemon.push("Flug");
     }
-    if (typeFromPokemon === "poison") {
-      typeFromPokemonInGerman.push("Gift");
+    if (typePokemon === "poison") {
+      typeFromPokemon.push("Gift");
     }
-    if (typeFromPokemon === "ground") {
-      typeFromPokemonInGerman.push("Boden");
+    if (typePokemon === "ground") {
+      typeFromPokemon.push("Boden");
     }
-    if (typeFromPokemon === "rock") {
-      typeFromPokemonInGerman.push("Gestein");
+    if (typePokemon === "rock") {
+      typeFromPokemon.push("Gestein");
     }
-    if (typeFromPokemon === "bug") {
-      typeFromPokemonInGerman.push("Käfer");
+    if (typePokemon === "bug") {
+      typeFromPokemon.push("Käfer");
     }
-    if (typeFromPokemon === "ghost") {
-      typeFromPokemonInGerman.push("Geist");
+    if (typePokemon === "ghost") {
+      typeFromPokemon.push("Geist");
     }
-    if (typeFromPokemon === "steel") {
-      typeFromPokemonInGerman.push("Stahl");
+    if (typePokemon === "steel") {
+      typeFromPokemon.push("Stahl");
     }
-    if (typeFromPokemon === "fire") {
-      typeFromPokemonInGerman.push("Feuer");
+    if (typePokemon === "fire") {
+      typeFromPokemon.push("Feuer");
     }
-    if (typeFromPokemon === "water") {
-      typeFromPokemonInGerman.push("Wasser");
+    if (typePokemon === "water") {
+      typeFromPokemon.push("Wasser");
     }
-    if (typeFromPokemon === "grass") {
-      typeFromPokemonInGerman.push("Pflanze");
+    if (typePokemon === "grass") {
+      typeFromPokemon.push("Pflanze");
     }
-    if (typeFromPokemon === "electric") {
-      typeFromPokemonInGerman.push("Elektro");
+    if (typePokemon === "electric") {
+      typeFromPokemon.push("Elektro");
     }
-    if (typeFromPokemon === "psychic") {
-      typeFromPokemonInGerman.push("Psycho");
+    if (typePokemon === "psychic") {
+      typeFromPokemon.push("Psycho");
     }
-    if (typeFromPokemon === "ice") {
-      typeFromPokemonInGerman.push("Eis");
+    if (typePokemon === "ice") {
+      typeFromPokemon.push("Eis");
     }
-    if (typeFromPokemon === "dragon") {
-      typeFromPokemonInGerman.push("Drache");
+    if (typePokemon === "dragon") {
+      typeFromPokemon.push("Drache");
     }
-    if (typeFromPokemon === "dark") {
-      typeFromPokemonInGerman.push("Unlicht");
+    if (typePokemon === "dark") {
+      typeFromPokemon.push("Unlicht");
     }
-    if (typeFromPokemon === "fairy") {
-      typeFromPokemonInGerman.push("Fee");
+    if (typePokemon === "fairy") {
+      typeFromPokemon.push("Fee");
     }
-    if (typeFromPokemon === "unknown") {
-      typeFromPokemonInGerman.push("Unbekannt");
+    if (typePokemon === "unknown") {
+      typeFromPokemon.push("Unbekannt");
     }
-    if (typeFromPokemon === "shadow") {
-      typeFromPokemonInGerman.push("Schatten");
+    if (typePokemon === "shadow") {
+      typeFromPokemon.push("Schatten");
     }
+  }
   }
 }
 
-function generateHabitatInGerman() {
+function generateHabitat() {
   habitatFromPokemonInEnglish = specificationsOfThePokemon["habitat"]["name"];
   if (habitatFromPokemonInEnglish === "cave") {
     habitatFromPokemonInGerman = `Höhle`;
@@ -183,3 +189,21 @@ function generateHabitatInGerman() {
     habitatFromPokemonInGerman = `Gewässerrand`;
   }
 }
+
+function generatePopUpCard() {
+
+}
+
+function generateAboutSectionPopUpCard() {}
+
+function renderEnglish() {
+  theLanguageIsGerman = false;
+  loadPokemon();
+}
+
+function renderGerman() {
+  theLanguageIsGerman = true;
+  loadPokemon();
+}
+
+function 

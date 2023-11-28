@@ -1,56 +1,68 @@
-////////////////render functions are in the script.js folder and the generate functions and global variables are in the data.js folder////////////////
+////////////////render functions are located in the script.js file and the generation functions and global variables in the data.js file////////////////
 
 async function loadPokemon() {
   await generateImportFriomAPI();
-  generateNameOfPokemonInGerman();
-  generateGeneraOfThePokemonInGerman();
-  generateTypeInGerman();
+  generateNamePokemon();
+  generateGeneraPokemon();
+  generateType();
   generateBackgroundColor();
-  generateGeneraOfThePokemonInGerman();
-  generateHeightOfTHePokemon();
-  generateWeightOfTHePokemon();
-  generateHabitatInGerman();
+  generateGeneraPokemon();
+  generateHeightPokemon();
+  generateWeightPokemon();
+  generateHabitat();
   console.log("Loaded loadPokemon", currentPokemon);
   console.log(weightFromPokemonKilogram);
   console.log(specificationsOfThePokemon);
   console.log(experienceFromPokemon);
-  renderCardPokemonInfo();
+  renderPopUpCard();
 }
 
-function renderCardPokemonInfo() {
-  renderNameFromPokemonToCard();
-  renderImageOfThePokemon();
-  renderIdFromPokemonToCard();
-  renderTypeInGerman();
-  renderBackgroundColorToCard();
-  renderGeneraOfThePokemonInGerman();
-  renderHeightOfTHePokemonToCard();
-  renderWeightOfTHePokemonToCard();
-  renderExperienceOfTHePokemonToCard();
-  renderHabitatInGermanToCard();
+function renderPopUpCard() {
+  renderNamePokemonPopUpCard();
+  renderIdPokemonPopUpCard();
+  renderTypePopUpCard();
+  renderImagePokemonPopUpCard();
+  renderBackgroundColorPopUpCard();
+  renderAboutPopUpCard();
 }
 
-function renderNameFromPokemonToCard() {
+function renderEnglish() {
+  emptyArray();
+  theLanguageIsGerman = false;
+  loadPokemon();
+}
+
+function renderGerman() {
+  emptyArray();
+  theLanguageIsGerman = true;
+  loadPokemon();
+}
+
+function emptyArray() {
+  typeFromPokemon = [];
+}
+
+function renderNamePokemonPopUpCard() {
   document.getElementById("pokemonName").innerHTML = nameFromPokemonGerman;
 }
 
-function renderIdFromPokemonToCard() {
+function renderIdPokemonPopUpCard() {
   document.getElementById("idFromPokemon").innerHTML = `#${currentPokemon["id"]}`;
 }
 
-function renderTypeInGerman() {
+function renderTypePopUpCard() {
   document.getElementById("typePokemon").innerHTML += ``;
-  for (let i = 0; i < typeFromPokemonInGerman.length; i++) {
-    let type = typeFromPokemonInGerman[i];
+  for (let i = 0; i < typeFromPokemon.length; i++) {
+    let type = typeFromPokemon[i];
     document.getElementById("typePokemon").innerHTML += `<span class="type-pokemon-text">${type}</span>`;
   }
 }
 
-function renderBackgroundColorToCard() {
+function renderBackgroundColorPopUpCard() {
   document.getElementById("headContainer").style = backgroundColor;
 }
 
-function renderImageOfThePokemon() {
+function renderImagePokemonPopUpCard() {
   let imageFromPokemon = currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
   if (imageFromPokemon) {
     document.getElementById("pokemonImage").src = imageFromPokemon;
@@ -59,36 +71,41 @@ function renderImageOfThePokemon() {
   }
 }
 
-function loadAbout() {
+function renderAboutPopUpCard() {
   renderRemoveCSS();
   document.getElementById("aboutSelection").classList.add("border-bottom");
+  renderGeneraPokemonPopUpCard();
+  renderHeightPokemonPopUpCard();
+  renderWeightPokemonPopUpCard();
+  renderHabitatPopUpCard();
+  renderExperiencePokemonPopUpCard();
 }
 
-function loadStats() {
+function loadStatsPopUpCard() {
   renderRemoveCSS();
   document.getElementById("statsSelection").classList.add("border-bottom");
 }
 
-function loadEvolution() {
+function loadEvolutionPopUpCard() {
   renderRemoveCSS();
   document.getElementById("evolutionSelection").classList.add("border-bottom");
 }
 
-function renderGeneraOfThePokemonInGerman() {
+function renderGeneraPokemonPopUpCard() {
   document.getElementById("genraOfPokemon").innerHTML = generaOfThePokemonInGerman;
 }
 
-function renderHeightOfTHePokemonToCard() {
+function renderHeightPokemonPopUpCard() {
   document.getElementById("heightMeter").innerHTML = `${heightFromPokemonMeter} m`;
   document.getElementById("heightFoot").innerHTML = `${heightFromPokemonootFoot} ft`;
 }
 
-function renderWeightOfTHePokemonToCard() {
+function renderWeightPokemonPopUpCard() {
   document.getElementById("weightKilogram").innerHTML = `${weightFromPokemonKilogram} kg`;
   document.getElementById("weightPound").innerHTML = `${weightFromPokemonootPound} lbs`;
 }
 
-function renderHabitatInGermanToCard() {
+function renderHabitatPopUpCard() {
   renderRemoveCSS();
   if (!specificationsOfThePokemon["habitat"]) {
     document.getElementById("habitatContainer").classList.add("d-none");
@@ -97,7 +114,7 @@ function renderHabitatInGermanToCard() {
   }
 }
 
-function renderExperienceOfTHePokemonToCard() {
+function renderExperiencePokemonPopUpCard() {
   renderRemoveCSS();
   if (!currentPokemon["base_experience"]) {
     document.getElementById("experienceContainer").classList.add("d-none");
