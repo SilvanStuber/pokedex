@@ -99,6 +99,8 @@ function renderStatsPopUpCard() {
   renderRemoveCSS();
   document.getElementById("statsSelection").classList.add("border-bottom");
   document.getElementById("descriptionContainer").innerHTML = '';
+  document.getElementById("descriptionContainer").innerHTML = generateStatsPopUpCard();
+  renderChart();
 }
 
 function renderEvolutionPopUpCard() {

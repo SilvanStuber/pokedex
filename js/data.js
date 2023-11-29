@@ -19,7 +19,7 @@ let habitatFromPokemon;
 let theLanguageIsGerman = true;
 
 async function generateImportFriomAPI() {
-  let url = `https://pokeapi.co/api/v2/pokemon/6/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/1/`;
   currentPokemon = await generateJSON(url);
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
@@ -252,5 +252,48 @@ function generateAboutSectionPopUpCard() {
         <b id="experienceDescription" class="bold-text"></b>
         <span id="experiencePokemon"></span>
       </div>
+  `;
+}
+
+function renderChart(){
+
+const ctx = document.getElementById("myChart");
+
+new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+    datasets: [
+      {
+        label: "# of Votes",
+        axis: "y",
+        data: [12, 19, 3, 5, 2, 3],
+        fill: false,
+        backgroundColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+      },
+    ],
+  },
+  options: {
+    plugins: {
+      legend: {
+        display: false,
+      },
+    },
+    indexAxis: "y",
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
+}
+
+function generateStatsPopUpCard() {
+  return /*html*/ `
+  <div>
+      <canvas id="myChart"></canvas>
+  </div>
+
   `;
 }

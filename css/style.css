@@ -42,7 +42,7 @@ header {
   display: flex;
   flex-direction: column;
   width: 400px;
-  max-height: 760px;
+  max-height: 740px;
   box-shadow: 5px 5px 8px 10px #d2d1d1;
   border-radius: 40px;
 }
@@ -90,7 +90,7 @@ header {
   background-color: white;
   border-radius: 40px;
   margin-top: -120px;
-  max-height: 360px;
+  height: 344px;
   display: flex;
   flex-direction: column;
   font-size: 15px;
@@ -140,4 +140,9 @@ header {
 
 .d-none {
   display: none;
+}
+
+#myChart {
+  padding-left: 24px !important;
+  padding-right: 24px !important;
 }
