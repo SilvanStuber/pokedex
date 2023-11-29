@@ -17,9 +17,11 @@ let experienceFromPokemon;
 let habitatPokemon;
 let habitatFromPokemon;
 let theLanguageIsGerman = true;
+let apiLabels = [];
+let apiData = [];
 
 async function generateImportFriomAPI() {
-  let url = `https://pokeapi.co/api/v2/pokemon/1/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/25/`;
   currentPokemon = await generateJSON(url);
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
@@ -255,45 +257,44 @@ function generateAboutSectionPopUpCard() {
   `;
 }
 
-function renderChart(){
-
-const ctx = document.getElementById("myChart");
-
-new Chart(ctx, {
-  type: "bar",
-  data: {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [
-      {
-        label: "# of Votes",
-        axis: "y",
-        data: [12, 19, 3, 5, 2, 3],
-        fill: false,
-        backgroundColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
-      },
-    ],
-  },
-  options: {
-    plugins: {
-      legend: {
-        display: false,
-      },
-    },
-    indexAxis: "y",
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
-});
+function generateDataChart() {
+  apiLabels = [];
+  apiData = [];
+  for (let i = 0; i < currentPokemon["stats"].length; i++) {
+    let labelsFromAPI = currentPokemon["stats"][i]["stat"]["name"];
+    let dataFromAPI = currentPokemon["stats"][i]["base_stat"];
+    if (theLanguageIsGerman === false) {
+      let labels = labelsFromAPI.charAt(0).toUpperCase() + labelsFromAPI.slice(1);
+      apiLabels.push(labels);
+    } else {
+      if (labelsFromAPI === "hp") {
+        apiLabels.push("Lebenspunkte");
+      }
+      if (labelsFromAPI === "attack") {
+        apiLabels.push("Attacke");
+      }
+      if (labelsFromAPI === "defense") {
+        apiLabels.push("Verteidigung");
+      }
+      if (labelsFromAPI === "special-attack") {
+        apiLabels.push("Spezialangriff");
+      }
+      if (labelsFromAPI === "special-defense") {
+        apiLabels.push("Spezialverteidigung");
+      }
+      if (labelsFromAPI === "speed") {
+        apiLabels.push("Geschwindigkeit");
+      } else {
+        console.log("Stats not available");
+      }
+    }
+    apiData.push(dataFromAPI);
+  }
 }
 
 function generateStatsPopUpCard() {
   return /*html*/ `
-  <div>
+   <div>
       <canvas id="myChart"></canvas>
-  </div>
-
-  `;
+   </div>`;
 }

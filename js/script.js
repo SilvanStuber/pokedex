@@ -10,6 +10,7 @@ async function loadPokemon() {
   generateHeightPokemon();
   generateWeightPokemon();
   generateHabitat();
+  generateDataChart();
   console.log("Loaded loadPokemon", currentPokemon);
   console.log(specificationsOfThePokemon);
   renderPopUpCard();
@@ -98,7 +99,7 @@ function renderAboutPopUpCard() {
 function renderStatsPopUpCard() {
   renderRemoveCSS();
   document.getElementById("statsSelection").classList.add("border-bottom");
-  document.getElementById("descriptionContainer").innerHTML = '';
+  document.getElementById("descriptionContainer").innerHTML = "";
   document.getElementById("descriptionContainer").innerHTML = generateStatsPopUpCard();
   renderChart();
 }
@@ -106,7 +107,7 @@ function renderStatsPopUpCard() {
 function renderEvolutionPopUpCard() {
   renderRemoveCSS();
   document.getElementById("evolutionSelection").classList.add("border-bottom");
-  document.getElementById("descriptionContainer").innerHTML = '';
+  document.getElementById("descriptionContainer").innerHTML = "";
 }
 
 function renderGeneraPokemonPopUpCard() {
@@ -163,4 +164,36 @@ function renderRemoveCSS() {
   document.getElementById("statsSelection").classList.remove("border-bottom");
   document.getElementById("evolutionSelection").classList.remove("border-bottom");
   document.getElementById("habitatContainer").classList.remove("d-none");
+}
+
+function renderChart() {
+  const ctx = document.getElementById("myChart");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: apiLabels,
+      datasets: [
+        {
+          label: "# of Votes",
+          axis: "y",
+          data: apiData,
+          fill: false,
+          backgroundColor: ["rgb(255, 99, 132)", "rgb(255, 159, 64)", "rgb(255, 205, 86)", "rgb(75, 192, 192)", "rgb(54, 162, 235)", "rgb(153, 102, 255)", "rgb(201, 203, 207)"],
+        },
+      ],
+    },
+    options: {
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+      indexAxis: "y",
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
 }
