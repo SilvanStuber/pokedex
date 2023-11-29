@@ -10,50 +10,13 @@
     <link rel="stylesheet" href="./css/fonts.css" />
   </head>
   <body onload="loadPokemon()">
+    <header>
+      <div class="language-selection">
+        <img onclick="renderGerman()" class="language-img" src="./img/german.png" alt="germanflag" />
+        <img onclick="renderEnglish()" class="language-img" src="./img/english.png" alt="englishflag" />
+      </div>
+    </header>
     <div id="pokedex">
-      <div id="headContainer">
-        <div class="head-line-container">
-          <h1 id="pokemonName"></h1>
-          <h1 id="idFromPokemon"></h1>
-        </div>
-        <div>
-          <div id="typePokemon"></div>
-        </div>
-        <div class="image-container">
-          <img id="pokemonImage" />
-        </div>
-      </div>
-      <div class="info-container">
-        <div class="card-selection-container">
-          <b onclick="loadAbout()" id="aboutSelection" class="selection-text">Über</b>
-          <b onclick="loadStats()" id="statsSelection" class="selection-text">Basiswerte</b>
-          <b onclick="loadEvolution()" id="evolutionSelection" class="selection-text">Entwicklung</b>
-        </div>
-        <div class="about-container">
-          <div class="about-text">
-            <b class="bold-text">Art</b>
-            <span id="genraOfPokemon"></span>
-          </div>
-          <div class="about-text">
-            <b class="bold-text">Höhe</b>
-            <span id="heightMeter"></span>
-            <span id="heightFoot"></span>
-          </div>
-          <div class="about-text">
-            <b class="bold-text">Gewicht</b>
-            <span id="weightKilogram"></span>
-            <span id="weightPound"></span>
-          </div>
-          <div class="about-text" id="habitatContainer">
-            <b class="bold-text">Lebensraum</b>
-            <span id="habitatPokemon"></span>
-          </div>
-          <div class="about-text" id="experienceContainer">
-            <b class="bold-text">Erfahrung</b>
-            <span id="experiencePokemon"></span>
-          </div>
-        </div>
-      </div>
     </div>
   </body>
 </html>

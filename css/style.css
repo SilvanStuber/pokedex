@@ -6,6 +6,35 @@ body {
   align-items: center;
 }
 
+header {
+  height: 120px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+}
+
+.language-selection {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 12px;
+}
+
+.language-img {
+  height: 24px;
+  width: 24px;
+  border-radius: 100%;
+  object-fit: cover;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: all 125ms ease-in-out;
+}
+
+.language-img:hover {
+  filter: drop-shadow(8px 8px 10px gray);
+  transform: scale(1.1);
+}
+
 #pokedex {
   font-family: "Open Sans";
   margin-left: 24px;

@@ -203,6 +203,54 @@ function generateHabitat() {
   }
 }
 
-function generatePopUpCard() {}
+function generatePopUpCard() {
+  return /*html*/ ` 
+  <div id="headContainer">
+    <div class="head-line-container">
+      <h1 id="pokemonName"></h1>
+      <h1 id="idFromPokemon"></h1>
+    </div>
+    <div>
+      <div id="typePokemon"></div>
+    </div>
+    <div class="image-container">
+      <img id="pokemonImage" />
+    </div>
+  </div>
+  <div class="info-container">
+    <div class="card-selection-container">
+     <b onclick="renderPopUpCard()" id="aboutSelection" class="selection-text"></b>
+     <b onclick="renderStatsPopUpCard()" id="statsSelection" class="selection-text"></b>
+     <b onclick="renderEvolutionPopUpCard()" id="evolutionSelection" class="selection-text"></b>
+    </div>
+    <div id="descriptionContainer" class="about-container">
+    </div>
+  </div>`;
+}
 
-function generateAboutSectionPopUpCard() {}
+function generateAboutSectionPopUpCard() {
+  return /*html*/ `
+    <div class="about-text">
+        <b id="generaDescription" class="bold-text"></b>
+        <span id="genraPokemon"></span>
+      </div>
+      <div class="about-text">
+        <b id="heightDescription" class="bold-text"></b>
+        <span id="heightMeter"></span>
+        <span id="heightFoot"></span>
+      </div>
+      <div class="about-text">
+        <b id="weightDescription" class="bold-text"></b>
+        <span id="weightKilogram"></span>
+        <span id="weightPound"></span>
+      </div>
+      <div id="habitatContainer" class="about-text">
+        <b id="habitatDescription" class="bold-text"></b>
+        <span id="habitatPokemon"></span>
+      </div>
+      <div id="experienceContainer" class="about-text">
+        <b id="experienceDescription" class="bold-text"></b>
+        <span id="experiencePokemon"></span>
+      </div>
+  `;
+}

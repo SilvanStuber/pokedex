@@ -16,11 +16,14 @@ async function loadPokemon() {
 }
 
 function renderPopUpCard() {
+  document.getElementById("pokedex").innerHTML = generatePopUpCard();
+  document.getElementById("descriptionContainer").innerHTML = generateAboutSectionPopUpCard();
   renderNamePokemonPopUpCard();
   renderIdPokemonPopUpCard();
   renderTypePopUpCard();
   renderImagePokemonPopUpCard();
   renderBackgroundColorPopUpCard();
+  renderAboutSelectionPopUpCard();
   renderAboutPopUpCard();
 }
 
@@ -69,9 +72,22 @@ function renderImagePokemonPopUpCard() {
   }
 }
 
+function renderAboutSelectionPopUpCard() {
+  if (theLanguageIsGerman === false) {
+    document.getElementById("aboutSelection").innerHTML = "About";
+    document.getElementById("statsSelection").innerHTML = "Base Stats";
+    document.getElementById("evolutionSelection").innerHTML = "Evolution";
+  } else {
+    document.getElementById("aboutSelection").innerHTML = "Über";
+    document.getElementById("statsSelection").innerHTML = "Basiswerte";
+    document.getElementById("evolutionSelection").innerHTML = "Entwicklung";
+  }
+}
+
 function renderAboutPopUpCard() {
   renderRemoveCSS();
   document.getElementById("aboutSelection").classList.add("border-bottom");
+  renderDescriptionAbout();
   renderGeneraPokemonPopUpCard();
   renderHeightPokemonPopUpCard();
   renderWeightPokemonPopUpCard();
@@ -79,18 +95,36 @@ function renderAboutPopUpCard() {
   renderExperiencePokemonPopUpCard();
 }
 
-function loadStatsPopUpCard() {
+function renderStatsPopUpCard() {
   renderRemoveCSS();
   document.getElementById("statsSelection").classList.add("border-bottom");
+  document.getElementById("descriptionContainer").innerHTML = '';
 }
 
-function loadEvolutionPopUpCard() {
+function renderEvolutionPopUpCard() {
   renderRemoveCSS();
   document.getElementById("evolutionSelection").classList.add("border-bottom");
+  document.getElementById("descriptionContainer").innerHTML = '';
 }
 
 function renderGeneraPokemonPopUpCard() {
-  document.getElementById("genraOfPokemon").innerHTML = generaOfThePokemon;
+  document.getElementById("genraPokemon").innerHTML = generaOfThePokemon;
+}
+
+function renderDescriptionAbout() {
+  if (theLanguageIsGerman === false) {
+    document.getElementById("generaDescription").innerHTML = "Species";
+    document.getElementById("heightDescription").innerHTML = "Height";
+    document.getElementById("weightDescription").innerHTML = "Weight";
+    document.getElementById("habitatDescription").innerHTML = "Habitat";
+    document.getElementById("experienceDescription").innerHTML = "Experience";
+  } else {
+    document.getElementById("generaDescription").innerHTML = "Spezies";
+    document.getElementById("heightDescription").innerHTML = "Höhe";
+    document.getElementById("weightDescription").innerHTML = "Gewicht";
+    document.getElementById("habitatDescription").innerHTML = "Lebensraum";
+    document.getElementById("experienceDescription").innerHTML = "Erfahrung";
+  }
 }
 
 function renderHeightPokemonPopUpCard() {
