@@ -24,7 +24,7 @@ let evolutionStep2;
 let evolutionStep3;
 
 async function generateImportFromAPI() {
-  let url = `https://pokeapi.co/api/v2/pokemon/23/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/25/`;
   currentPokemon = await generateJSON(url);
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
@@ -307,8 +307,22 @@ function generateStatsPopUpCard() {
 
 function generateEvolutionSectionPopUpCard() {
   return /*html*/ `
- 
- 
+     <div class="evolution-container">
+      <div class="evolution-pokemon-container">
+        <img id="imgStep1" class="img-evolution">
+        <b id="textStep1"></b>
+      </div>
+      <img id="arrowEvolution1" src="./img/arrowright (2).png" alt="arrowright" class="arrow-evolution">
+      <div class="evolution-pokemon-container">
+        <img id="imgStep2" class="img-evolution">
+        <b id="textStep2"></b>
+      </div>
+        <img id="arrowEvolution2" src="./img/arrowright (2).png" alt="arrowright" class="arrow-evolution">
+      <div class="evolution-pokemon-container">
+        <img id="imgStep3" class="img-evolution">
+        <b id="textStep3"></b>
+      </div>
+    </div> 
  `;
 }
 
@@ -328,9 +342,9 @@ async function generateEvolutionStep1() {
       document.getElementById("imgStep1").src += currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
     }
     if (theLanguageIsGerman === false) {
-      document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["8"]["name"];
+      document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["8"]["name"] + `<br> #${idPokemonStep1}`;
     } else {
-      document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["5"]["name"];
+      document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["5"]["name"] + `<br> #${idPokemonStep1}`;
     }
   }
 }
@@ -351,9 +365,9 @@ async function generateEvolutionStep2() {
       document.getElementById("imgStep2").src += currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
     }
     if (theLanguageIsGerman === false) {
-      document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["8"]["name"];
+      document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["8"]["name"] + `<br> #${idPokemonStep2}`;
     } else {
-      document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["5"]["name"];
+      document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["5"]["name"] + `<br> #${idPokemonStep2}`;
     }
   }
 }
@@ -374,9 +388,9 @@ async function generateEvolutionStep3() {
       document.getElementById("imgStep3").src += currentPokemonStep3["sprites"]["other"]["home"]["front_default"];
     }
     if (theLanguageIsGerman === false) {
-      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["8"]["name"];
+      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["8"]["name"] + `<br> #${idPokemonStep3}`;
     } else {
-      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["5"]["name"];
+      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["5"]["name"] + `<br> #${idPokemonStep3}`;
     }
   }
 }

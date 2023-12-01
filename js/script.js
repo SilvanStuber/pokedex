@@ -87,6 +87,7 @@ function renderAboutSelectionPopUpCard() {
 
 function renderAboutPopUpCard() {
   renderRemoveCSS();
+  document.getElementById("habitatContainer").classList.remove("d-none");
   document.getElementById("aboutSelection").classList.add("border-bottom");
   renderDescriptionAbout();
   renderGeneraPokemonPopUpCard();
@@ -108,6 +109,7 @@ function renderEvolutionPopUpCard() {
   renderRemoveCSS();
   document.getElementById("evolutionSelection").classList.add("border-bottom");
   document.getElementById("descriptionContainer").innerHTML = "";
+  document.getElementById("descriptionContainer").innerHTML = generateEvolutionSectionPopUpCard();
   generateEvolutionStep1();
   generateEvolutionStep2();
   generateEvolutionStep3();
@@ -167,7 +169,6 @@ function renderRemoveCSS() {
   document.getElementById("aboutSelection").classList.remove("border-bottom");
   document.getElementById("statsSelection").classList.remove("border-bottom");
   document.getElementById("evolutionSelection").classList.remove("border-bottom");
-  document.getElementById("habitatContainer").classList.remove("d-none");
 }
 
 function renderChart() {
@@ -178,7 +179,7 @@ function renderChart() {
       labels: apiLabels,
       datasets: [
         {
-          label: "# of Votes",
+          label: "",
           axis: "y",
           data: apiData,
           fill: false,

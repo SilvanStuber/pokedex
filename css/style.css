@@ -101,6 +101,7 @@ header {
   justify-content: space-around;
   width: 100%;
   padding-top: 64px;
+  z-index: 3;
 }
 
 .border-bottom {
@@ -146,3 +147,28 @@ header {
   padding-left: 24px !important;
   padding-right: 24px !important;
 }
+
+.evolution-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  padding-top: 40px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.evolution-pokemon-container {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+}
+
+.img-evolution {
+ height: 80px;
+}
+
+.arrow-evolution {
+  height: 24px;
+}
+
