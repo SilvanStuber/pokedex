@@ -19,13 +19,19 @@ let habitatFromPokemon;
 let theLanguageIsGerman = true;
 let apiLabels = [];
 let apiData = [];
+let evolutionOfThePokemon;
+let evolutionStep2;
+let evolutionStep3;
 
-async function generateImportFriomAPI() {
-  let url = `https://pokeapi.co/api/v2/pokemon/25/`;
+async function generateImportFromAPI() {
+  let url = `https://pokeapi.co/api/v2/pokemon/23/`;
   currentPokemon = await generateJSON(url);
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
   specificationsOfThePokemon = await generateJSON(urlFromSpecies);
+  let urlFromEvolution = specificationsOfThePokemon["evolution_chain"]["url"];
+  evolutionOfThePokemon = await generateJSON(urlFromEvolution);
+  console.log("evolution_chain", evolutionOfThePokemon);
 }
 
 function generateUrlNamePokemon() {
@@ -297,4 +303,80 @@ function generateStatsPopUpCard() {
    <div>
       <canvas id="myChart"></canvas>
    </div>`;
+}
+
+function generateEvolutionSectionPopUpCard() {
+  return /*html*/ `
+ 
+ 
+ `;
+}
+
+async function generateEvolutionStep1() {
+  if (!evolutionOfThePokemon["chain"]["species"]) {
+    console.log("not available");
+  } else {
+    let urlPokemonStep1 = evolutionOfThePokemon["chain"]["species"]["url"];
+    let pokemonStep1 = await generateJSON(urlPokemonStep1);
+    let idPokemonStep1 = pokemonStep1["id"];
+    let urlIdStep1 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep1}/`;
+    let currentPokemonStep1 = await generateJSON(urlIdStep1);
+    let imageFromPokemonStep1 = currentPokemonStep1["sprites"]["other"]["dream_world"]["front_default"];
+    if (imageFromPokemonStep1) {
+      document.getElementById("imgStep1").src += imageFromPokemonStep1;
+    } else {
+      document.getElementById("imgStep1").src += currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
+    }
+    if (theLanguageIsGerman === false) {
+      document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["8"]["name"];
+    } else {
+      document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["5"]["name"];
+    }
+  }
+}
+
+async function generateEvolutionStep2() {
+  if (!evolutionOfThePokemon["chain"]["evolves_to"]["0"]["species"]) {
+    document.getElementById("arrowEvolution1").classList.add("d-none");
+  } else {
+    let urlPokemonStep2 = evolutionOfThePokemon["chain"]["evolves_to"]["0"]["species"]["url"];
+    let pokemonStep2 = await generateJSON(urlPokemonStep2);
+    let idPokemonStep2 = pokemonStep2["id"];
+    let urlIdStep2 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep2}/`;
+    let currentPokemonStep2 = await generateJSON(urlIdStep2);
+    let imageFromPokemonStep2 = currentPokemonStep2["sprites"]["other"]["dream_world"]["front_default"];
+    if (imageFromPokemonStep2) {
+      document.getElementById("imgStep2").src += imageFromPokemonStep2;
+    } else {
+      document.getElementById("imgStep2").src += currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
+    }
+    if (theLanguageIsGerman === false) {
+      document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["8"]["name"];
+    } else {
+      document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["5"]["name"];
+    }
+  }
+}
+
+async function generateEvolutionStep3() {
+  if (!evolutionOfThePokemon["chain"]["evolves_to"]["0"]["evolves_to"]["0"]) {
+    document.getElementById("arrowEvolution2").classList.add("d-none");
+  } else {
+    let urlPokemonStep3 = evolutionOfThePokemon["chain"]["evolves_to"]["0"]["evolves_to"]["0"]["species"]["url"];
+    let pokemonStep3 = await generateJSON(urlPokemonStep3);
+    let idPokemonStep3 = pokemonStep3["id"];
+    let urlIdStep3 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep3}/`;
+    let currentPokemonStep3 = await generateJSON(urlIdStep3);
+    let imageFromPokemonStep3 = currentPokemonStep3["sprites"]["other"]["dream_world"]["front_default"];
+    if (imageFromPokemonStep3) {
+      document.getElementById("imgStep3").src += imageFromPokemonStep3;
+    } else {
+      document.getElementById("imgStep3").src += currentPokemonStep3["sprites"]["other"]["home"]["front_default"];
+    }
+    if (theLanguageIsGerman === false) {
+      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["8"]["name"];
+    } else {
+      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["5"]["name"];
+    }
+  }
 }

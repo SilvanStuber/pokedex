@@ -1,7 +1,7 @@
 ////////////////render functions are located in the script.js file and the generation functions and global variables in the data.js file////////////////
 
 async function loadPokemon() {
-  await generateImportFriomAPI();
+  await generateImportFromAPI();
   generateNamePokemon();
   generateGeneraPokemon();
   generateType();
@@ -108,6 +108,10 @@ function renderEvolutionPopUpCard() {
   renderRemoveCSS();
   document.getElementById("evolutionSelection").classList.add("border-bottom");
   document.getElementById("descriptionContainer").innerHTML = "";
+  generateEvolutionStep1();
+  generateEvolutionStep2();
+  generateEvolutionStep3();
+  
 }
 
 function renderGeneraPokemonPopUpCard() {
