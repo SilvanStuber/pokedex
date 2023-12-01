@@ -155,7 +155,6 @@ header {
   gap: 24px;
   padding-top: 40px;
   padding-left: 8px;
-  padding-right: 8px;
 }
 
 .evolution-pokemon-container {
@@ -165,10 +164,9 @@ header {
 }
 
 .img-evolution {
- height: 80px;
+ height: 72px;
 }
 
 .arrow-evolution {
   height: 24px;
 }
-

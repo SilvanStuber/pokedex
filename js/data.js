@@ -24,7 +24,7 @@ let evolutionStep2;
 let evolutionStep3;
 
 async function generateImportFromAPI() {
-  let url = `https://pokeapi.co/api/v2/pokemon/25/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/800/`;
   currentPokemon = await generateJSON(url);
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
@@ -176,37 +176,41 @@ function generateType() {
 }
 
 function generateHabitat() {
-  habitatPokemon = specificationsOfThePokemon["habitat"]["name"];
-  if (theLanguageIsGerman === false) {
-    let habitat = habitatPokemon.charAt(0).toUpperCase() + habitatPokemon.slice(1);
-    habitatFromPokemon = habitat;
+  if (!specificationsOfThePokemon["habitat"]) {
+    console.log("habitat not available");
   } else {
-    if (habitatPokemon === "cave") {
-      habitatFromPokemon = `Höhle`;
-    }
-    if (habitatPokemon === "forest") {
-      habitatFromPokemon = `Wald`;
-    }
-    if (habitatPokemon === "grassland") {
-      habitatFromPokemon = `Wiese`;
-    }
-    if (habitatPokemon === "mountain") {
-      habitatFromPokemon = `Berge`;
-    }
-    if (habitatPokemon === "rare") {
-      habitatFromPokemon = `selten`;
-    }
-    if (habitatPokemon === "rough-terrain") {
-      habitatFromPokemon = `unebenes Gebiet`;
-    }
-    if (habitatPokemon === "sea") {
-      habitatFromPokemon = `Meer`;
-    }
-    if (habitatPokemon === "urban") {
-      habitatFromPokemon = `Stadt`;
-    }
-    if (habitatPokemon === "waters-edge") {
-      habitatFromPokemon = `Gewässerrand`;
+    habitatPokemon = specificationsOfThePokemon["habitat"]["name"];
+    if (theLanguageIsGerman === false) {
+      let habitat = habitatPokemon.charAt(0).toUpperCase() + habitatPokemon.slice(1);
+      habitatFromPokemon = habitat;
+    } else {
+      if (habitatPokemon === "cave") {
+        habitatFromPokemon = `Höhle`;
+      }
+      if (habitatPokemon === "forest") {
+        habitatFromPokemon = `Wald`;
+      }
+      if (habitatPokemon === "grassland") {
+        habitatFromPokemon = `Wiese`;
+      }
+      if (habitatPokemon === "mountain") {
+        habitatFromPokemon = `Berge`;
+      }
+      if (habitatPokemon === "rare") {
+        habitatFromPokemon = `selten`;
+      }
+      if (habitatPokemon === "rough-terrain") {
+        habitatFromPokemon = `unebenes Gebiet`;
+      }
+      if (habitatPokemon === "sea") {
+        habitatFromPokemon = `Meer`;
+      }
+      if (habitatPokemon === "urban") {
+        habitatFromPokemon = `Stadt`;
+      }
+      if (habitatPokemon === "waters-edge") {
+        habitatFromPokemon = `Gewässerrand`;
+      }
     }
   }
 }
@@ -307,7 +311,7 @@ function generateStatsPopUpCard() {
 
 function generateEvolutionSectionPopUpCard() {
   return /*html*/ `
-     <div class="evolution-container">
+     <div class="evolution-container" id="noEvolution">
       <div class="evolution-pokemon-container">
         <img id="imgStep1" class="img-evolution">
         <b id="textStep1"></b>
@@ -327,48 +331,40 @@ function generateEvolutionSectionPopUpCard() {
 }
 
 async function generateEvolutionStep1() {
-  if (!evolutionOfThePokemon["chain"]["species"]) {
-    console.log("not available");
+  let urlPokemonStep1 = evolutionOfThePokemon["chain"]["species"]["url"];
+  let pokemonStep1 = await generateJSON(urlPokemonStep1);
+  let idPokemonStep1 = pokemonStep1["id"];
+  let urlIdStep1 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep1}/`;
+  let currentPokemonStep1 = await generateJSON(urlIdStep1);
+  let imageFromPokemonStep1 = currentPokemonStep1["sprites"]["other"]["dream_world"]["front_default"];
+  if (imageFromPokemonStep1) {
+    document.getElementById("imgStep1").src += imageFromPokemonStep1;
   } else {
-    let urlPokemonStep1 = evolutionOfThePokemon["chain"]["species"]["url"];
-    let pokemonStep1 = await generateJSON(urlPokemonStep1);
-    let idPokemonStep1 = pokemonStep1["id"];
-    let urlIdStep1 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep1}/`;
-    let currentPokemonStep1 = await generateJSON(urlIdStep1);
-    let imageFromPokemonStep1 = currentPokemonStep1["sprites"]["other"]["dream_world"]["front_default"];
-    if (imageFromPokemonStep1) {
-      document.getElementById("imgStep1").src += imageFromPokemonStep1;
-    } else {
-      document.getElementById("imgStep1").src += currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
-    }
-    if (theLanguageIsGerman === false) {
-      document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["8"]["name"] + `<br> #${idPokemonStep1}`;
-    } else {
-      document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["5"]["name"] + `<br> #${idPokemonStep1}`;
-    }
+    document.getElementById("imgStep1").src += currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
+  }
+  if (theLanguageIsGerman === false) {
+    document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["8"]["name"] + `<br> #${idPokemonStep1}`;
+  } else {
+    document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["5"]["name"] + `<br> #${idPokemonStep1}`;
   }
 }
 
 async function generateEvolutionStep2() {
-  if (!evolutionOfThePokemon["chain"]["evolves_to"]["0"]["species"]) {
-    document.getElementById("arrowEvolution1").classList.add("d-none");
+  let urlPokemonStep2 = evolutionOfThePokemon["chain"]["evolves_to"]["0"]["species"]["url"];
+  let pokemonStep2 = await generateJSON(urlPokemonStep2);
+  let idPokemonStep2 = pokemonStep2["id"];
+  let urlIdStep2 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep2}/`;
+  let currentPokemonStep2 = await generateJSON(urlIdStep2);
+  let imageFromPokemonStep2 = currentPokemonStep2["sprites"]["other"]["dream_world"]["front_default"];
+  if (imageFromPokemonStep2) {
+    document.getElementById("imgStep2").src += imageFromPokemonStep2;
   } else {
-    let urlPokemonStep2 = evolutionOfThePokemon["chain"]["evolves_to"]["0"]["species"]["url"];
-    let pokemonStep2 = await generateJSON(urlPokemonStep2);
-    let idPokemonStep2 = pokemonStep2["id"];
-    let urlIdStep2 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep2}/`;
-    let currentPokemonStep2 = await generateJSON(urlIdStep2);
-    let imageFromPokemonStep2 = currentPokemonStep2["sprites"]["other"]["dream_world"]["front_default"];
-    if (imageFromPokemonStep2) {
-      document.getElementById("imgStep2").src += imageFromPokemonStep2;
-    } else {
-      document.getElementById("imgStep2").src += currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
-    }
-    if (theLanguageIsGerman === false) {
-      document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["8"]["name"] + `<br> #${idPokemonStep2}`;
-    } else {
-      document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["5"]["name"] + `<br> #${idPokemonStep2}`;
-    }
+    document.getElementById("imgStep2").src += currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
+  }
+  if (theLanguageIsGerman === false) {
+    document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["8"]["name"] + `<br> #${idPokemonStep2}`;
+  } else {
+    document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["5"]["name"] + `<br> #${idPokemonStep2}`;
   }
 }
 
@@ -376,6 +372,7 @@ async function generateEvolutionStep3() {
   if (!evolutionOfThePokemon["chain"]["evolves_to"]["0"]["evolves_to"]["0"]) {
     document.getElementById("arrowEvolution2").classList.add("d-none");
   } else {
+    document.getElementById("arrowEvolution2").classList.remove("d-none");
     let urlPokemonStep3 = evolutionOfThePokemon["chain"]["evolves_to"]["0"]["evolves_to"]["0"]["species"]["url"];
     let pokemonStep3 = await generateJSON(urlPokemonStep3);
     let idPokemonStep3 = pokemonStep3["id"];

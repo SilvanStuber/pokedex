@@ -24,7 +24,7 @@ function renderPopUpCard() {
   renderTypePopUpCard();
   renderImagePokemonPopUpCard();
   renderBackgroundColorPopUpCard();
-  renderAboutSelectionPopUpCard();
+  renderSelectionPopUpCard();
   renderAboutPopUpCard();
 }
 
@@ -73,7 +73,7 @@ function renderImagePokemonPopUpCard() {
   }
 }
 
-function renderAboutSelectionPopUpCard() {
+function renderSelectionPopUpCard() {
   if (theLanguageIsGerman === false) {
     document.getElementById("aboutSelection").innerHTML = "About";
     document.getElementById("statsSelection").innerHTML = "Base Stats";
@@ -86,7 +86,6 @@ function renderAboutSelectionPopUpCard() {
 }
 
 function renderAboutPopUpCard() {
-  renderRemoveCSS();
   document.getElementById("habitatContainer").classList.remove("d-none");
   document.getElementById("aboutSelection").classList.add("border-bottom");
   renderDescriptionAbout();
@@ -98,7 +97,7 @@ function renderAboutPopUpCard() {
 }
 
 function renderStatsPopUpCard() {
-  renderRemoveCSS();
+  renderRemoveSelectionCSS();
   document.getElementById("statsSelection").classList.add("border-bottom");
   document.getElementById("descriptionContainer").innerHTML = "";
   document.getElementById("descriptionContainer").innerHTML = generateStatsPopUpCard();
@@ -106,14 +105,27 @@ function renderStatsPopUpCard() {
 }
 
 function renderEvolutionPopUpCard() {
-  renderRemoveCSS();
+  renderRemoveSelectionCSS();
   document.getElementById("evolutionSelection").classList.add("border-bottom");
   document.getElementById("descriptionContainer").innerHTML = "";
   document.getElementById("descriptionContainer").innerHTML = generateEvolutionSectionPopUpCard();
-  generateEvolutionStep1();
-  generateEvolutionStep2();
-  generateEvolutionStep3();
-  
+  if (evolutionOfThePokemon["chain"]["evolves_to"]["0"]) {
+    generateEvolutionStep1();
+    generateEvolutionStep2();
+    generateEvolutionStep3();
+  } else {
+    renderNoEvolution();
+  }
+}
+
+function renderNoEvolution() {
+  document.getElementById("arrowEvolution1").classList.add("d-none");
+  document.getElementById("arrowEvolution2").classList.add("d-none");
+  if (theLanguageIsGerman === false) {
+    document.getElementById("noEvolution").innerHTML = `<b> The Pokemon does not evolve </b>`;
+  } else {
+    document.getElementById("noEvolution").innerHTML = `<b> Das Pokemon entwickelt sich nicht </b>`;
+  }
 }
 
 function renderGeneraPokemonPopUpCard() {
@@ -147,25 +159,24 @@ function renderWeightPokemonPopUpCard() {
 }
 
 function renderHabitatPopUpCard() {
-  renderRemoveCSS();
   if (!specificationsOfThePokemon["habitat"]) {
     document.getElementById("habitatContainer").classList.add("d-none");
   } else {
+    document.getElementById("habitatContainer").classList.remove("d-none");
     document.getElementById("habitatPokemon").innerHTML = habitatFromPokemon;
   }
 }
 
 function renderExperiencePokemonPopUpCard() {
-  renderRemoveCSS();
   if (!currentPokemon["base_experience"]) {
     document.getElementById("experienceContainer").classList.add("d-none");
   } else {
-    experienceFromPokemon = currentPokemon["base_experience"];
-    document.getElementById("experiencePokemon").innerHTML = `${experienceFromPokemon} exp`;
+    document.getElementById("experienceContainer").classList.remove("d-none");
+    document.getElementById("experiencePokemon").innerHTML = `${currentPokemon["base_experience"]} exp`;
   }
 }
 
-function renderRemoveCSS() {
+function renderRemoveSelectionCSS() {
   document.getElementById("aboutSelection").classList.remove("border-bottom");
   document.getElementById("statsSelection").classList.remove("border-bottom");
   document.getElementById("evolutionSelection").classList.remove("border-bottom");
