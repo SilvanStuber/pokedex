@@ -24,7 +24,7 @@ let evolutionStep2;
 let evolutionStep3;
 
 async function generateImportFromAPI() {
-  let url = `https://pokeapi.co/api/v2/pokemon/800/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/1/`;
   currentPokemon = await generateJSON(url);
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
@@ -235,7 +235,7 @@ function generatePopUpCard() {
      <b onclick="renderStatsPopUpCard()" id="statsSelection" class="selection-text"></b>
      <b onclick="renderEvolutionPopUpCard()" id="evolutionSelection" class="selection-text"></b>
     </div>
-    <div id="descriptionContainer" class="about-container">
+    <div id="descriptionContainer" class="description-container">
     </div>
   </div>`;
 }
@@ -338,14 +338,14 @@ async function generateEvolutionStep1() {
   let currentPokemonStep1 = await generateJSON(urlIdStep1);
   let imageFromPokemonStep1 = currentPokemonStep1["sprites"]["other"]["dream_world"]["front_default"];
   if (imageFromPokemonStep1) {
-    document.getElementById("imgStep1").src += imageFromPokemonStep1;
+    document.getElementById("imgStep1").src = imageFromPokemonStep1;
   } else {
-    document.getElementById("imgStep1").src += currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
+    document.getElementById("imgStep1").src = currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
   }
   if (theLanguageIsGerman === false) {
-    document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["8"]["name"] + `<br> #${idPokemonStep1}`;
+    document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
   } else {
-    document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["5"]["name"] + `<br> #${idPokemonStep1}`;
+    document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
   }
 }
 
@@ -357,14 +357,14 @@ async function generateEvolutionStep2() {
   let currentPokemonStep2 = await generateJSON(urlIdStep2);
   let imageFromPokemonStep2 = currentPokemonStep2["sprites"]["other"]["dream_world"]["front_default"];
   if (imageFromPokemonStep2) {
-    document.getElementById("imgStep2").src += imageFromPokemonStep2;
+    document.getElementById("imgStep2").src = imageFromPokemonStep2;
   } else {
-    document.getElementById("imgStep2").src += currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
+    document.getElementById("imgStep2").src = currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
   }
   if (theLanguageIsGerman === false) {
-    document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["8"]["name"] + `<br> #${idPokemonStep2}`;
+    document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
   } else {
-    document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["5"]["name"] + `<br> #${idPokemonStep2}`;
+    document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
   }
 }
 
@@ -380,14 +380,14 @@ async function generateEvolutionStep3() {
     let currentPokemonStep3 = await generateJSON(urlIdStep3);
     let imageFromPokemonStep3 = currentPokemonStep3["sprites"]["other"]["dream_world"]["front_default"];
     if (imageFromPokemonStep3) {
-      document.getElementById("imgStep3").src += imageFromPokemonStep3;
+      document.getElementById("imgStep3").src = imageFromPokemonStep3;
     } else {
-      document.getElementById("imgStep3").src += currentPokemonStep3["sprites"]["other"]["home"]["front_default"];
+      document.getElementById("imgStep3").src = currentPokemonStep3["sprites"]["other"]["home"]["front_default"];
     }
     if (theLanguageIsGerman === false) {
-      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["8"]["name"] + `<br> #${idPokemonStep3}`;
+      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
     } else {
-      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["5"]["name"] + `<br> #${idPokemonStep3}`;
+      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
     }
   }
 }
