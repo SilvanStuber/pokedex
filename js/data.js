@@ -247,8 +247,8 @@ function generatePopUpCard(id) {
       </div>
       <div class="info-container">
       <div class="arrow-pop-up-container">
-      <img onclick="renderPreviousPokemon(${id})" id="arrowLeftPopUpCard" src="./img/arrowleft(2).png" alt="arrowleft" class="arrow-left-pop-up-card">
-      <img onclick="renderNextPokemon(${id})" id="arrowRightPopUpCard" src="./img/arrowright(2).png" alt="arrowright" class="arrow-right-pop-up-card">
+      <img onclick="renderPreviousPokemon(${id})" id="arrowLeftPopUpCard" src="./img/arrowleft.png" alt="arrowleft" class="arrow-left-pop-up-card">
+      <img onclick="renderNextPokemon(${id})" id="arrowRightPopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-right-pop-up-card">
       </div>
       <div class="card-selection-container">
           <b onclick="renderPopUpCard(${id})" id="aboutSelectionPopUpCard" class="selection-text"></b>
@@ -338,12 +338,12 @@ function generateEvolutionSectionPopUpCard() {
         <img id="imgStep1PopUpCard" class="img-evolution">
         <b id="textStep1PopUpCard"></b>
       </div>
-      <img id="arrowEvolution1PopUpCard" src="./img/arrowright(2).png" alt="arrowright" class="arrow-evolution">
+      <img id="arrowEvolution1PopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-evolution">
       <div class="evolution-pokemon-container">
         <img id="imgStep2PopUpCard" class="img-evolution">
         <b id="textStep2PopUpCard"></b>
       </div>
-        <img id="arrowEvolution2PopUpCard" src="./img/arrowright(2).png" alt="arrowright" class="arrow-evolution">
+        <img id="arrowEvolution2PopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-evolution">
       <div class="evolution-pokemon-container">
         <img id="imgStep3PopUpCard" class="img-evolution">
         <b id="textStep3PopUpCard"></b>

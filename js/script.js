@@ -17,7 +17,7 @@ function loadPokemon() {
 }
 
 async function renderCard() {
-  for (let i = 1; i < 50; i++) {
+  for (let i = 995; i < 1001; i++) {
     await generateImportFromAPI(i);
     document.getElementById("pokedex").innerHTML += generateCard(i);
     loadPokemon(i);
