@@ -24,7 +24,7 @@ let evolutionStep2;
 let evolutionStep3;
 
 async function generateImportFromAPI() {
-  let url = `https://pokeapi.co/api/v2/pokemon/1/`;
+  let url = `https://pokeapi.co/api/v2/pokemon/9/`;
   currentPokemon = await generateJSON(url);
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
@@ -216,53 +216,54 @@ function generateHabitat() {
 }
 
 function generatePopUpCard() {
-  return /*html*/ ` 
-  <div id="headContainer">
-    <div class="head-line-container">
-      <h1 id="pokemonName"></h1>
-      <h1 id="idFromPokemon"></h1>
-    </div>
-    <div>
-      <div id="typePokemon"></div>
-    </div>
-    <div class="image-container">
-      <img id="pokemonImage" />
-    </div>
-  </div>
-  <div class="info-container">
-    <div class="card-selection-container">
-     <b onclick="renderPopUpCard()" id="aboutSelection" class="selection-text"></b>
-     <b onclick="renderStatsPopUpCard()" id="statsSelection" class="selection-text"></b>
-     <b onclick="renderEvolutionPopUpCard()" id="evolutionSelection" class="selection-text"></b>
-    </div>
-    <div id="descriptionContainer" class="description-container">
-    </div>
-  </div>`;
+  return /*html*/ `
+     <div class="pop-up-card">
+      <div id="headContainerPopUpCard">
+        <div class="head-line-container">
+          <h1 id="pokemonNamePopUpCard"></h1>
+          <h1 id="idPokemonPopUpCard"></h1>
+        </div>
+        <div>
+          <div id="typePokemonPopUpCard"></div>
+        </div>
+        <div class="image-container">
+          <img id="pokemonImagePopUpCard" />
+        </div>
+      </div>
+      <div class="info-container">
+        <div class="card-selection-container">
+          <b onclick="renderPopUpCard()" id="aboutSelectionPopUpCard" class="selection-text"></b>
+          <b onclick="renderStatsPopUpCard()" id="statsSelectionPopUpCard" class="selection-text"></b>
+          <b onclick="renderEvolutionPopUpCard()" id="evolutionSelectionPopUpCard" class="selection-text"></b>
+        </div>
+        <div id="descriptionContainerPopUpCard" class="description-container-pop-up-card"></div>
+      </div>
+    </div> `;
 }
 
 function generateAboutSectionPopUpCard() {
   return /*html*/ `
     <div class="about-text">
-        <b id="generaDescription" class="bold-text"></b>
-        <span id="genraPokemon"></span>
+        <b id="generaDescriptionPopUpCard" class="bold-text"></b>
+        <span id="genraPokemonPopUpCard"></span>
       </div>
       <div class="about-text">
-        <b id="heightDescription" class="bold-text"></b>
-        <span id="heightMeter"></span>
-        <span id="heightFoot"></span>
+        <b id="heightDescriptionPopUpCard" class="bold-text"></b>
+        <span id="heightMeterPopUpCard"></span>
+        <span id="heightFootPopUpCard"></span>
       </div>
       <div class="about-text">
-        <b id="weightDescription" class="bold-text"></b>
-        <span id="weightKilogram"></span>
-        <span id="weightPound"></span>
+        <b id="weightDescriptionPopUpCard" class="bold-text"></b>
+        <span id="weightKilogramPopUpCard"></span>
+        <span id="weightPoundPopUpCard"></span>
       </div>
-      <div id="habitatContainer" class="about-text">
-        <b id="habitatDescription" class="bold-text"></b>
-        <span id="habitatPokemon"></span>
+      <div id="habitatContainerPopUpCard" class="about-text">
+        <b id="habitatDescriptionPopUpCard" class="bold-text"></b>
+        <span id="habitatPokemonPopUpCard"></span>
       </div>
-      <div id="experienceContainer" class="about-text">
-        <b id="experienceDescription" class="bold-text"></b>
-        <span id="experiencePokemon"></span>
+      <div id="experienceContainerPopUpCard" class="about-text">
+        <b id="experienceDescriptionPopUpCard" class="bold-text"></b>
+        <span id="experiencePokemonPopUpCard"></span>
       </div>
   `;
 }
@@ -311,20 +312,20 @@ function generateStatsPopUpCard() {
 
 function generateEvolutionSectionPopUpCard() {
   return /*html*/ `
-     <div class="evolution-container" id="noEvolution">
+     <div  id="noEvolutionPopUpCard" class="evolution-container">
       <div class="evolution-pokemon-container">
-        <img id="imgStep1" class="img-evolution">
-        <b id="textStep1"></b>
+        <img id="imgStep1PopUpCard" class="img-evolution">
+        <b id="textStep1PopUpCard"></b>
       </div>
-      <img id="arrowEvolution1" src="./img/arrowright (2).png" alt="arrowright" class="arrow-evolution">
+      <img id="arrowEvolution1PopUpCard" src="./img/arrowright (2).png" alt="arrowright" class="arrow-evolution">
       <div class="evolution-pokemon-container">
-        <img id="imgStep2" class="img-evolution">
-        <b id="textStep2"></b>
+        <img id="imgStep2PopUpCard" class="img-evolution">
+        <b id="textStep2PopUpCard"></b>
       </div>
-        <img id="arrowEvolution2" src="./img/arrowright (2).png" alt="arrowright" class="arrow-evolution">
+        <img id="arrowEvolution2PopUpCard" src="./img/arrowright (2).png" alt="arrowright" class="arrow-evolution">
       <div class="evolution-pokemon-container">
-        <img id="imgStep3" class="img-evolution">
-        <b id="textStep3"></b>
+        <img id="imgStep3PopUpCard" class="img-evolution">
+        <b id="textStep3PopUpCard"></b>
       </div>
     </div> 
  `;
@@ -338,14 +339,14 @@ async function generateEvolutionStep1() {
   let currentPokemonStep1 = await generateJSON(urlIdStep1);
   let imageFromPokemonStep1 = currentPokemonStep1["sprites"]["other"]["dream_world"]["front_default"];
   if (imageFromPokemonStep1) {
-    document.getElementById("imgStep1").src = imageFromPokemonStep1;
+    document.getElementById("imgStep1PopUpCard").src = imageFromPokemonStep1;
   } else {
-    document.getElementById("imgStep1").src = currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
+    document.getElementById("imgStep1PopUpCard").src = currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
   }
   if (theLanguageIsGerman === false) {
-    document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
+    document.getElementById("textStep1PopUpCard").innerHTML = pokemonStep1["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
   } else {
-    document.getElementById("textStep1").innerHTML = pokemonStep1["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
+    document.getElementById("textStep1PopUpCard").innerHTML = pokemonStep1["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
   }
 }
 
@@ -357,22 +358,22 @@ async function generateEvolutionStep2() {
   let currentPokemonStep2 = await generateJSON(urlIdStep2);
   let imageFromPokemonStep2 = currentPokemonStep2["sprites"]["other"]["dream_world"]["front_default"];
   if (imageFromPokemonStep2) {
-    document.getElementById("imgStep2").src = imageFromPokemonStep2;
+    document.getElementById("imgStep2PopUpCard").src = imageFromPokemonStep2;
   } else {
-    document.getElementById("imgStep2").src = currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
+    document.getElementById("imgStep2PopUpCard").src = currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
   }
   if (theLanguageIsGerman === false) {
-    document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
+    document.getElementById("textStep2PopUpCard").innerHTML = pokemonStep2["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
   } else {
-    document.getElementById("textStep2").innerHTML = pokemonStep2["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
+    document.getElementById("textStep2PopUpCard").innerHTML = pokemonStep2["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
   }
 }
 
 async function generateEvolutionStep3() {
   if (!evolutionOfThePokemon["chain"]["evolves_to"]["0"]["evolves_to"]["0"]) {
-    document.getElementById("arrowEvolution2").classList.add("d-none");
+    document.getElementById("arrowEvolution2PopUpCard").classList.add("d-none");
   } else {
-    document.getElementById("arrowEvolution2").classList.remove("d-none");
+    document.getElementById("arrowEvolution2PopUpCard").classList.remove("d-none");
     let urlPokemonStep3 = evolutionOfThePokemon["chain"]["evolves_to"]["0"]["evolves_to"]["0"]["species"]["url"];
     let pokemonStep3 = await generateJSON(urlPokemonStep3);
     let idPokemonStep3 = pokemonStep3["id"];
@@ -380,14 +381,14 @@ async function generateEvolutionStep3() {
     let currentPokemonStep3 = await generateJSON(urlIdStep3);
     let imageFromPokemonStep3 = currentPokemonStep3["sprites"]["other"]["dream_world"]["front_default"];
     if (imageFromPokemonStep3) {
-      document.getElementById("imgStep3").src = imageFromPokemonStep3;
+      document.getElementById("imgStep3PopUpCard").src = imageFromPokemonStep3;
     } else {
-      document.getElementById("imgStep3").src = currentPokemonStep3["sprites"]["other"]["home"]["front_default"];
+      document.getElementById("imgStep3PopUpCard").src = currentPokemonStep3["sprites"]["other"]["home"]["front_default"];
     }
     if (theLanguageIsGerman === false) {
-      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
+      document.getElementById("textStep3PopUpCard").innerHTML = pokemonStep3["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
     } else {
-      document.getElementById("textStep3").innerHTML = pokemonStep3["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
+      document.getElementById("textStep3PopUpCard").innerHTML = pokemonStep3["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
     }
   }
 }

@@ -1,9 +1,19 @@
 ////////////////render functions are located in the script.js file and the generation functions and global variables in the data.js file////////////////
 
-async function loadPokemon() {
+
+async function init() {
   await generateImportFromAPI();
+  loadPokemon();
+  renderBackgroundColor();
+  renderNamePokemon();
+  renderIdPokemon();
+  renderImagePokemon();
+  renderType();
+}
+
+
+function loadPokemon() {
   generateNamePokemon();
-  generateGeneraPokemon();
   generateType();
   generateBackgroundColor();
   generateGeneraPokemon();
@@ -13,10 +23,10 @@ async function loadPokemon() {
   generateDataChart();
   console.log("Loaded loadPokemon", currentPokemon);
   console.log(specificationsOfThePokemon);
-  renderPopUpCard();
 }
 
 function renderPopUpCard() {
+  loadPokemon();
   document.getElementById("pokedex").innerHTML = generatePopUpCard();
   document.getElementById("descriptionContainer").innerHTML = generateAboutSectionPopUpCard();
   renderNamePokemonPopUpCard();
@@ -44,15 +54,23 @@ function emptyArray() {
   typeFromPokemon = [];
 }
 
+function renderNamePokemon() {
+  document.getElementById("namePokemon").innerHTML = nameFromPokemon;
+}
+
 function renderNamePokemonPopUpCard() {
-  document.getElementById("pokemonName").innerHTML = nameFromPokemon;
+  document.getElementById("pokemonNamePopUpCard").innerHTML = nameFromPokemon;
+}
+
+function renderIdPokemon() {
+  document.getElementById("idPokemon").innerHTML = `#${currentPokemon["id"]}`;
 }
 
 function renderIdPokemonPopUpCard() {
-  document.getElementById("idFromPokemon").innerHTML = `#${currentPokemon["id"]}`;
+  document.getElementById("idPokemonPopUpCard").innerHTML = `#${currentPokemon["id"]}`;
 }
 
-function renderTypePopUpCard() {
+function renderType() {
   document.getElementById("typePokemon").innerHTML = ``;
   for (let i = 0; i < typeFromPokemon.length; i++) {
     let type = typeFromPokemon[i];
@@ -60,11 +78,22 @@ function renderTypePopUpCard() {
   }
 }
 
-function renderBackgroundColorPopUpCard() {
-  document.getElementById("headContainer").style = backgroundColor;
+function renderTypePopUpCard() {
+  document.getElementById("typePokemonPopUpCard").innerHTML = ``;
+  for (let i = 0; i < typeFromPokemon.length; i++) {
+    let type = typeFromPokemon[i];
+    document.getElementById("typePokemonPopUpCard").innerHTML += `<span class="type-pokemon-text">${type}</span>`;
+  }
 }
 
-function renderImagePokemonPopUpCard() {
+function renderBackgroundColor() {
+  document.getElementById("pokemonCard").style = backgroundColor;
+}
+
+function renderBackgroundColorPopUpCard() {
+  document.getElementById("headContainerPopUpCard").style = backgroundColor;
+}
+function renderImagePokemon() {
   let imageFromPokemon = currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
   if (imageFromPokemon) {
     document.getElementById("pokemonImage").src = imageFromPokemon;
@@ -73,21 +102,30 @@ function renderImagePokemonPopUpCard() {
   }
 }
 
+function renderImagePokemonPopUpCard() {
+  let imageFromPokemon = currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
+  if (imageFromPokemon) {
+    document.getElementById("pokemonImagePopUpCard").src = imageFromPokemon;
+  } else {
+    document.getElementById("pokemonImagePopUpCard").src = currentPokemon["sprites"]["other"]["home"]["front_default"];
+  }
+}
+
 function renderSelectionPopUpCard() {
   if (theLanguageIsGerman === false) {
-    document.getElementById("aboutSelection").innerHTML = "About";
-    document.getElementById("statsSelection").innerHTML = "Base Stats";
-    document.getElementById("evolutionSelection").innerHTML = "Evolution";
+    document.getElementById("aboutSelectionPopUpCard").innerHTML = "About";
+    document.getElementById("statsSelectionPopUpCard").innerHTML = "Base Stats";
+    document.getElementById("evolutionSelectionPopUpCard").innerHTML = "Evolution";
   } else {
-    document.getElementById("aboutSelection").innerHTML = "Über";
-    document.getElementById("statsSelection").innerHTML = "Basiswerte";
-    document.getElementById("evolutionSelection").innerHTML = "Entwicklung";
+    document.getElementById("aboutSelectionPopUpCard").innerHTML = "Über";
+    document.getElementById("statsSelectionPopUpCard").innerHTML = "Basiswerte";
+    document.getElementById("evolutionSelectionPopUpCard").innerHTML = "Entwicklung";
   }
 }
 
 function renderAboutPopUpCard() {
-  document.getElementById("habitatContainer").classList.remove("d-none");
-  document.getElementById("aboutSelection").classList.add("border-bottom");
+  document.getElementById("habitatContainerPopUpCard").classList.remove("d-none");
+  document.getElementById("aboutSelectionPopUpCard").classList.add("border-bottom");
   renderDescriptionAbout();
   renderGeneraPokemonPopUpCard();
   renderHeightPokemonPopUpCard();
@@ -98,17 +136,17 @@ function renderAboutPopUpCard() {
 
 function renderStatsPopUpCard() {
   renderRemoveSelectionCSS();
-  document.getElementById("statsSelection").classList.add("border-bottom");
-  document.getElementById("descriptionContainer").innerHTML = "";
-  document.getElementById("descriptionContainer").innerHTML = generateStatsPopUpCard();
+  document.getElementById("statsSelectionPopUpCard").classList.add("border-bottom");
+  document.getElementById("descriptionContainerPopUpCard").innerHTML = "";
+  document.getElementById("descriptionContainerPopUpCard").innerHTML = generateStatsPopUpCard();
   renderChart();
 }
 
 function renderEvolutionPopUpCard() {
   renderRemoveSelectionCSS();
-  document.getElementById("evolutionSelection").classList.add("border-bottom");
-  document.getElementById("descriptionContainer").innerHTML = "";
-  document.getElementById("descriptionContainer").innerHTML = generateEvolutionSectionPopUpCard();
+  document.getElementById("evolutionSelectionPopUpCard").classList.add("border-bottom");
+  document.getElementById("descriptionContainerPopUpCard").innerHTML = "";
+  document.getElementById("descriptionContainerPopUpCard").innerHTML = generateEvolutionSectionPopUpCard();
   if (evolutionOfThePokemon["chain"]["evolves_to"]["0"]) {
     generateEvolutionStep1();
     generateEvolutionStep2();
@@ -119,67 +157,67 @@ function renderEvolutionPopUpCard() {
 }
 
 function renderNoEvolution() {
-  document.getElementById("arrowEvolution1").classList.add("d-none");
-  document.getElementById("arrowEvolution2").classList.add("d-none");
+  document.getElementById("arrowEvolution1PopUpCard").classList.add("d-none");
+  document.getElementById("arrowEvolution2PopUpCard").classList.add("d-none");
   if (theLanguageIsGerman === false) {
-    document.getElementById("noEvolution").innerHTML = `<b> The Pokemon does not evolve </b>`;
+    document.getElementById("noEvolutionPopUpCard").innerHTML = `<b> The Pokemon does not evolve </b>`;
   } else {
-    document.getElementById("noEvolution").innerHTML = `<b> Das Pokemon entwickelt sich nicht </b>`;
+    document.getElementById("noEvolutionPopUpCard").innerHTML = `<b> Das Pokemon entwickelt sich nicht </b>`;
   }
 }
 
 function renderGeneraPokemonPopUpCard() {
-  document.getElementById("genraPokemon").innerHTML = generaOfThePokemon;
+  document.getElementById("genraPokemonPopUpCard").innerHTML = generaOfThePokemon;
 }
 
 function renderDescriptionAbout() {
   if (theLanguageIsGerman === false) {
-    document.getElementById("generaDescription").innerHTML = "Species";
-    document.getElementById("heightDescription").innerHTML = "Height";
-    document.getElementById("weightDescription").innerHTML = "Weight";
-    document.getElementById("habitatDescription").innerHTML = "Habitat";
-    document.getElementById("experienceDescription").innerHTML = "Experience";
+    document.getElementById("generaDescriptionPopUpCard").innerHTML = "Species";
+    document.getElementById("heightDescriptionPopUpCard").innerHTML = "Height";
+    document.getElementById("weightDescriptionPopUpCard").innerHTML = "Weight";
+    document.getElementById("habitatDescriptionPopUpCard").innerHTML = "Habitat";
+    document.getElementById("experienceDescriptionPopUpCard").innerHTML = "Experience";
   } else {
-    document.getElementById("generaDescription").innerHTML = "Spezies";
-    document.getElementById("heightDescription").innerHTML = "Höhe";
-    document.getElementById("weightDescription").innerHTML = "Gewicht";
-    document.getElementById("habitatDescription").innerHTML = "Lebensraum";
-    document.getElementById("experienceDescription").innerHTML = "Erfahrung";
+    document.getElementById("generaDescriptionPopUpCard").innerHTML = "Spezies";
+    document.getElementById("heightDescriptionPopUpCard").innerHTML = "Höhe";
+    document.getElementById("weightDescriptionPopUpCard").innerHTML = "Gewicht";
+    document.getElementById("habitatDescriptionPopUpCard").innerHTML = "Lebensraum";
+    document.getElementById("experienceDescriptionPopUpCard").innerHTML = "Erfahrung";
   }
 }
 
 function renderHeightPokemonPopUpCard() {
-  document.getElementById("heightMeter").innerHTML = `${heightFromPokemonMeter} m`;
-  document.getElementById("heightFoot").innerHTML = `${heightFromPokemonootFoot} ft`;
+  document.getElementById("heightMeterPopUpCard").innerHTML = `${heightFromPokemonMeter} m`;
+  document.getElementById("heightFootPopUpCard").innerHTML = `${heightFromPokemonootFoot} ft`;
 }
 
 function renderWeightPokemonPopUpCard() {
-  document.getElementById("weightKilogram").innerHTML = `${weightFromPokemonKilogram} kg`;
-  document.getElementById("weightPound").innerHTML = `${weightFromPokemonootPound} lbs`;
+  document.getElementById("weightKilogramPopUpCard").innerHTML = `${weightFromPokemonKilogram} kg`;
+  document.getElementById("weightPoundPopUpCard").innerHTML = `${weightFromPokemonootPound} lbs`;
 }
 
 function renderHabitatPopUpCard() {
   if (!specificationsOfThePokemon["habitat"]) {
-    document.getElementById("habitatContainer").classList.add("d-none");
+    document.getElementById("habitatContainerPopUpCard").classList.add("d-none");
   } else {
-    document.getElementById("habitatContainer").classList.remove("d-none");
-    document.getElementById("habitatPokemon").innerHTML = habitatFromPokemon;
+    document.getElementById("habitatContainerPopUpCard").classList.remove("d-none");
+    document.getElementById("habitatPokemonPopUpCard").innerHTML = habitatFromPokemon;
   }
 }
 
 function renderExperiencePokemonPopUpCard() {
   if (!currentPokemon["base_experience"]) {
-    document.getElementById("experienceContainer").classList.add("d-none");
+    document.getElementById("experienceContainerPopUpCard").classList.add("d-none");
   } else {
-    document.getElementById("experienceContainer").classList.remove("d-none");
-    document.getElementById("experiencePokemon").innerHTML = `${currentPokemon["base_experience"]} exp`;
+    document.getElementById("experienceContainerPopUpCard").classList.remove("d-none");
+    document.getElementById("experiencePokemonPopUpCard").innerHTML = `${currentPokemon["base_experience"]} exp`;
   }
 }
 
 function renderRemoveSelectionCSS() {
-  document.getElementById("aboutSelection").classList.remove("border-bottom");
-  document.getElementById("statsSelection").classList.remove("border-bottom");
-  document.getElementById("evolutionSelection").classList.remove("border-bottom");
+  document.getElementById("aboutSelectionPopUpCard").classList.remove("border-bottom");
+  document.getElementById("statsSelectionPopUpCard").classList.remove("border-bottom");
+  document.getElementById("evolutionSelectionPopUpCard").classList.remove("border-bottom");
 }
 
 function renderChart() {

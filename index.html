@@ -10,22 +10,23 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/fonts.css" />
   </head>
-  <body onload="loadPokemon()">
+  <body onload="init()">
     <header>
       <div class="language-selection">
         <img onclick="renderGerman()" class="language-img" src="./img/german.png" alt="germanflag" />
         <img onclick="renderEnglish()" class="language-img" src="./img/english.png" alt="englishflag" />
       </div>
     </header>
-    <div id="pokedex">
+    <div id="pokedex"></div>
+    <div id="pokemonCard" onclick="renderPopUpCard()">
+      <div class="description-container">
+        <b id="namePokemon"></b>
+        <b id="idPokemon"></b>
+        <div id="typePokemon"></div>
+      </div>
+      <div>
+        <img id="pokemonImage" />
+      </div>
     </div>
-    
- 
-    
-    
-
-   
-     
-    
   </body>
 </html>
