@@ -1,16 +1,9 @@
 ////////////////render functions are located in the script.js file and the generation functions and global variables in the data.js file////////////////
 
-
-async function init() {
-  await generateImportFromAPI();
-  loadPokemon();
-  renderBackgroundColor();
-  renderNamePokemon();
-  renderIdPokemon();
-  renderImagePokemon();
-  renderType();
+function init() {
+  document.getElementById("pokedex").innerHTML = ``;
+  renderCard();
 }
-
 
 function loadPokemon() {
   generateNamePokemon();
@@ -21,60 +14,78 @@ function loadPokemon() {
   generateWeightPokemon();
   generateHabitat();
   generateDataChart();
-  console.log("Loaded loadPokemon", currentPokemon);
-  console.log(specificationsOfThePokemon);
 }
 
-function renderPopUpCard() {
-  loadPokemon();
-  document.getElementById("pokedex").innerHTML = generatePopUpCard();
-  document.getElementById("descriptionContainer").innerHTML = generateAboutSectionPopUpCard();
-  renderNamePokemonPopUpCard();
-  renderIdPokemonPopUpCard();
-  renderTypePopUpCard();
-  renderImagePokemonPopUpCard();
-  renderBackgroundColorPopUpCard();
-  renderSelectionPopUpCard();
-  renderAboutPopUpCard();
+async function renderCard() {
+  for (let i = 1; i < 50; i++) {
+    await generateImportFromAPI(i);
+    document.getElementById("pokedex").innerHTML += generateCard(i);
+    loadPokemon(i);
+    renderBackgroundColor(i);
+    renderNamePokemon(i);
+    renderIdPokemon(i);
+    renderImagePokemon(i);
+    renderType(i);
+  }
+}
+
+async function renderPopUpCard(id) {
+  await generateImportFromAPI(id);
+  loadPokemon(id);
+  document.getElementById("popUpCard").innerHTML = generatePopUpCard(id);
+  document.getElementById("descriptionContainerPopUpCard").innerHTML = generateAboutSectionPopUpCard(id);
+  renderNamePokemonPopUpCard(id);
+  renderIdPokemonPopUpCard(id);
+  renderTypePopUpCard(id);
+  renderImagePokemonPopUpCard(id);
+  renderBackgroundColorPopUpCard(id);
+  renderSelectionPopUpCard(id);
+  renderAboutPopUpCard(id);
+}
+
+function closePopUpCard() {
+  document.getElementById("popUpCard").innerHTML = ``;
 }
 
 function renderEnglish() {
   emptyArray();
   theLanguageIsGerman = false;
-  loadPokemon();
+  init();
 }
 
 function renderGerman() {
   emptyArray();
   theLanguageIsGerman = true;
-  loadPokemon();
+  init();
 }
 
 function emptyArray() {
   typeFromPokemon = [];
+  apiLabels = [];
+  apiData = [];
 }
 
-function renderNamePokemon() {
-  document.getElementById("namePokemon").innerHTML = nameFromPokemon;
+function renderNamePokemon(id) {
+  document.getElementById(`namePokemon${id}`).innerHTML = nameFromPokemon;
 }
 
 function renderNamePokemonPopUpCard() {
   document.getElementById("pokemonNamePopUpCard").innerHTML = nameFromPokemon;
 }
 
-function renderIdPokemon() {
-  document.getElementById("idPokemon").innerHTML = `#${currentPokemon["id"]}`;
+function renderIdPokemon(id) {
+  document.getElementById(`idPokemon${id}`).innerHTML = `#${currentPokemon["id"]}`;
 }
 
 function renderIdPokemonPopUpCard() {
   document.getElementById("idPokemonPopUpCard").innerHTML = `#${currentPokemon["id"]}`;
 }
 
-function renderType() {
-  document.getElementById("typePokemon").innerHTML = ``;
+function renderType(id) {
+  document.getElementById(`typePokemon${id}`).innerHTML = ``;
   for (let i = 0; i < typeFromPokemon.length; i++) {
     let type = typeFromPokemon[i];
-    document.getElementById("typePokemon").innerHTML += `<span class="type-pokemon-text">${type}</span>`;
+    document.getElementById(`typePokemon${id}`).innerHTML += `<span class="type-pokemon-text">${type}</span>`;
   }
 }
 
@@ -86,19 +97,19 @@ function renderTypePopUpCard() {
   }
 }
 
-function renderBackgroundColor() {
-  document.getElementById("pokemonCard").style = backgroundColor;
+function renderBackgroundColor(id) {
+  document.getElementById(`pokemonCard${id}`).style = backgroundColor;
 }
 
 function renderBackgroundColorPopUpCard() {
   document.getElementById("headContainerPopUpCard").style = backgroundColor;
 }
-function renderImagePokemon() {
+function renderImagePokemon(id) {
   let imageFromPokemon = currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
   if (imageFromPokemon) {
-    document.getElementById("pokemonImage").src = imageFromPokemon;
+    document.getElementById(`pokemonImage${id}`).src = imageFromPokemon;
   } else {
-    document.getElementById("pokemonImage").src = currentPokemon["sprites"]["other"]["home"]["front_default"];
+    document.getElementById(`pokemonImage${id}`).src = currentPokemon["sprites"]["other"]["home"]["front_default"];
   }
 }
 
@@ -251,3 +262,7 @@ function renderChart() {
     },
   });
 }
+
+function  doNotClose(event) {
+  event.stopPropagation();
+ }

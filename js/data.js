@@ -23,8 +23,8 @@ let evolutionOfThePokemon;
 let evolutionStep2;
 let evolutionStep3;
 
-async function generateImportFromAPI() {
-  let url = `https://pokeapi.co/api/v2/pokemon/9/`;
+async function generateImportFromAPI(id) {
+  let url = `https://pokeapi.co/api/v2/pokemon/${id}/`;
   currentPokemon = await generateJSON(url);
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
@@ -215,9 +215,23 @@ function generateHabitat() {
   }
 }
 
-function generatePopUpCard() {
+function generateCard(id) {
+  return /*html*/ `  <div id="pokemonCard${id}" onclick="renderPopUpCard(${id})" class="pokemon-card">
+  <div class="description-container">
+    <b id="namePokemon${id}" class="name-pokemon"></b>
+    <b id="idPokemon${id}" class="id-pokemon"></b>
+    <div id="typePokemon${id}" class="type-pokemon"></div>
+  </div>
+  <div>
+    <img id="pokemonImage${id}" class="pokemon-image" />
+  </div>`;
+}
+
+function generatePopUpCard(id) {
   return /*html*/ `
-     <div class="pop-up-card">
+  <div class="pop-up-card-container" onclick="closePopUpCard()">
+     <img src="./img/cross.png" onclick="closePopUpCard()" alt="cross" class="close-cross-pop-up-card">
+     <div onclick="doNotClose(event)" class="pop-up-card">
       <div id="headContainerPopUpCard">
         <div class="head-line-container">
           <h1 id="pokemonNamePopUpCard"></h1>
@@ -232,13 +246,14 @@ function generatePopUpCard() {
       </div>
       <div class="info-container">
         <div class="card-selection-container">
-          <b onclick="renderPopUpCard()" id="aboutSelectionPopUpCard" class="selection-text"></b>
+          <b onclick="renderPopUpCard(${id})" id="aboutSelectionPopUpCard" class="selection-text"></b>
           <b onclick="renderStatsPopUpCard()" id="statsSelectionPopUpCard" class="selection-text"></b>
           <b onclick="renderEvolutionPopUpCard()" id="evolutionSelectionPopUpCard" class="selection-text"></b>
         </div>
         <div id="descriptionContainerPopUpCard" class="description-container-pop-up-card"></div>
       </div>
-    </div> `;
+    </div>
+  </div> `;
 }
 
 function generateAboutSectionPopUpCard() {
