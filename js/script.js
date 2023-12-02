@@ -41,10 +41,25 @@ async function renderPopUpCard(id) {
   renderBackgroundColorPopUpCard(id);
   renderSelectionPopUpCard(id);
   renderAboutPopUpCard(id);
+  if (id > 1){
+    document.getElementById("arrowLeftPopUpCard").classList.remove("d-none"); 
+  } else {
+    document.getElementById("arrowLeftPopUpCard").classList.add("d-none"); 
+  }
 }
 
 function closePopUpCard() {
   document.getElementById("popUpCard").innerHTML = ``;
+}
+
+function renderPreviousPokemon(id) {
+    id--
+    renderPopUpCard(id) 
+}
+
+function renderNextPokemon(id) {
+ id++
+ renderPopUpCard(id)
 }
 
 function renderEnglish() {
