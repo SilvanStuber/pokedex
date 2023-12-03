@@ -3,6 +3,7 @@
 async function init() {
   document.getElementById("pokedex").innerHTML = ``;
   await generateImportPokemon();
+  renderLoadScreen();
   renderCard();
 }
 
@@ -30,19 +31,44 @@ async function renderCard() {
   }
 }
 
-window.onscroll = function() {
+function doNotClose(event) {
+  event.stopPropagation();
+}
+
+function emptyArray() {
+  typeFromPokemon = [];
+  apiLabels = [];
+  apiData = [];
+  startPokemon = 1;
+}
+
+window.onscroll = function () {
   if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
-      if (window.innerHeight + window.scrollY === document.body.scrollHeight) {
-          renderNextPokemon();
-      }
+    if (window.innerHeight + window.scrollY === document.body.scrollHeight) {
+      renderNextPokemon();
+    }
   }
 };
 
 function renderNextPokemon() {
-  startPokemon = startPokemon + 25;
-  amountPokemon = amountPokemon + 25; 
+  startPokemon = startPokemon + 50;
+  amountPokemon = amountPokemon + 50;
   console.log(amountPokemon);
+  renderLoadScreen();
   renderCard();
+}
+
+function renderLoadScreen() {
+  document.getElementById("loadScreen").innerHTML = generateLoadScreen();
+  document.body.style.overflow = "hidden";
+  setTimeout(() => {
+    renderCloseLoadScreen();
+  }, 1000);
+}
+
+function renderCloseLoadScreen() {
+  document.body.style.overflow = "";
+  document.getElementById("loadScreen").innerHTML = "";
 }
 
 async function renderPopUpCard(id) {
@@ -57,10 +83,10 @@ async function renderPopUpCard(id) {
   renderBackgroundColorPopUpCard(id);
   renderSelectionPopUpCard(id);
   renderAboutPopUpCard(id);
-  if (id > 1){
-    document.getElementById("arrowLeftPopUpCard").classList.remove("d-none"); 
+  if (id > 1) {
+    document.getElementById("arrowLeftPopUpCard").classList.remove("d-none");
   } else {
-    document.getElementById("arrowLeftPopUpCard").classList.add("d-none"); 
+    document.getElementById("arrowLeftPopUpCard").classList.add("d-none");
   }
 }
 
@@ -69,13 +95,13 @@ function closePopUpCard() {
 }
 
 function renderPreviousPokemonPopUpCard(id) {
-    id--
-    renderPopUpCard(id) 
+  id--;
+  renderPopUpCard(id);
 }
 
 function renderNextPokemonPopUpCard(id) {
- id++
- renderPopUpCard(id)
+  id++;
+  renderPopUpCard(id);
 }
 
 function renderEnglish() {
@@ -88,12 +114,6 @@ function renderGerman() {
   emptyArray();
   theLanguageIsGerman = true;
   init();
-}
-
-function emptyArray() {
-  typeFromPokemon = [];
-  apiLabels = [];
-  apiData = [];
 }
 
 function renderNamePokemon(id) {
@@ -294,6 +314,4 @@ function renderChart() {
   });
 }
 
-function  doNotClose(event) {
-  event.stopPropagation();
- }
+

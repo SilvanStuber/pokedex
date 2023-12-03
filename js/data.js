@@ -3,7 +3,7 @@
 let url;
 let urlFromSpecies;
 let startPokemon = 1;
-let amountPokemon = 25;
+let amountPokemon = 50;
 let currentPokemon;
 let currentIdPokemon;
 let nameUrlFromPokemon;
@@ -224,6 +224,22 @@ function generateHabitat() {
       }
     }
   }
+}
+
+function generateLoadScreen() {
+  let textLoadin 
+  if (theLanguageIsGerman === false) {
+    textLoadin = "Pokémon are loaded...";
+  } else {
+    textLoadin = "Pokemon werden geladen...";
+  }
+  return /*html*/ `
+  <div class="loader-container" id="loadScreen">
+  <img src="./img/pokemonball.png" alt="pokemonball">
+  <b>${textLoadin}</b>
+  <div class="loader"></div>
+  </div>
+  `;
 }
 
 function generateCard(id) {
