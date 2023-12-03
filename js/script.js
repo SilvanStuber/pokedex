@@ -1,7 +1,8 @@
 ////////////////render functions are located in the script.js file and the generation functions and global variables in the data.js file////////////////
 
-function init() {
+async function init() {
   document.getElementById("pokedex").innerHTML = ``;
+  await generateImportPokemon();
   renderCard();
 }
 
@@ -17,8 +18,8 @@ function loadPokemon() {
 }
 
 async function renderCard() {
-  for (let i = 995; i < 1001; i++) {
-    await generateImportFromAPI(i);
+  for (let i = startPokemon; i < amountPokemon; i++) {
+    await generateImportData(i);
     document.getElementById("pokedex").innerHTML += generateCard(i);
     loadPokemon(i);
     renderBackgroundColor(i);
@@ -29,8 +30,23 @@ async function renderCard() {
   }
 }
 
+window.onscroll = function() {
+  if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
+      if (window.innerHeight + window.scrollY === document.body.scrollHeight) {
+          renderNextPokemon();
+      }
+  }
+};
+
+function renderNextPokemon() {
+  startPokemon = startPokemon + 25;
+  amountPokemon = amountPokemon + 25; 
+  console.log(amountPokemon);
+  renderCard();
+}
+
 async function renderPopUpCard(id) {
-  await generateImportFromAPI(id);
+  await generateImportData(id);
   loadPokemon(id);
   document.getElementById("popUpCard").innerHTML = generatePopUpCard(id);
   document.getElementById("descriptionContainerPopUpCard").innerHTML = generateAboutSectionPopUpCard(id);
@@ -52,12 +68,12 @@ function closePopUpCard() {
   document.getElementById("popUpCard").innerHTML = ``;
 }
 
-function renderPreviousPokemon(id) {
+function renderPreviousPokemonPopUpCard(id) {
     id--
     renderPopUpCard(id) 
 }
 
-function renderNextPokemon(id) {
+function renderNextPokemonPopUpCard(id) {
  id++
  renderPopUpCard(id)
 }
@@ -89,11 +105,11 @@ function renderNamePokemonPopUpCard() {
 }
 
 function renderIdPokemon(id) {
-  document.getElementById(`idPokemon${id}`).innerHTML = `#${currentPokemon["id"]}`;
+  document.getElementById(`idPokemon${id}`).innerHTML = `#${currentIdPokemon["id"]}`;
 }
 
 function renderIdPokemonPopUpCard() {
-  document.getElementById("idPokemonPopUpCard").innerHTML = `#${currentPokemon["id"]}`;
+  document.getElementById("idPokemonPopUpCard").innerHTML = `#${currentIdPokemon["id"]}`;
 }
 
 function renderType(id) {
@@ -120,20 +136,20 @@ function renderBackgroundColorPopUpCard() {
   document.getElementById("headContainerPopUpCard").style = backgroundColor;
 }
 function renderImagePokemon(id) {
-  let imageFromPokemon = currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
+  let imageFromPokemon = currentIdPokemon["sprites"]["other"]["dream_world"]["front_default"];
   if (imageFromPokemon) {
     document.getElementById(`pokemonImage${id}`).src = imageFromPokemon;
   } else {
-    document.getElementById(`pokemonImage${id}`).src = currentPokemon["sprites"]["other"]["home"]["front_default"];
+    document.getElementById(`pokemonImage${id}`).src = currentIdPokemon["sprites"]["other"]["home"]["front_default"];
   }
 }
 
 function renderImagePokemonPopUpCard() {
-  let imageFromPokemon = currentPokemon["sprites"]["other"]["dream_world"]["front_default"];
+  let imageFromPokemon = currentIdPokemon["sprites"]["other"]["dream_world"]["front_default"];
   if (imageFromPokemon) {
     document.getElementById("pokemonImagePopUpCard").src = imageFromPokemon;
   } else {
-    document.getElementById("pokemonImagePopUpCard").src = currentPokemon["sprites"]["other"]["home"]["front_default"];
+    document.getElementById("pokemonImagePopUpCard").src = currentIdPokemon["sprites"]["other"]["home"]["front_default"];
   }
 }
 
@@ -232,11 +248,11 @@ function renderHabitatPopUpCard() {
 }
 
 function renderExperiencePokemonPopUpCard() {
-  if (!currentPokemon["base_experience"]) {
+  if (!currentIdPokemon["base_experience"]) {
     document.getElementById("experienceContainerPopUpCard").classList.add("d-none");
   } else {
     document.getElementById("experienceContainerPopUpCard").classList.remove("d-none");
-    document.getElementById("experiencePokemonPopUpCard").innerHTML = `${currentPokemon["base_experience"]} exp`;
+    document.getElementById("experiencePokemonPopUpCard").innerHTML = `${currentIdPokemon["base_experience"]} exp`;
   }
 }
 

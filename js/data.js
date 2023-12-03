@@ -2,7 +2,10 @@
 
 let url;
 let urlFromSpecies;
+let startPokemon = 1;
+let amountPokemon = 25;
 let currentPokemon;
+let currentIdPokemon;
 let nameUrlFromPokemon;
 let specificationsOfThePokemon;
 let nameFromPokemon;
@@ -23,19 +26,27 @@ let evolutionOfThePokemon;
 let evolutionStep2;
 let evolutionStep3;
 
-async function generateImportFromAPI(id) {
-  let url = `https://pokeapi.co/api/v2/pokemon/${id}/`;
-  currentPokemon = await generateJSON(url);
+async function generateImportPokemon() {
+  let urlPokemon = `https://pokeapi.co/api/v2/pokemon?limit=${amountPokemon}&offset=70`;
+  currentPokemon = await generateJSON(urlPokemon);
+  //console.log(currentPokemon);
+}
+
+async function generateImportData(id) {
+  let urlIdPokemon = `https://pokeapi.co/api/v2/pokemon/${id}/`;
+  currentIdPokemon = await generateJSON(urlIdPokemon);
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
   specificationsOfThePokemon = await generateJSON(urlFromSpecies);
   let urlFromEvolution = specificationsOfThePokemon["evolution_chain"]["url"];
   evolutionOfThePokemon = await generateJSON(urlFromEvolution);
-  console.log("evolution_chain", evolutionOfThePokemon);
+  console.log(amountPokemon);
+  //console.log("evolution_chain", evolutionOfThePokemon);
+  //console.log("id", currentIdPokemon)
 }
 
 function generateUrlNamePokemon() {
-  nameUrlFromPokemon = currentPokemon["name"];
+  nameUrlFromPokemon = currentIdPokemon["name"];
 }
 
 function generateNamePokemon() {
@@ -55,12 +66,12 @@ function generateGeneraPokemon() {
 }
 
 function generateHeightPokemon() {
-  heightFromPokemonMeter = currentPokemon["height"] / 10;
+  heightFromPokemonMeter = currentIdPokemon["height"] / 10;
   heightFromPokemonootFoot = (heightFromPokemonMeter * 3.281).toFixed(1);
 }
 
 function generateWeightPokemon() {
-  weightFromPokemonKilogram = currentPokemon["weight"] / 10;
+  weightFromPokemonKilogram = currentIdPokemon["weight"] / 10;
   weightFromPokemonootPound = (weightFromPokemonKilogram * 2.205).toFixed(1);
 }
 
@@ -105,8 +116,8 @@ function generateBackgroundColor() {
 
 function generateType() {
   typeFromPokemon = [];
-  for (let i = 0; i < currentPokemon["types"].length; i++) {
-    const typePokemon = currentPokemon["types"][i]["type"]["name"];
+  for (let i = 0; i < currentIdPokemon["types"].length; i++) {
+    const typePokemon = currentIdPokemon["types"][i]["type"]["name"];
     if (theLanguageIsGerman === false) {
       let type = typePokemon.charAt(0).toUpperCase() + typePokemon.slice(1);
       typeFromPokemon.push(type);
@@ -247,8 +258,8 @@ function generatePopUpCard(id) {
       </div>
       <div class="info-container">
       <div class="arrow-pop-up-container">
-      <img onclick="renderPreviousPokemon(${id})" id="arrowLeftPopUpCard" src="./img/arrowleft.png" alt="arrowleft" class="arrow-left-pop-up-card">
-      <img onclick="renderNextPokemon(${id})" id="arrowRightPopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-right-pop-up-card">
+      <img onclick="renderPreviousPokemonPopUpCard(${id})" id="arrowLeftPopUpCard" src="./img/arrowleft.png" alt="arrowleft" class="arrow-left-pop-up-card">
+      <img onclick="renderNextPokemonPopUpCard(${id})" id="arrowRightPopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-right-pop-up-card">
       </div>
       <div class="card-selection-container">
           <b onclick="renderPopUpCard(${id})" id="aboutSelectionPopUpCard" class="selection-text"></b>
@@ -292,9 +303,9 @@ function generateAboutSectionPopUpCard() {
 function generateDataChart() {
   apiLabels = [];
   apiData = [];
-  for (let i = 0; i < currentPokemon["stats"].length; i++) {
-    let labelsFromAPI = currentPokemon["stats"][i]["stat"]["name"];
-    let dataFromAPI = currentPokemon["stats"][i]["base_stat"];
+  for (let i = 0; i < currentIdPokemon["stats"].length; i++) {
+    let labelsFromAPI = currentIdPokemon["stats"][i]["stat"]["name"];
+    let dataFromAPI = currentIdPokemon["stats"][i]["base_stat"];
     if (theLanguageIsGerman === false) {
       let labels = labelsFromAPI.charAt(0).toUpperCase() + labelsFromAPI.slice(1);
       apiLabels.push(labels);
@@ -316,8 +327,6 @@ function generateDataChart() {
       }
       if (labelsFromAPI === "speed") {
         apiLabels.push("Geschwindigkeit");
-      } else {
-        console.log("Stats not available");
       }
     }
     apiData.push(dataFromAPI);
