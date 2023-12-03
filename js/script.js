@@ -53,7 +53,7 @@ window.onscroll = function () {
 function renderNextPokemon() {
   startPokemon = startPokemon + 50;
   amountPokemon = amountPokemon + 50;
-  console.log(amountPokemon);
+  //console.log(amountPokemon);
   renderLoadScreen();
   renderCard();
 }
@@ -63,7 +63,7 @@ function renderLoadScreen() {
   document.body.style.overflow = "hidden";
   setTimeout(() => {
     renderCloseLoadScreen();
-  }, 1000);
+  }, 3000);
 }
 
 function renderCloseLoadScreen() {

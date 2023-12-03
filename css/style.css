@@ -7,6 +7,28 @@ body {
   font-family: "Open Sans";
 }
 
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: #d61309 #ffffff;
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #d61309;
+  border-radius: 10px;
+  border: 3px solid #000000;
+}
+
 header {
   height: 10vh;
   width: 100%;
@@ -134,7 +156,7 @@ header {
   height: 100%;
   background-color: #4caf50;
   border-radius: 5px;
-  animation: load 1s linear infinite;
+  animation: load 3s linear infinite;
 }
 
 @keyframes load {

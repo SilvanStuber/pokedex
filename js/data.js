@@ -40,7 +40,7 @@ async function generateImportData(id) {
   specificationsOfThePokemon = await generateJSON(urlFromSpecies);
   let urlFromEvolution = specificationsOfThePokemon["evolution_chain"]["url"];
   evolutionOfThePokemon = await generateJSON(urlFromEvolution);
-  console.log(amountPokemon);
+  //console.log(amountPokemon);
   //console.log("evolution_chain", evolutionOfThePokemon);
   //console.log("id", currentIdPokemon)
 }
@@ -227,11 +227,11 @@ function generateHabitat() {
 }
 
 function generateLoadScreen() {
-  let textLoadin 
+  let textLoadin;
   if (theLanguageIsGerman === false) {
     textLoadin = "Pokémon are loaded...";
   } else {
-    textLoadin = "Pokemon werden geladen...";
+    textLoadin = "Pokémon werden geladen...";
   }
   return /*html*/ `
   <div class="loader-container" id="loadScreen">
