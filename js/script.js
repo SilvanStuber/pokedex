@@ -29,10 +29,10 @@ function loadPokemon() {
 
 async function searchPokemon() {
   renderLoadScreen();
-  let searchInputNumber = +document.getElementById("inputField").value;
+  searchInputNumber = +document.getElementById("inputField").value;
   document.getElementById("pokedex").innerHTML = ``;
   if (searchInputNumber) {
-    await renderCard(searchInputNumber).catch(errorFunction);
+    await renderCard(searchInputNumber).catch(pokemonNotFoundNumber);
   } else {
     renderContent();
   }
@@ -43,6 +43,14 @@ async function searchPokemon() {
 
   // }
   renderCloseLoadScreen();
+}
+
+function pokemonNotFoundNumber() {
+  if (!theLanguageIsGerman) {
+    document.getElementById("pokedex").innerHTML = `${searchInputNumber} not found :(`;
+  } else {
+    document.getElementById("pokedex").innerHTML = `${searchInputNumber} nicht gefunden :(`;
+  }
 }
 
 async function renderCard(i) {
@@ -76,7 +84,7 @@ function renderNextPokemon() {
   amountPokemon = amountPokemon + 29;
   //console.log(amountPokemon);
   renderLoadScreen();
-  renderCard();
+  renderContent();
 }
 
 function renderLoadScreen() {

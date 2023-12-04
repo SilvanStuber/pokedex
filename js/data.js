@@ -27,6 +27,7 @@ let evolutionOfThePokemon;
 let evolutionStep2;
 let evolutionStep3;
 let isSearching = false;
+let searchInputNumber;
 
 async function generateImportPokemon() {
   let urlPokemon = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`;
