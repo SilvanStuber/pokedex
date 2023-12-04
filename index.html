@@ -6,6 +6,7 @@
     <title>Pokédex</title>
     <script src="./js/script.js"></script>
     <script src="./js/data.js"></script>
+    <script src="./js/templates.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="./css/style.css" />
     <link rel="stylesheet" href="./css/fonts.css" />
@@ -18,9 +19,7 @@
         <img onclick="renderEnglish()" class="language-img" src="./img/english.png" alt="englishflag" />
       </div>
     </header>
-    <div class="input-container">
-      <input onkeyup="searchPokemon()" type="text" id="inputField" placeholder="Pokémon-Namen auf Englisch oder die Pokémon-Id">
-    </div>
+    <div id="inputFieldContainer" class="input-container"></div>
     <div id="loadScreen"></div>
     <div id="popUpCard"></div>
     <div id="pokedex"></div>

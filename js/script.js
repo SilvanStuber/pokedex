@@ -4,6 +4,7 @@ async function init() {
   renderLoadScreen();
   document.getElementById("pokedex").innerHTML = ``;
   await generateImportPokemon().catch(errorFunction);
+  renderInputField();
   renderContent();
   renderLoadButton();
 }
@@ -90,6 +91,10 @@ function renderNextPokemon() {
 function renderLoadScreen() {
   document.getElementById("loadScreen").innerHTML = generateLoadScreen();
   document.body.style.overflow = "hidden";
+}
+
+function renderInputField() {
+  document.getElementById("inputFieldContainer").innerHTML = generateInputField();
 }
 
 function renderLoadButton() {

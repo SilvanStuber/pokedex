@@ -96,14 +96,6 @@ async function generateJSON(url) {
   return (currentJSON = await response.json());
 }
 
-function generateLoadButton() {
-  if (!theLanguageIsGerman) {
-    return /*htmal*/ `<button onclick="renderNextPokemon()" class="load-button">Load more Pokémon</button>`;
-  } else {
-    return /*htmal*/ `<button onclick="renderNextPokemon()" class="load-button">Weitere Pokémon laden</button>`;
-  }
-}
-
 function generateBackgroundColor() {
   if (!specificationsOfThePokemon["color"]) {
     console.log("color not available");
@@ -153,68 +145,74 @@ function generateType() {
         let type = typePokemon.charAt(0).toUpperCase() + typePokemon.slice(1);
         typeFromPokemon.push(type);
       } else {
-        if (typePokemon === "normal") {
-          typeFromPokemon.push("Normal");
-        }
-        if (typePokemon === "fighting") {
-          typeFromPokemon.push("Kampf");
-        }
-        if (typePokemon === "flying") {
-          typeFromPokemon.push("Flug");
-        }
-        if (typePokemon === "poison") {
-          typeFromPokemon.push("Gift");
-        }
-        if (typePokemon === "ground") {
-          typeFromPokemon.push("Boden");
-        }
-        if (typePokemon === "rock") {
-          typeFromPokemon.push("Gestein");
-        }
-        if (typePokemon === "bug") {
-          typeFromPokemon.push("Käfer");
-        }
-        if (typePokemon === "ghost") {
-          typeFromPokemon.push("Geist");
-        }
-        if (typePokemon === "steel") {
-          typeFromPokemon.push("Stahl");
-        }
-        if (typePokemon === "fire") {
-          typeFromPokemon.push("Feuer");
-        }
-        if (typePokemon === "water") {
-          typeFromPokemon.push("Wasser");
-        }
-        if (typePokemon === "grass") {
-          typeFromPokemon.push("Pflanze");
-        }
-        if (typePokemon === "electric") {
-          typeFromPokemon.push("Elektro");
-        }
-        if (typePokemon === "psychic") {
-          typeFromPokemon.push("Psycho");
-        }
-        if (typePokemon === "ice") {
-          typeFromPokemon.push("Eis");
-        }
-        if (typePokemon === "dragon") {
-          typeFromPokemon.push("Drache");
-        }
-        if (typePokemon === "dark") {
-          typeFromPokemon.push("Unlicht");
-        }
-        if (typePokemon === "fairy") {
-          typeFromPokemon.push("Fee");
-        }
-        if (typePokemon === "unknown") {
-          typeFromPokemon.push("Unbekannt");
-        }
-        if (typePokemon === "shadow") {
-          typeFromPokemon.push("Schatten");
-        }
+        generateGermanType(typePokemon);
       }
     }
+  }
+}
+
+function generateGermanType(typePokemon) {
+  switch (typePokemon) {
+    case "normal":
+      typeFromPokemon.push("Normal");
+      break;
+    case "fighting":
+      typeFromPokemon.push("Kampf");
+      break;
+    case "flying":
+      typeFromPokemon.push("Flug");
+      break;
+    case "poison":
+      typeFromPokemon.push("Gift");
+      break;
+    case "ground":
+      typeFromPokemon.push("Boden");
+      break;
+    case "rock":
+      typeFromPokemon.push("Gestein");
+      break;
+    case "bug":
+      typeFromPokemon.push("Käfer");
+      break;
+    case "ghost":
+      typeFromPokemon.push("Geist");
+      break;
+    case "steel":
+      typeFromPokemon.push("Stahl");
+      break;
+    case "fire":
+      typeFromPokemon.push("Feuer");
+      break;
+    case "water":
+      typeFromPokemon.push("Wasser");
+      break;
+    case "grass":
+      typeFromPokemon.push("Pflanze");
+      break;
+    case "electric":
+      typeFromPokemon.push("Elektro");
+      break;
+    case "psychic":
+      typeFromPokemon.push("Psycho");
+      break;
+    case "ice":
+      typeFromPokemon.push("Eis");
+      break;
+    case "dragon":
+      typeFromPokemon.push("Drache");
+      break;
+    case "dark":
+      typeFromPokemon.push("Unlicht");
+      break;
+    case "fairy":
+      typeFromPokemon.push("Fee");
+      break;
+    case "unknown":
+      typeFromPokemon.push("Unbekannt");
+      break;
+    case "shadow":
+      typeFromPokemon.push("Schatten");
+      break;
   }
 }
 
@@ -258,96 +256,6 @@ function generateHabitat() {
   }
 }
 
-function generateLoadScreen() {
-  let textLoadin;
-  if (!theLanguageIsGerman) {
-    textLoadin = "Pokémon are loaded...";
-  } else {
-    textLoadin = "Pokémon werden geladen...";
-  }
-  return /*html*/ `
-  <div class="loader-container" id="loadScreen">
-  <img src="./img/pokemonball.png" alt="pokemonball">
-  <b>${textLoadin}</b>
-  <div class="loader"></div>
-  </div>
-  `;
-}
-
-function generateCard(id) {
-  return /*html*/ `  <div id="pokemonCard${id}" onclick="renderPopUpCard(${id})" class="pokemon-card">
-  <div class="description-container">
-    <b id="namePokemon${id}" class="name-pokemon"></b>
-    <b id="idPokemon${id}" class="id-pokemon"></b>
-    <div id="typePokemon${id}" class="type-pokemon"></div>
-  </div>
-  <div>
-    <img id="pokemonImage${id}" class="pokemon-image" />
-  </div>`;
-}
-
-function generatePopUpCard(id) {
-  return /*html*/ `
-  <div class="pop-up-card-container" onclick="closePopUpCard()">
-     <img onclick="closePopUpCard()" src="./img/cross.png" alt="cross" class="close-cross-pop-up-card">
-     
-     <div onclick="doNotClose(event)" class="pop-up-card">
-      <div id="headContainerPopUpCard">
-        <div class="head-line-container">
-          <h1 id="pokemonNamePopUpCard"></h1>
-          <h1 id="idPokemonPopUpCard"></h1>
-        </div>
-        <div>
-          <div id="typePokemonPopUpCard"></div>
-        </div>
-        <div class="image-container">  
-          <img id="pokemonImagePopUpCard" />    
-        </div>
-      </div>
-      <div class="info-container">
-      <div class="arrow-pop-up-container">
-      <img onclick="renderPreviousPokemonPopUpCard(${id})" id="arrowLeftPopUpCard" src="./img/arrowleft.png" alt="arrowleft" class="arrow-left-pop-up-card">
-      <img onclick="renderNextPokemonPopUpCard(${id})" id="arrowRightPopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-right-pop-up-card">
-      </div>
-      <div class="card-selection-container">
-          <b onclick="renderPopUpCard(${id})" id="aboutSelectionPopUpCard" class="selection-text"></b>
-          <b onclick="renderStatsPopUpCard()" id="statsSelectionPopUpCard" class="selection-text"></b>
-          <b onclick="renderEvolutionPopUpCard()" id="evolutionSelectionPopUpCard" class="selection-text"></b>
-        </div>
-        <div id="descriptionContainerPopUpCard" class="description-container-pop-up-card"></div>
-      </div>
-    </div>
-    
-  </div> `;
-}
-
-function generateAboutSectionPopUpCard() {
-  return /*html*/ `
-    <div class="about-text">
-        <b id="generaDescriptionPopUpCard" class="bold-text"></b>
-        <span id="genraPokemonPopUpCard"></span>
-      </div>
-      <div class="about-text">
-        <b id="heightDescriptionPopUpCard" class="bold-text"></b>
-        <span id="heightMeterPopUpCard"></span>
-        <span id="heightFootPopUpCard"></span>
-      </div>
-      <div class="about-text">
-        <b id="weightDescriptionPopUpCard" class="bold-text"></b>
-        <span id="weightKilogramPopUpCard"></span>
-        <span id="weightPoundPopUpCard"></span>
-      </div>
-      <div id="habitatContainerPopUpCard" class="about-text">
-        <b id="habitatDescriptionPopUpCard" class="bold-text"></b>
-        <span id="habitatPokemonPopUpCard"></span>
-      </div>
-      <div id="experienceContainerPopUpCard" class="about-text">
-        <b id="experienceDescriptionPopUpCard" class="bold-text"></b>
-        <span id="experiencePokemonPopUpCard"></span>
-      </div>
-  `;
-}
-
 function generateDataChart() {
   apiLabels = [];
   apiData = [];
@@ -381,46 +289,13 @@ function generateDataChart() {
   }
 }
 
-function generateStatsPopUpCard() {
-  return /*html*/ `
-   <div>
-      <canvas id="myChart"></canvas>
-   </div>`;
-}
-
-function generateEvolutionSectionPopUpCard() {
-  return /*html*/ `
-     <div  id="noEvolutionPopUpCard" class="evolution-container">
-      <div class="evolution-pokemon-container">
-        <img id="imgStep1PopUpCard" class="img-evolution">
-        <b id="textStep1PopUpCard"></b>
-      </div>
-      <img id="arrowEvolution1PopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-evolution">
-      <div class="evolution-pokemon-container">
-        <img id="imgStep2PopUpCard" class="img-evolution">
-        <b id="textStep2PopUpCard"></b>
-      </div>
-        <img id="arrowEvolution2PopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-evolution">
-      <div class="evolution-pokemon-container">
-        <img id="imgStep3PopUpCard" class="img-evolution">
-        <b id="textStep3PopUpCard"></b>
-      </div>
-    </div> 
- `;
-}
-
 async function generateEvolutionStep1() {
   let urlPokemonStep1 = evolutionOfThePokemon["chain"]["species"]["url"];
   let pokemonStep1 = await generateJSON(urlPokemonStep1);
   let idPokemonStep1 = pokemonStep1["id"];
   let urlIdStep1 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep1}/`;
   let currentPokemonStep1 = await generateJSON(urlIdStep1);
-  let imageFromPokemonStep1 = currentPokemonStep1["sprites"]["other"]["dream_world"]["front_default"];
-  if (imageFromPokemonStep1) {
-    document.getElementById("imgStep1PopUpCard").src = imageFromPokemonStep1;
-  } else {
-    document.getElementById("imgStep1PopUpCard").src = currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
-  }
+  document.getElementById("imgStep1PopUpCard").src = currentPokemonStep1["sprites"]["other"]["official-artwork"]["front_default"];
   if (!theLanguageIsGerman) {
     document.getElementById("textStep1PopUpCard").innerHTML = pokemonStep1["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
   } else {
@@ -434,12 +309,7 @@ async function generateEvolutionStep2() {
   let idPokemonStep2 = pokemonStep2["id"];
   let urlIdStep2 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep2}/`;
   let currentPokemonStep2 = await generateJSON(urlIdStep2);
-  let imageFromPokemonStep2 = currentPokemonStep2["sprites"]["other"]["dream_world"]["front_default"];
-  if (imageFromPokemonStep2) {
-    document.getElementById("imgStep2PopUpCard").src = imageFromPokemonStep2;
-  } else {
-    document.getElementById("imgStep2PopUpCard").src = currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
-  }
+  document.getElementById("imgStep2PopUpCard").src = currentPokemonStep2["sprites"]["other"]["official-artwork"]["front_default"];
   if (!theLanguageIsGerman) {
     document.getElementById("textStep2PopUpCard").innerHTML = pokemonStep2["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
   } else {
@@ -457,12 +327,7 @@ async function generateEvolutionStep3() {
     let idPokemonStep3 = pokemonStep3["id"];
     let urlIdStep3 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep3}/`;
     let currentPokemonStep3 = await generateJSON(urlIdStep3);
-    let imageFromPokemonStep3 = currentPokemonStep3["sprites"]["other"]["dream_world"]["front_default"];
-    if (imageFromPokemonStep3) {
-      document.getElementById("imgStep3PopUpCard").src = imageFromPokemonStep3;
-    } else {
-      document.getElementById("imgStep3PopUpCard").src = currentPokemonStep3["sprites"]["other"]["home"]["front_default"];
-    }
+    document.getElementById("imgStep3PopUpCard").src = currentPokemonStep3["sprites"]["other"]["official-artwork"]["front_default"];
     if (!theLanguageIsGerman) {
       document.getElementById("textStep3PopUpCard").innerHTML = pokemonStep3["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
     } else {
