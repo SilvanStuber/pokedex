@@ -1,10 +1,19 @@
 ////////////////render functions are located in the script.js file and the generation functions and global variables in the data.js file////////////////
 
 async function init() {
-  document.getElementById("pokedex").innerHTML = ``;
-  await generateImportPokemon();
   renderLoadScreen();
-  renderCard();
+  document.getElementById("pokedex").innerHTML = ``;
+  await generateImportPokemon().catch(errorFunction);
+  renderContent();
+  renderLoadButton();
+}
+
+async function renderContent() {
+  renderLoadScreen();
+  for (let i = startPokemon; i < amountPokemon; i++) {
+    await renderCard(i).catch(errorFunction);
+  }
+  renderCloseLoadScreen();
 }
 
 function loadPokemon() {
@@ -18,17 +27,33 @@ function loadPokemon() {
   generateDataChart();
 }
 
-async function renderCard() {
-  for (let i = startPokemon; i < amountPokemon; i++) {
-    await generateImportData(i);
-    document.getElementById("pokedex").innerHTML += generateCard(i);
-    loadPokemon(i);
-    renderBackgroundColor(i);
-    renderNamePokemon(i);
-    renderIdPokemon(i);
-    renderImagePokemon(i);
-    renderType(i);
+async function searchPokemon() {
+  renderLoadScreen();
+  let searchInputNumber = +document.getElementById("inputField").value;
+  document.getElementById("pokedex").innerHTML = ``;
+  if (searchInputNumber) {
+    await renderCard(searchInputNumber).catch(errorFunction);
+  } else {
+    renderContent();
   }
+  //for (let i = 1; i < currentPokemon["results"]["length"]; i++) {
+
+  //await generateImportData(i);
+  //if (idFromPokemon === searchInputNumber){
+
+  // }
+  renderCloseLoadScreen();
+}
+
+async function renderCard(i) {
+  await generateImportData(i).catch(errorFunction);
+  document.getElementById("pokedex").innerHTML += generateCard(i);
+  loadPokemon(i);
+  renderBackgroundColor(i);
+  renderNamePokemon(i);
+  renderIdPokemon(i);
+  renderImagePokemon(i);
+  renderType(i);
 }
 
 function doNotClose(event) {
@@ -42,17 +67,13 @@ function emptyArray() {
   startPokemon = 1;
 }
 
-window.onscroll = function () {
-  if (window.innerHeight + window.scrollY >= document.body.scrollHeight) {
-    if (window.innerHeight + window.scrollY === document.body.scrollHeight) {
-      renderNextPokemon();
-    }
-  }
-};
+function errorFunction() {
+  console.log("not available");
+}
 
 function renderNextPokemon() {
-  startPokemon = startPokemon + 50;
-  amountPokemon = amountPokemon + 50;
+  startPokemon = startPokemon + 29;
+  amountPokemon = amountPokemon + 29;
   //console.log(amountPokemon);
   renderLoadScreen();
   renderCard();
@@ -61,9 +82,10 @@ function renderNextPokemon() {
 function renderLoadScreen() {
   document.getElementById("loadScreen").innerHTML = generateLoadScreen();
   document.body.style.overflow = "hidden";
-  setTimeout(() => {
-    renderCloseLoadScreen();
-  }, 3000);
+}
+
+function renderLoadButton() {
+  document.getElementById("buttonLoadPokemon").innerHTML = generateLoadButton();
 }
 
 function renderCloseLoadScreen() {
@@ -72,7 +94,7 @@ function renderCloseLoadScreen() {
 }
 
 async function renderPopUpCard(id) {
-  await generateImportData(id);
+  await generateImportData(id).catch(errorFunction);
   loadPokemon(id);
   document.getElementById("popUpCard").innerHTML = generatePopUpCard(id);
   document.getElementById("descriptionContainerPopUpCard").innerHTML = generateAboutSectionPopUpCard(id);
@@ -156,25 +178,15 @@ function renderBackgroundColorPopUpCard() {
   document.getElementById("headContainerPopUpCard").style = backgroundColor;
 }
 function renderImagePokemon(id) {
-  let imageFromPokemon = currentIdPokemon["sprites"]["other"]["dream_world"]["front_default"];
-  if (imageFromPokemon) {
-    document.getElementById(`pokemonImage${id}`).src = imageFromPokemon;
-  } else {
-    document.getElementById(`pokemonImage${id}`).src = currentIdPokemon["sprites"]["other"]["home"]["front_default"];
-  }
+  document.getElementById(`pokemonImage${id}`).src = currentIdPokemon["sprites"]["other"]["official-artwork"]["front_default"];
 }
 
 function renderImagePokemonPopUpCard() {
-  let imageFromPokemon = currentIdPokemon["sprites"]["other"]["dream_world"]["front_default"];
-  if (imageFromPokemon) {
-    document.getElementById("pokemonImagePopUpCard").src = imageFromPokemon;
-  } else {
-    document.getElementById("pokemonImagePopUpCard").src = currentIdPokemon["sprites"]["other"]["home"]["front_default"];
-  }
+  document.getElementById("pokemonImagePopUpCard").src = currentIdPokemon["sprites"]["other"]["official-artwork"]["front_default"];
 }
 
 function renderSelectionPopUpCard() {
-  if (theLanguageIsGerman === false) {
+  if (!theLanguageIsGerman) {
     document.getElementById("aboutSelectionPopUpCard").innerHTML = "About";
     document.getElementById("statsSelectionPopUpCard").innerHTML = "Base Stats";
     document.getElementById("evolutionSelectionPopUpCard").innerHTML = "Evolution";
@@ -221,7 +233,7 @@ function renderEvolutionPopUpCard() {
 function renderNoEvolution() {
   document.getElementById("arrowEvolution1PopUpCard").classList.add("d-none");
   document.getElementById("arrowEvolution2PopUpCard").classList.add("d-none");
-  if (theLanguageIsGerman === false) {
+  if (!theLanguageIsGerman) {
     document.getElementById("noEvolutionPopUpCard").innerHTML = `<b> The Pokemon does not evolve </b>`;
   } else {
     document.getElementById("noEvolutionPopUpCard").innerHTML = `<b> Das Pokemon entwickelt sich nicht </b>`;
@@ -233,7 +245,7 @@ function renderGeneraPokemonPopUpCard() {
 }
 
 function renderDescriptionAbout() {
-  if (theLanguageIsGerman === false) {
+  if (!theLanguageIsGerman) {
     document.getElementById("generaDescriptionPopUpCard").innerHTML = "Species";
     document.getElementById("heightDescriptionPopUpCard").innerHTML = "Height";
     document.getElementById("weightDescriptionPopUpCard").innerHTML = "Weight";
@@ -313,5 +325,3 @@ function renderChart() {
     },
   });
 }
-
-

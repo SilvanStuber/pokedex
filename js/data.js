@@ -3,12 +3,13 @@
 let url;
 let urlFromSpecies;
 let startPokemon = 1;
-let amountPokemon = 50;
+let amountPokemon = 30;
 let currentPokemon;
 let currentIdPokemon;
 let nameUrlFromPokemon;
 let specificationsOfThePokemon;
 let nameFromPokemon;
+let idFromPokemon;
 let backgroundColor;
 let generaOfThePokemon;
 let heightFromPokemonMeter;
@@ -19,30 +20,32 @@ let typeFromPokemon = [];
 let experienceFromPokemon;
 let habitatPokemon;
 let habitatFromPokemon;
-let theLanguageIsGerman = true;
+let theLanguageIsGerman = false;
 let apiLabels = [];
 let apiData = [];
 let evolutionOfThePokemon;
 let evolutionStep2;
 let evolutionStep3;
+let isSearching = false;
 
 async function generateImportPokemon() {
-  let urlPokemon = `https://pokeapi.co/api/v2/pokemon?limit=${amountPokemon}&offset=70`;
-  currentPokemon = await generateJSON(urlPokemon);
-  //console.log(currentPokemon);
+  let urlPokemon = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`;
+  currentPokemon = await generateJSON(urlPokemon).catch(errorFunction);
+  console.log("first", currentPokemon);
 }
 
 async function generateImportData(id) {
   let urlIdPokemon = `https://pokeapi.co/api/v2/pokemon/${id}/`;
-  currentIdPokemon = await generateJSON(urlIdPokemon);
+  currentIdPokemon = await generateJSON(urlIdPokemon).catch(errorFunction);
+  idFromPokemon = currentIdPokemon["id"];
   generateUrlNamePokemon();
   let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
-  specificationsOfThePokemon = await generateJSON(urlFromSpecies);
+  specificationsOfThePokemon = await generateJSON(urlFromSpecies).catch(errorFunction);
   let urlFromEvolution = specificationsOfThePokemon["evolution_chain"]["url"];
-  evolutionOfThePokemon = await generateJSON(urlFromEvolution);
-  //console.log(amountPokemon);
-  //console.log("evolution_chain", evolutionOfThePokemon);
-  //console.log("id", currentIdPokemon)
+  evolutionOfThePokemon = await generateJSON(urlFromEvolution).catch(errorFunction);
+  console.log(amountPokemon);
+  console.log("evolution_chain", evolutionOfThePokemon);
+  console.log("id", currentIdPokemon);
 }
 
 function generateUrlNamePokemon() {
@@ -50,18 +53,30 @@ function generateUrlNamePokemon() {
 }
 
 function generateNamePokemon() {
-  if (theLanguageIsGerman === false) {
-    nameFromPokemon = specificationsOfThePokemon["names"]["8"]["name"];
+  if (!specificationsOfThePokemon["names"]) {
+    console.log("names not available");
   } else {
-    nameFromPokemon = specificationsOfThePokemon["names"]["5"]["name"];
+    if (!theLanguageIsGerman) {
+      nameFromPokemon = specificationsOfThePokemon["names"]["8"]["name"];
+    } else {
+      nameFromPokemon = specificationsOfThePokemon["names"]["5"]["name"];
+    }
   }
 }
 
 function generateGeneraPokemon() {
-  if (theLanguageIsGerman === false) {
-    generaOfThePokemon = specificationsOfThePokemon["genera"]["7"]["genus"];
+  if (!theLanguageIsGerman) {
+    if (!specificationsOfThePokemon["genera"]["7"]) {
+      console.log("genera not available");
+    } else {
+      generaOfThePokemon = specificationsOfThePokemon["genera"]["7"]["genus"];
+    }
   } else {
-    generaOfThePokemon = specificationsOfThePokemon["genera"]["4"]["genus"];
+    if (!specificationsOfThePokemon["genera"]["4"]) {
+      console.log("genera not available");
+    } else {
+      generaOfThePokemon = specificationsOfThePokemon["genera"]["4"]["genus"];
+    }
   }
 }
 
@@ -76,111 +91,127 @@ function generateWeightPokemon() {
 }
 
 async function generateJSON(url) {
-  let response = await fetch(url);
+  let response = await fetch(url).catch(errorFunction);
   return (currentJSON = await response.json());
 }
 
+function generateLoadButton() {
+  if (!theLanguageIsGerman) {
+    return /*htmal*/ `<button onclick="renderNextPokemon()" class="load-button">Load more Pokémon</button>`;
+  } else {
+    return /*htmal*/ `<button onclick="renderNextPokemon()" class="load-button">Weitere Pokémon laden</button>`;
+  }
+}
+
 function generateBackgroundColor() {
-  backgroundColorFromPokemon = specificationsOfThePokemon["color"]["name"];
-  if (backgroundColorFromPokemon === "white") {
-    backgroundColor = `background-color: rgb(165, 196, 243);`;
-  }
-  if (backgroundColorFromPokemon === "red") {
-    backgroundColor = `background-color: rgb(251,108,108);`;
-  }
-  if (backgroundColorFromPokemon === "green") {
-    backgroundColor = `background-color: rgb(72,207,177);`;
-  }
-  if (backgroundColorFromPokemon === "blue") {
-    backgroundColor = `background-color: rgb(118,189,254);`;
-  }
-  if (backgroundColorFromPokemon === "brown") {
-    backgroundColor = `background-color: rgb(137,80,48);`;
-  }
-  if (backgroundColorFromPokemon === "yellow") {
-    backgroundColor = `background-color: rgb(255,216,111);`;
-  }
-  if (backgroundColorFromPokemon === "gray") {
-    backgroundColor = `background-color: rgb(102, 103, 106);`;
-  }
-  if (backgroundColorFromPokemon === "purple") {
-    backgroundColor = `background-color: rgb(65,5,114);`;
-  }
-  if (backgroundColorFromPokemon === "pink") {
-    backgroundColor = `background-color: rgb(247,102,173);`;
-  }
-  if (backgroundColorFromPokemon === "black") {
-    backgroundColor = `background-color: rgb(0,0,0);`;
+  if (!specificationsOfThePokemon["color"]) {
+    console.log("color not available");
+  } else {
+    backgroundColorFromPokemon = specificationsOfThePokemon["color"]["name"];
+    if (backgroundColorFromPokemon === "white") {
+      backgroundColor = `background-color: rgb(165, 196, 243);`;
+    }
+    if (backgroundColorFromPokemon === "red") {
+      backgroundColor = `background-color: rgb(251,108,108);`;
+    }
+    if (backgroundColorFromPokemon === "green") {
+      backgroundColor = `background-color: rgb(72,207,177);`;
+    }
+    if (backgroundColorFromPokemon === "blue") {
+      backgroundColor = `background-color: rgb(118,189,254);`;
+    }
+    if (backgroundColorFromPokemon === "brown") {
+      backgroundColor = `background-color: rgb(137,80,48);`;
+    }
+    if (backgroundColorFromPokemon === "yellow") {
+      backgroundColor = `background-color: rgb(255,216,111);`;
+    }
+    if (backgroundColorFromPokemon === "gray") {
+      backgroundColor = `background-color: rgb(102, 103, 106);`;
+    }
+    if (backgroundColorFromPokemon === "purple") {
+      backgroundColor = `background-color: rgb(65,5,114);`;
+    }
+    if (backgroundColorFromPokemon === "pink") {
+      backgroundColor = `background-color: rgb(247,102,173);`;
+    }
+    if (backgroundColorFromPokemon === "black") {
+      backgroundColor = `background-color: rgb(0,0,0);`;
+    }
   }
 }
 
 function generateType() {
   typeFromPokemon = [];
   for (let i = 0; i < currentIdPokemon["types"].length; i++) {
-    const typePokemon = currentIdPokemon["types"][i]["type"]["name"];
-    if (theLanguageIsGerman === false) {
-      let type = typePokemon.charAt(0).toUpperCase() + typePokemon.slice(1);
-      typeFromPokemon.push(type);
+    if (!currentIdPokemon["types"][i]["type"]) {
+      console.log("types not available");
     } else {
-      if (typePokemon === "normal") {
-        typeFromPokemon.push("Normal");
-      }
-      if (typePokemon === "fighting") {
-        typeFromPokemon.push("Kampf");
-      }
-      if (typePokemon === "flying") {
-        typeFromPokemon.push("Flug");
-      }
-      if (typePokemon === "poison") {
-        typeFromPokemon.push("Gift");
-      }
-      if (typePokemon === "ground") {
-        typeFromPokemon.push("Boden");
-      }
-      if (typePokemon === "rock") {
-        typeFromPokemon.push("Gestein");
-      }
-      if (typePokemon === "bug") {
-        typeFromPokemon.push("Käfer");
-      }
-      if (typePokemon === "ghost") {
-        typeFromPokemon.push("Geist");
-      }
-      if (typePokemon === "steel") {
-        typeFromPokemon.push("Stahl");
-      }
-      if (typePokemon === "fire") {
-        typeFromPokemon.push("Feuer");
-      }
-      if (typePokemon === "water") {
-        typeFromPokemon.push("Wasser");
-      }
-      if (typePokemon === "grass") {
-        typeFromPokemon.push("Pflanze");
-      }
-      if (typePokemon === "electric") {
-        typeFromPokemon.push("Elektro");
-      }
-      if (typePokemon === "psychic") {
-        typeFromPokemon.push("Psycho");
-      }
-      if (typePokemon === "ice") {
-        typeFromPokemon.push("Eis");
-      }
-      if (typePokemon === "dragon") {
-        typeFromPokemon.push("Drache");
-      }
-      if (typePokemon === "dark") {
-        typeFromPokemon.push("Unlicht");
-      }
-      if (typePokemon === "fairy") {
-        typeFromPokemon.push("Fee");
-      }
-      if (typePokemon === "unknown") {
-        typeFromPokemon.push("Unbekannt");
-      }
-      if (typePokemon === "shadow") {
-        typeFromPokemon.push("Schatten");
+      const typePokemon = currentIdPokemon["types"][i]["type"]["name"];
+      if (!theLanguageIsGerman) {
+        let type = typePokemon.charAt(0).toUpperCase() + typePokemon.slice(1);
+        typeFromPokemon.push(type);
+      } else {
+        if (typePokemon === "normal") {
+          typeFromPokemon.push("Normal");
+        }
+        if (typePokemon === "fighting") {
+          typeFromPokemon.push("Kampf");
+        }
+        if (typePokemon === "flying") {
+          typeFromPokemon.push("Flug");
+        }
+        if (typePokemon === "poison") {
+          typeFromPokemon.push("Gift");
+        }
+        if (typePokemon === "ground") {
+          typeFromPokemon.push("Boden");
+        }
+        if (typePokemon === "rock") {
+          typeFromPokemon.push("Gestein");
+        }
+        if (typePokemon === "bug") {
+          typeFromPokemon.push("Käfer");
+        }
+        if (typePokemon === "ghost") {
+          typeFromPokemon.push("Geist");
+        }
+        if (typePokemon === "steel") {
+          typeFromPokemon.push("Stahl");
+        }
+        if (typePokemon === "fire") {
+          typeFromPokemon.push("Feuer");
+        }
+        if (typePokemon === "water") {
+          typeFromPokemon.push("Wasser");
+        }
+        if (typePokemon === "grass") {
+          typeFromPokemon.push("Pflanze");
+        }
+        if (typePokemon === "electric") {
+          typeFromPokemon.push("Elektro");
+        }
+        if (typePokemon === "psychic") {
+          typeFromPokemon.push("Psycho");
+        }
+        if (typePokemon === "ice") {
+          typeFromPokemon.push("Eis");
+        }
+        if (typePokemon === "dragon") {
+          typeFromPokemon.push("Drache");
+        }
+        if (typePokemon === "dark") {
+          typeFromPokemon.push("Unlicht");
+        }
+        if (typePokemon === "fairy") {
+          typeFromPokemon.push("Fee");
+        }
+        if (typePokemon === "unknown") {
+          typeFromPokemon.push("Unbekannt");
+        }
+        if (typePokemon === "shadow") {
+          typeFromPokemon.push("Schatten");
+        }
       }
     }
   }
@@ -191,7 +222,7 @@ function generateHabitat() {
     console.log("habitat not available");
   } else {
     habitatPokemon = specificationsOfThePokemon["habitat"]["name"];
-    if (theLanguageIsGerman === false) {
+    if (!theLanguageIsGerman) {
       let habitat = habitatPokemon.charAt(0).toUpperCase() + habitatPokemon.slice(1);
       habitatFromPokemon = habitat;
     } else {
@@ -228,7 +259,7 @@ function generateHabitat() {
 
 function generateLoadScreen() {
   let textLoadin;
-  if (theLanguageIsGerman === false) {
+  if (!theLanguageIsGerman) {
     textLoadin = "Pokémon are loaded...";
   } else {
     textLoadin = "Pokémon werden geladen...";
@@ -322,7 +353,7 @@ function generateDataChart() {
   for (let i = 0; i < currentIdPokemon["stats"].length; i++) {
     let labelsFromAPI = currentIdPokemon["stats"][i]["stat"]["name"];
     let dataFromAPI = currentIdPokemon["stats"][i]["base_stat"];
-    if (theLanguageIsGerman === false) {
+    if (!theLanguageIsGerman) {
       let labels = labelsFromAPI.charAt(0).toUpperCase() + labelsFromAPI.slice(1);
       apiLabels.push(labels);
     } else {
@@ -389,7 +420,7 @@ async function generateEvolutionStep1() {
   } else {
     document.getElementById("imgStep1PopUpCard").src = currentPokemonStep1["sprites"]["other"]["home"]["front_default"];
   }
-  if (theLanguageIsGerman === false) {
+  if (!theLanguageIsGerman) {
     document.getElementById("textStep1PopUpCard").innerHTML = pokemonStep1["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
   } else {
     document.getElementById("textStep1PopUpCard").innerHTML = pokemonStep1["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
@@ -408,7 +439,7 @@ async function generateEvolutionStep2() {
   } else {
     document.getElementById("imgStep2PopUpCard").src = currentPokemonStep2["sprites"]["other"]["home"]["front_default"];
   }
-  if (theLanguageIsGerman === false) {
+  if (!theLanguageIsGerman) {
     document.getElementById("textStep2PopUpCard").innerHTML = pokemonStep2["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
   } else {
     document.getElementById("textStep2PopUpCard").innerHTML = pokemonStep2["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
@@ -431,7 +462,7 @@ async function generateEvolutionStep3() {
     } else {
       document.getElementById("imgStep3PopUpCard").src = currentPokemonStep3["sprites"]["other"]["home"]["front_default"];
     }
-    if (theLanguageIsGerman === false) {
+    if (!theLanguageIsGerman) {
       document.getElementById("textStep3PopUpCard").innerHTML = pokemonStep3["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
     } else {
       document.getElementById("textStep3PopUpCard").innerHTML = pokemonStep3["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
