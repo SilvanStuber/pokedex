@@ -28,6 +28,17 @@ function loadPokemon() {
   generateDataChart();
 }
 
+async function renderCard(i) {
+  await generateImportData(i).catch(errorFunction);
+  document.getElementById("pokedex").innerHTML += generateCard(i);
+  loadPokemon(i);
+  renderBackgroundColor(i);
+  renderNamePokemon(i);
+  renderIdPokemon(i);
+  renderImagePokemon(i);
+  renderType(i);
+}
+
 async function searchPokemon() {
   renderLoadScreen();
   searchInputNumber = +document.getElementById("inputField").value;
@@ -52,17 +63,6 @@ function pokemonNotFoundNumber() {
   } else {
     document.getElementById("pokedex").innerHTML = `${searchInputNumber} nicht gefunden :(`;
   }
-}
-
-async function renderCard(i) {
-  await generateImportData(i).catch(errorFunction);
-  document.getElementById("pokedex").innerHTML += generateCard(i);
-  loadPokemon(i);
-  renderBackgroundColor(i);
-  renderNamePokemon(i);
-  renderIdPokemon(i);
-  renderImagePokemon(i);
-  renderType(i);
 }
 
 function doNotClose(event) {
@@ -93,17 +93,17 @@ function renderLoadScreen() {
   document.body.style.overflow = "hidden";
 }
 
+function renderCloseLoadScreen() {
+  document.body.style.overflow = "";
+  document.getElementById("loadScreen").innerHTML = "";
+}
+
 function renderInputField() {
   document.getElementById("inputFieldContainer").innerHTML = generateInputField();
 }
 
 function renderLoadButton() {
   document.getElementById("buttonLoadPokemon").innerHTML = generateLoadButton();
-}
-
-function renderCloseLoadScreen() {
-  document.body.style.overflow = "";
-  document.getElementById("loadScreen").innerHTML = "";
 }
 
 async function renderPopUpCard(id) {

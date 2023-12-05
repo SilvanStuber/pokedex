@@ -101,35 +101,37 @@ function generateBackgroundColor() {
     console.log("color not available");
   } else {
     backgroundColorFromPokemon = specificationsOfThePokemon["color"]["name"];
-    if (backgroundColorFromPokemon === "white") {
-      backgroundColor = `background-color: rgb(165, 196, 243);`;
-    }
-    if (backgroundColorFromPokemon === "red") {
-      backgroundColor = `background-color: rgb(251,108,108);`;
-    }
-    if (backgroundColorFromPokemon === "green") {
-      backgroundColor = `background-color: rgb(72,207,177);`;
-    }
-    if (backgroundColorFromPokemon === "blue") {
-      backgroundColor = `background-color: rgb(118,189,254);`;
-    }
-    if (backgroundColorFromPokemon === "brown") {
-      backgroundColor = `background-color: rgb(137,80,48);`;
-    }
-    if (backgroundColorFromPokemon === "yellow") {
-      backgroundColor = `background-color: rgb(255,216,111);`;
-    }
-    if (backgroundColorFromPokemon === "gray") {
-      backgroundColor = `background-color: rgb(102, 103, 106);`;
-    }
-    if (backgroundColorFromPokemon === "purple") {
-      backgroundColor = `background-color: rgb(65,5,114);`;
-    }
-    if (backgroundColorFromPokemon === "pink") {
-      backgroundColor = `background-color: rgb(247,102,173);`;
-    }
-    if (backgroundColorFromPokemon === "black") {
-      backgroundColor = `background-color: rgb(0,0,0);`;
+    switch (backgroundColorFromPokemon) {
+      case "white":
+        backgroundColor = `background-color: rgb(165, 196, 243);`;
+        break;
+      case "red":
+        backgroundColor = `background-color: rgb(251,108,108);`;
+        break;
+      case "green":
+        backgroundColor = `background-color: rgb(72,207,177);`;
+        break;
+      case "blue":
+        backgroundColor = `background-color: rgb(118,189,254);`;
+        break;
+      case "brown":
+        backgroundColor = `background-color: rgb(137,80,48);`;
+        break;
+      case "yellow":
+        backgroundColor = `background-color: rgb(255,216,111);`;
+        break;
+      case "gray":
+        backgroundColor = `background-color: rgb(102, 103, 106);`;
+        break;
+      case "purple":
+        backgroundColor = `background-color: rgb(65,5,114);`;
+        break;
+      case "pink":
+        backgroundColor = `background-color: rgb(247,102,173);`;
+        break;
+      case "black":
+        backgroundColor = `background-color: rgb(0,0,0);`;
+        break;
     }
   }
 }
@@ -225,34 +227,40 @@ function generateHabitat() {
       let habitat = habitatPokemon.charAt(0).toUpperCase() + habitatPokemon.slice(1);
       habitatFromPokemon = habitat;
     } else {
-      if (habitatPokemon === "cave") {
-        habitatFromPokemon = `Höhle`;
-      }
-      if (habitatPokemon === "forest") {
-        habitatFromPokemon = `Wald`;
-      }
-      if (habitatPokemon === "grassland") {
-        habitatFromPokemon = `Wiese`;
-      }
-      if (habitatPokemon === "mountain") {
-        habitatFromPokemon = `Berge`;
-      }
-      if (habitatPokemon === "rare") {
-        habitatFromPokemon = `selten`;
-      }
-      if (habitatPokemon === "rough-terrain") {
-        habitatFromPokemon = `unebenes Gebiet`;
-      }
-      if (habitatPokemon === "sea") {
-        habitatFromPokemon = `Meer`;
-      }
-      if (habitatPokemon === "urban") {
-        habitatFromPokemon = `Stadt`;
-      }
-      if (habitatPokemon === "waters-edge") {
-        habitatFromPokemon = `Gewässerrand`;
-      }
+      generateHabitatGerman(habitatPokemon);
     }
+  }
+}
+
+function generateHabitatGerman(habitatPokemon) {
+  switch (habitatPokemon) {
+    case "cave":
+      habitatFromPokemon = `Höhle`;
+      break;
+    case "forest":
+      habitatFromPokemon = `Wald`;
+      break;
+    case "grassland":
+      habitatFromPokemon = `Wiese`;
+      break;
+    case "mountain":
+      habitatFromPokemon = `Berge`;
+      break;
+    case "rare":
+      habitatFromPokemon = `selten`;
+      break;
+    case "rough-terrain":
+      habitatFromPokemon = `unebenes Gebiet`;
+      break;
+    case "sea":
+      habitatFromPokemon = `Meer`;
+      break;
+    case "urban":
+      habitatFromPokemon = `Stadt`;
+      break;
+    case "waters-edge":
+      habitatFromPokemon = `Gewässerrand`;
+      break;
   }
 }
 
@@ -266,26 +274,32 @@ function generateDataChart() {
       let labels = labelsFromAPI.charAt(0).toUpperCase() + labelsFromAPI.slice(1);
       apiLabels.push(labels);
     } else {
-      if (labelsFromAPI === "hp") {
-        apiLabels.push("Lebenspunkte");
-      }
-      if (labelsFromAPI === "attack") {
-        apiLabels.push("Attacke");
-      }
-      if (labelsFromAPI === "defense") {
-        apiLabels.push("Verteidigung");
-      }
-      if (labelsFromAPI === "special-attack") {
-        apiLabels.push("Spezialangriff");
-      }
-      if (labelsFromAPI === "special-defense") {
-        apiLabels.push("Spezialverteidigung");
-      }
-      if (labelsFromAPI === "speed") {
-        apiLabels.push("Geschwindigkeit");
-      }
+      generateDataChartGerman(labelsFromAPI);
     }
     apiData.push(dataFromAPI);
+  }
+}
+
+function generateDataChartGerman(labelsFromAPI) {
+  switch (labelsFromAPI) {
+    case "hp":
+      apiLabels.push("Lebenspunkte");
+      break;
+    case "attack":
+      apiLabels.push("Attacke");
+      break;
+    case "defense":
+      apiLabels.push("Verteidigung");
+      break;
+    case "special-attack":
+      apiLabels.push("Spezialangriff");
+      break;
+    case "special-defense":
+      apiLabels.push("Spezialverteidigung");
+      break;
+    case "speed":
+      apiLabels.push("Geschwindigkeit");
+      break;
   }
 }
 
