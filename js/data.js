@@ -31,6 +31,7 @@ let searchIdPokemon;
 let pokemonName;
 let resultSearchPokemon = [];
 let idFromTextSearch;
+let searchIsSuccessful = false;
 
 async function generateImportPokemon() {
   let urlPokemon = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`;
@@ -349,16 +350,44 @@ async function generateEvolutionStep3() {
   }
 }
 
-async function generateSearchTextInputg(searchInputText) {
+async function generateSearchTextInputgEnglish(searchInputText) {
+  renderLoadScreenSearch();
   searchInputText = searchInputText.toLowerCase();
-  for (let i = 0; i < 150; i++) {
+  searchIsSuccessful = false;
+  for (let i = 0; i < 1010; i++) {
     let pokemonNameSearch = currentPokemon["results"][i]["name"];
     if (pokemonNameSearch.toLowerCase().includes(searchInputText)) {
-      let pokemonSearchURL = currentPokemon["results"][i]["url"];
-      dataNamePokemon = await generateJSON(pokemonSearchURL);
-      await renderCard(dataNamePokemon["id"]);
-    } else {
-      notFound();
-    }
+      await generateExistingPokemon(i);
+    } 
+  }
+  if (!searchIsSuccessful) {
+    notFound();
   }
 }
+
+async function generateSearchTextInputgGerman(searchInputText) {
+  renderLoadScreenSearch();
+  searchInputText = searchInputText.toLowerCase();
+  searchIsSuccessful = false;
+  for (let i = 0; i < 150; i++) {
+    let pokemonNameSearch = currentPokemon["results"][i]["name"];
+    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${pokemonNameSearch}`;
+    specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);
+    let nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"].toLowerCase();
+    if (nameFromPokemonGerman.toLowerCase().includes(searchInputText)) {
+      await generateExistingPokemon(i);
+    } 
+  }
+  if (!searchIsSuccessful) {
+    notFound();
+  }
+}
+
+async function generateExistingPokemon(i) {
+  let pokemonSearchURL = currentPokemon["results"][i]["url"];
+  dataNamePokemon = await generateJSON(pokemonSearchURL);
+  await renderCard(dataNamePokemon["id"]);
+  searchIsSuccessful = true;
+  renderCloseLoadScreenSearch();
+}
+

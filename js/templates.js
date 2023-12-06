@@ -14,14 +14,23 @@ function generateInputField() {
     }
 }
 
-
 function generateLoadButton() {
+  if (!theLanguageIsGerman) {
+    return /*htmal*/ `<button onclick="init()" class="load-button">Load Pokémon</button>`;
+  } else {
+    return /*htmal*/ `<button onclick="init()" class="load-button">Pokémon laden</button>`;
+  }
+}
+
+
+function generateLoadMoreButton() {
   if (!theLanguageIsGerman) {
     return /*htmal*/ `<button onclick="renderNextPokemon()" class="load-button">Load more Pokémon</button>`;
   } else {
     return /*htmal*/ `<button onclick="renderNextPokemon()" class="load-button">Weitere Pokémon laden</button>`;
   }
 }
+
 
 function generateLoadScreen() {
   let textLoadin;

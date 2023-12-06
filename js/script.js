@@ -4,7 +4,7 @@ async function init() {
   await generateImportPokemon();
   renderInputField();
   renderContent();
-  renderLoadButton();
+  renderLoadMoreButton();
 }
 
 async function renderContent() {
@@ -39,6 +39,7 @@ async function renderCard(i) {
 
 async function searchPokemon() {
   emptyArray();
+  renderLoadButton();
   document.getElementById("pokedex").innerHTML = generateLoadScreenSearch();
   searchInputNumber = +document.getElementById("inputField").value;
   searchInputText = document.getElementById("inputField").value;
@@ -50,11 +51,16 @@ async function searchPokemon() {
       notFound();
     }
   } else {
-    await generateSearchTextInputg(searchInputText);
+    if (!theLanguageIsGerman) {
+      await generateSearchTextInputgEnglish(searchInputText);
+    } else {
+      await generateSearchTextInputgGerman(searchInputText);
+    }
   }
 }
 
 function notFound() {
+  renderCloseLoadScreenSearch();
   if (!theLanguageIsGerman) {
     document.getElementById("pokedex").innerHTML = "not found :(";
   } else {
@@ -96,12 +102,24 @@ function renderCloseLoadScreen() {
   document.getElementById("loadScreen").innerHTML = "";
 }
 
+function renderLoadScreenSearch() {
+  document.getElementById("loadScreenSearch").innerHTML = generateLoadScreenSearch();
+}
+
+function renderCloseLoadScreenSearch() {
+  document.getElementById("loadScreenSearch").innerHTML = "";
+}
+
 function renderInputField() {
   document.getElementById("inputFieldContainer").innerHTML = generateInputField();
 }
 
 function renderLoadButton() {
-  document.getElementById("buttonLoadPokemon").innerHTML = generateLoadButton();
+  document.getElementById("buttonLoadPokemon").innerHTML = generateLoadButton() ;
+}
+
+function renderLoadMoreButton() {
+  document.getElementById("buttonLoadPokemon").innerHTML = generateLoadMoreButton();
 }
 
 async function renderPopUpCard(id) {
