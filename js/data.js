@@ -1,5 +1,3 @@
-////////////////render functions are located in the script.js file and the generation functions and global variables in the data.js file////////////////
-
 let url;
 let urlFromSpecies;
 let startPokemon = 1;
@@ -28,29 +26,30 @@ let evolutionStep2;
 let evolutionStep3;
 let isSearching = false;
 let searchInputNumber;
+let searchInputText;
+let searchIdPokemon;
+let pokemonName;
+let resultSearchPokemon = [];
+let idFromTextSearch;
 
 async function generateImportPokemon() {
   let urlPokemon = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`;
-  currentPokemon = await generateJSON(urlPokemon).catch(errorFunction);
-  console.log("first", currentPokemon);
+  currentPokemon = await generateJSON(urlPokemon);
 }
 
 async function generateImportData(id) {
   let urlIdPokemon = `https://pokeapi.co/api/v2/pokemon/${id}/`;
-  currentIdPokemon = await generateJSON(urlIdPokemon).catch(errorFunction);
+  currentIdPokemon = await generateJSON(urlIdPokemon);
   idFromPokemon = currentIdPokemon["id"];
-  generateUrlNamePokemon();
-  let urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
-  specificationsOfThePokemon = await generateJSON(urlFromSpecies).catch(errorFunction);
-  let urlFromEvolution = specificationsOfThePokemon["evolution_chain"]["url"];
-  evolutionOfThePokemon = await generateJSON(urlFromEvolution).catch(errorFunction);
-  console.log(amountPokemon);
-  console.log("evolution_chain", evolutionOfThePokemon);
-  console.log("id", currentIdPokemon);
-}
-
-function generateUrlNamePokemon() {
   nameUrlFromPokemon = currentIdPokemon["name"];
+  urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
+  specificationsOfThePokemon = await generateJSON(urlFromSpecies);
+  if (!specificationsOfThePokemon) {
+    console.log("evolution not available");
+  } else {
+    let urlFromEvolution = specificationsOfThePokemon["evolution_chain"]["url"];
+    evolutionOfThePokemon = await generateJSON(urlFromEvolution);
+  }
 }
 
 function generateNamePokemon() {
@@ -92,7 +91,7 @@ function generateWeightPokemon() {
 }
 
 async function generateJSON(url) {
-  let response = await fetch(url).catch(errorFunction);
+  let response = await fetch(url);
   return (currentJSON = await response.json());
 }
 
@@ -346,6 +345,20 @@ async function generateEvolutionStep3() {
       document.getElementById("textStep3PopUpCard").innerHTML = pokemonStep3["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
     } else {
       document.getElementById("textStep3PopUpCard").innerHTML = pokemonStep3["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
+    }
+  }
+}
+
+async function generateSearchTextInputg(searchInputText) {
+  searchInputText = searchInputText.toLowerCase();
+  for (let i = 0; i < 150; i++) {
+    let pokemonNameSearch = currentPokemon["results"][i]["name"];
+    if (pokemonNameSearch.toLowerCase().includes(searchInputText)) {
+      let pokemonSearchURL = currentPokemon["results"][i]["url"];
+      dataNamePokemon = await generateJSON(pokemonSearchURL);
+      await renderCard(dataNamePokemon["id"]);
+    } else {
+      notFound();
     }
   }
 }

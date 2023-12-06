@@ -1,9 +1,7 @@
-////////////////render functions are located in the script.js file and the generation functions and global variables in the data.js file////////////////
-
 async function init() {
   renderLoadScreen();
   document.getElementById("pokedex").innerHTML = ``;
-  await generateImportPokemon().catch(errorFunction);
+  await generateImportPokemon();
   renderInputField();
   renderContent();
   renderLoadButton();
@@ -12,7 +10,7 @@ async function init() {
 async function renderContent() {
   renderLoadScreen();
   for (let i = startPokemon; i < amountPokemon; i++) {
-    await renderCard(i).catch(errorFunction);
+    await renderCard(i);
   }
   renderCloseLoadScreen();
 }
@@ -29,7 +27,7 @@ function loadPokemon() {
 }
 
 async function renderCard(i) {
-  await generateImportData(i).catch(errorFunction);
+  await generateImportData(i);
   document.getElementById("pokedex").innerHTML += generateCard(i);
   loadPokemon(i);
   renderBackgroundColor(i);
@@ -40,28 +38,27 @@ async function renderCard(i) {
 }
 
 async function searchPokemon() {
-  renderLoadScreen();
+  emptyArray();
+  document.getElementById("pokedex").innerHTML = generateLoadScreenSearch();
   searchInputNumber = +document.getElementById("inputField").value;
-  document.getElementById("pokedex").innerHTML = ``;
+  searchInputText = document.getElementById("inputField").value;
+  document.getElementById("pokedex").innerHTML = "";
   if (searchInputNumber) {
-    await renderCard(searchInputNumber).catch(pokemonNotFoundNumber);
+    if (searchInputNumber < 1011) {
+      await renderCard(searchInputNumber);
+    } else {
+      notFound();
+    }
   } else {
-    renderContent();
+    await generateSearchTextInputg(searchInputText);
   }
-  //for (let i = 1; i < currentPokemon["results"]["length"]; i++) {
-
-  //await generateImportData(i);
-  //if (idFromPokemon === searchInputNumber){
-
-  // }
-  renderCloseLoadScreen();
 }
 
-function pokemonNotFoundNumber() {
+function notFound() {
   if (!theLanguageIsGerman) {
-    document.getElementById("pokedex").innerHTML = `${searchInputNumber} not found :(`;
+    document.getElementById("pokedex").innerHTML = "not found :(";
   } else {
-    document.getElementById("pokedex").innerHTML = `${searchInputNumber} nicht gefunden :(`;
+    document.getElementById("pokedex").innerHTML = "nicht gefunden :(";
   }
 }
 
@@ -73,7 +70,9 @@ function emptyArray() {
   typeFromPokemon = [];
   apiLabels = [];
   apiData = [];
+  resultSearchPokemon = [];
   startPokemon = 1;
+  amountPokemon = 30;
 }
 
 function errorFunction() {
@@ -83,7 +82,6 @@ function errorFunction() {
 function renderNextPokemon() {
   startPokemon = startPokemon + 29;
   amountPokemon = amountPokemon + 29;
-  //console.log(amountPokemon);
   renderLoadScreen();
   renderContent();
 }
@@ -107,7 +105,7 @@ function renderLoadButton() {
 }
 
 async function renderPopUpCard(id) {
-  await generateImportData(id).catch(errorFunction);
+  await generateImportData(id);
   loadPokemon(id);
   document.getElementById("popUpCard").innerHTML = generatePopUpCard(id);
   document.getElementById("descriptionContainerPopUpCard").innerHTML = generateAboutSectionPopUpCard(id);
@@ -210,6 +208,12 @@ function renderSelectionPopUpCard() {
   }
 }
 
+function renderRemoveSelectionCSS() {
+  document.getElementById("aboutSelectionPopUpCard").classList.remove("border-bottom");
+  document.getElementById("statsSelectionPopUpCard").classList.remove("border-bottom");
+  document.getElementById("evolutionSelectionPopUpCard").classList.remove("border-bottom");
+}
+
 function renderAboutPopUpCard() {
   document.getElementById("habitatContainerPopUpCard").classList.remove("d-none");
   document.getElementById("aboutSelectionPopUpCard").classList.add("border-bottom");
@@ -299,12 +303,6 @@ function renderExperiencePokemonPopUpCard() {
     document.getElementById("experienceContainerPopUpCard").classList.remove("d-none");
     document.getElementById("experiencePokemonPopUpCard").innerHTML = `${currentIdPokemon["base_experience"]} exp`;
   }
-}
-
-function renderRemoveSelectionCSS() {
-  document.getElementById("aboutSelectionPopUpCard").classList.remove("border-bottom");
-  document.getElementById("statsSelectionPopUpCard").classList.remove("border-bottom");
-  document.getElementById("evolutionSelectionPopUpCard").classList.remove("border-bottom");
 }
 
 function renderChart() {

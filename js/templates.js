@@ -1,8 +1,16 @@
 function generateInputField() {
     if (!theLanguageIsGerman) {
-        return /*html*/ ` <input onkeyup="searchPokemon()" type="text" id="inputField" placeholder="Pokémon names in English or the Pokémon ID">`;
+        return /*html*/ ` 
+          <form onsubmit="event.preventDefault(); searchPokemon();">
+            <input type="text" id="inputField" placeholder="Pokémon names in English or the Pokémon ID" required>
+            <button>Search</button>
+          </form>`;
     } else {
-    return /*html*/ ` <input onkeyup="searchPokemon()" type="text" id="inputField" placeholder="Pokémon-Namen auf Englisch oder die Pokémon-Id">`;
+    return /*html*/ ` 
+      <form onsubmit="event.preventDefault(); searchPokemon();">
+        <input type="text" id="inputField" placeholder="Pokémon-Namen auf Englisch oder die Pokémon-Id">
+        <button>Suchen</button>
+      </form>`;
     }
 }
 
@@ -24,6 +32,22 @@ function generateLoadScreen() {
   }
   return /*html*/ `
     <div class="loader-container" id="loadScreen">
+    <img src="./img/pokemonball.png" alt="pokemonball">
+    <b>${textLoadin}</b>
+    <div class="loader"></div>
+    </div>
+    `;
+}
+
+function generateLoadScreenSearch() {
+  let textLoadin;
+  if (!theLanguageIsGerman) {
+    textLoadin = "Pokémon are loaded...";
+  } else {
+    textLoadin = "Pokémon werden geladen...";
+  }
+  return /*html*/ `
+    <div class="loader-search-container" id="loadScreen">
     <img src="./img/pokemonball.png" alt="pokemonball">
     <b>${textLoadin}</b>
     <div class="loader"></div>
