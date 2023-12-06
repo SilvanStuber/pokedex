@@ -309,12 +309,9 @@ async function generateEvolutionStep1() {
   let idPokemonStep1 = pokemonStep1["id"];
   let urlIdStep1 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep1}/`;
   let currentPokemonStep1 = await generateJSON(urlIdStep1);
-  document.getElementById("imgStep1PopUpCard").src = currentPokemonStep1["sprites"]["other"]["official-artwork"]["front_default"];
-  if (!theLanguageIsGerman) {
-    document.getElementById("textStep1PopUpCard").innerHTML = pokemonStep1["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
-  } else {
-    document.getElementById("textStep1PopUpCard").innerHTML = pokemonStep1["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep1}</div>`;
-  }
+  let imagePokemonStep1 = currentPokemonStep1["sprites"]["other"]["official-artwork"]["front_default"];
+  namePokemonPopUpCard = generateNamePokemeonEvolution(pokemonStep1);
+  document.getElementById("evolutionStep1").innerHTML = generateEvolutionStep1Content(imagePokemonStep1, namePokemonPopUpCard, idPokemonStep1);
 }
 
 async function generateEvolutionStep2() {
@@ -323,12 +320,9 @@ async function generateEvolutionStep2() {
   let idPokemonStep2 = pokemonStep2["id"];
   let urlIdStep2 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep2}/`;
   let currentPokemonStep2 = await generateJSON(urlIdStep2);
-  document.getElementById("imgStep2PopUpCard").src = currentPokemonStep2["sprites"]["other"]["official-artwork"]["front_default"];
-  if (!theLanguageIsGerman) {
-    document.getElementById("textStep2PopUpCard").innerHTML = pokemonStep2["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
-  } else {
-    document.getElementById("textStep2PopUpCard").innerHTML = pokemonStep2["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep2}</div>`;
-  }
+  let imagePokemonStep2 = currentPokemonStep2["sprites"]["other"]["official-artwork"]["front_default"];
+  let namePokemonPopUpCard = generateNamePokemeonEvolution(pokemonStep2);
+  document.getElementById("evolutionStep2").innerHTML = generateEvolutionStep1Content(imagePokemonStep2, namePokemonPopUpCard, idPokemonStep2);
 }
 
 async function generateEvolutionStep3() {
@@ -341,12 +335,17 @@ async function generateEvolutionStep3() {
     let idPokemonStep3 = pokemonStep3["id"];
     let urlIdStep3 = `https://pokeapi.co/api/v2/pokemon/${idPokemonStep3}/`;
     let currentPokemonStep3 = await generateJSON(urlIdStep3);
-    document.getElementById("imgStep3PopUpCard").src = currentPokemonStep3["sprites"]["other"]["official-artwork"]["front_default"];
-    if (!theLanguageIsGerman) {
-      document.getElementById("textStep3PopUpCard").innerHTML = pokemonStep3["names"]["8"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
-    } else {
-      document.getElementById("textStep3PopUpCard").innerHTML = pokemonStep3["names"]["5"]["name"] + `<div class="id-pokemon-evolution">#${idPokemonStep3}</div>`;
-    }
+    let imagePokemonStep3 = currentPokemonStep3["sprites"]["other"]["official-artwork"]["front_default"];
+    let namePokemonPopUpCard = generateNamePokemeonEvolution(pokemonStep3);
+    document.getElementById("evolutionStep3").innerHTML = generateEvolutionStep1Content(imagePokemonStep3, namePokemonPopUpCard, idPokemonStep3);
+  }
+}
+
+function generateNamePokemeonEvolution(pokemonStep) {
+  if (!theLanguageIsGerman) {
+    return (namePokemonPopUpCard = pokemonStep["names"]["8"]["name"]);
+  } else {
+    return (namePokemonPopUpCard = pokemonStep["names"]["5"]["name"]);
   }
 }
 
@@ -358,7 +357,7 @@ async function generateSearchTextInputgEnglish(searchInputText) {
     let pokemonNameSearch = currentPokemon["results"][i]["name"];
     if (pokemonNameSearch.toLowerCase().includes(searchInputText)) {
       await generateExistingPokemon(i);
-    } 
+    }
   }
   if (!searchIsSuccessful) {
     notFound();
@@ -376,7 +375,7 @@ async function generateSearchTextInputgGerman(searchInputText) {
     let nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"].toLowerCase();
     if (nameFromPokemonGerman.toLowerCase().includes(searchInputText)) {
       await generateExistingPokemon(i);
-    } 
+    }
   }
   if (!searchIsSuccessful) {
     notFound();
@@ -390,4 +389,3 @@ async function generateExistingPokemon(i) {
   searchIsSuccessful = true;
   renderCloseLoadScreenSearch();
 }
-

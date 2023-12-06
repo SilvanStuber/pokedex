@@ -115,7 +115,7 @@ function renderInputField() {
 }
 
 function renderLoadButton() {
-  document.getElementById("buttonLoadPokemon").innerHTML = generateLoadButton() ;
+  document.getElementById("buttonLoadPokemon").innerHTML = generateLoadButton();
 }
 
 function renderLoadMoreButton() {
@@ -143,18 +143,17 @@ function closePopUpCard() {
 function renderPreviousPokemonPopUpCard(id) {
   if (id < 2) {
     id = 1010;
-    } else{
+  } else {
     id--;
-    }
-  
+  }
   renderPopUpCard(id);
 }
 
 function renderNextPokemonPopUpCard(id) {
   if (id > 1009) {
-  id = 1
-  } else{
-  id++;
+    id = 1;
+  } else {
+    id++;
   }
   renderPopUpCard(id);
 }

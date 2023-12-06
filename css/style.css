@@ -379,6 +379,14 @@ input::placeholder {
   flex-direction: column;
   width: 100%;
   gap: 8px;
+  cursor: pointer;
+  transition: all 125ms ease-in-out;
+}
+
+.evolution-pokemon-container:hover {
+  .img-evolution {
+    transform: scale(1.1);
+  }
 }
 
 .img-evolution {
@@ -390,9 +398,11 @@ input::placeholder {
   height: 24px;
 }
 
-.id-pokemon-evolution {
+.id-name-pokemon-evolution {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 #buttonLoadPokemon {

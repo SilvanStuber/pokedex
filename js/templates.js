@@ -2,13 +2,13 @@ function generateInputField() {
     if (!theLanguageIsGerman) {
         return /*html*/ ` 
           <form onsubmit="event.preventDefault(); searchPokemon();">
-            <input type="text" id="inputField" placeholder="Pokémon names in English or the Pokémon ID" required>
+            <input type="text" id="inputField" placeholder="Enter name or ID" required>
             <button>Search</button>
           </form>`;
     } else {
     return /*html*/ ` 
       <form onsubmit="event.preventDefault(); searchPokemon();">
-        <input type="text" id="inputField" placeholder="Pokémon-Namen auf Englisch oder die Pokémon-Id">
+        <input type="text" id="inputField" placeholder="Name oder ID eingeben">
         <button>Suchen</button>
       </form>`;
     }
@@ -80,7 +80,6 @@ function generatePopUpCard(id) {
   return /*html*/ `
     <div class="pop-up-card-container" onclick="closePopUpCard()">
        <img onclick="closePopUpCard()" src="./img/cross.png" alt="cross" class="close-cross-pop-up-card">
-       
        <div onclick="doNotClose(event)" class="pop-up-card">
         <div id="headContainerPopUpCard">
           <div class="head-line-container">
@@ -147,20 +146,27 @@ function generateStatsPopUpCard() {
 function generateEvolutionSectionPopUpCard() {
   return /*html*/ `
        <div  id="noEvolutionPopUpCard" class="evolution-container">
-        <div class="evolution-pokemon-container">
-          <img id="imgStep1PopUpCard" class="img-evolution">
-          <b id="textStep1PopUpCard"></b>
+        <div id="evolutionStep1" class="evolution-pokemon-container">     
         </div>
         <img id="arrowEvolution1PopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-evolution">
-        <div class="evolution-pokemon-container">
-          <img id="imgStep2PopUpCard" class="img-evolution">
-          <b id="textStep2PopUpCard"></b>
+        <div id="evolutionStep2" class="evolution-pokemon-container">
         </div>
           <img id="arrowEvolution2PopUpCard" src="./img/arrowright.png" alt="arrowright" class="arrow-evolution">
-        <div class="evolution-pokemon-container">
-          <img id="imgStep3PopUpCard" class="img-evolution">
-          <b id="textStep3PopUpCard"></b>
+        <div id="evolutionStep3" class="evolution-pokemon-container">
         </div>
       </div> 
    `;
+}
+
+function generateEvolutionStep1Content(imagePokemonStep, namePokemonPopUpCard, idPokemonStep) {
+  return /*html*/ `
+  <div onclick="renderPopUpCard(${idPokemonStep})">
+   <img src="${imagePokemonStep}" class="img-evolution">
+   <div class="id-name-pokemon-evolution ">
+     <b>${namePokemonPopUpCard}</b>
+     <b>#${idPokemonStep}</b>
+   </div>
+   </div>
+  `;
+ 
 }
