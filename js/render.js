@@ -62,9 +62,9 @@ async function searchPokemon() {
 function notFound() {
   renderCloseLoadScreenSearch();
   if (!theLanguageIsGerman) {
-    document.getElementById("pokedex").innerHTML = "not found :(";
+    document.getElementById("pokedex").innerHTML = `<b>not found :(</b>`;
   } else {
-    document.getElementById("pokedex").innerHTML = "nicht gefunden :(";
+    document.getElementById("pokedex").innerHTML = `<b>nicht gefunden :(</b>`;
   }
 }
 

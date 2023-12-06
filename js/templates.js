@@ -3,13 +3,13 @@ function generateInputField() {
         return /*html*/ ` 
           <form onsubmit="event.preventDefault(); searchPokemon();">
             <input type="text" id="inputField" placeholder="Enter name or ID" required>
-            <button>Search</button>
+            <button class="search-button">Search</button>
           </form>`;
     } else {
     return /*html*/ ` 
       <form onsubmit="event.preventDefault(); searchPokemon();">
         <input type="text" id="inputField" placeholder="Name oder ID eingeben">
-        <button>Suchen</button>
+        <button class="search-button">Suchen</button>
       </form>`;
     }
 }
