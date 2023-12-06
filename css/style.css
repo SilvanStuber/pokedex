@@ -270,7 +270,7 @@ input::placeholder {
 }
 
 #pokemonImagePopUpCard {
-  height: 140px;
+  height: 300px;
   padding-top: 12px;
   padding-bottom: 74px;
   z-index: 2;

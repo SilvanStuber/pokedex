@@ -369,7 +369,7 @@ async function generateSearchTextInputgGerman(searchInputText) {
   renderLoadScreenSearch();
   searchInputText = searchInputText.toLowerCase();
   searchIsSuccessful = false;
-  for (let i = 0; i < 150; i++) {
+  for (let i = 0; i < 1010; i++) {
     let pokemonNameSearch = currentPokemon["results"][i]["name"];
     let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${pokemonNameSearch}`;
     specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);

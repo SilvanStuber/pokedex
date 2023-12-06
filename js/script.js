@@ -134,11 +134,6 @@ async function renderPopUpCard(id) {
   renderBackgroundColorPopUpCard(id);
   renderSelectionPopUpCard(id);
   renderAboutPopUpCard(id);
-  if (id > 1) {
-    document.getElementById("arrowLeftPopUpCard").classList.remove("d-none");
-  } else {
-    document.getElementById("arrowLeftPopUpCard").classList.add("d-none");
-  }
 }
 
 function closePopUpCard() {
@@ -146,12 +141,21 @@ function closePopUpCard() {
 }
 
 function renderPreviousPokemonPopUpCard(id) {
-  id--;
+  if (id < 2) {
+    id = 1010;
+    } else{
+    id--;
+    }
+  
   renderPopUpCard(id);
 }
 
 function renderNextPokemonPopUpCard(id) {
+  if (id > 1009) {
+  id = 1
+  } else{
   id++;
+  }
   renderPopUpCard(id);
 }
 
