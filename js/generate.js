@@ -1,3 +1,105 @@
+async function searchPokemon() {
+  emptyArray();
+  myPokemonIsLoaded = false;
+  renderLoadButton();
+  document.getElementById("pokedex").innerHTML = generateLoadScreenSearch();
+  searchInputNumber = +document.getElementById("inputField").value;
+  searchInputText = document.getElementById("inputField").value;
+  document.getElementById("pokedex").innerHTML = "";
+  if (searchInputNumber) {
+    if (searchInputNumber < 1011) {
+      await renderCard(searchInputNumber);
+    } else {
+      notFound();
+    }
+  } else {
+    if (!theLanguageIsGerman) {
+      await generateSearchTextInputgEnglish(searchInputText);
+    } else {
+      await generateSearchTextInputgGerman(searchInputText);
+    }
+  }
+}
+
+function notFound() {
+  renderCloseLoadScreenSearch();
+  if (!theLanguageIsGerman) {
+    document.getElementById("pokedex").innerHTML = `<b>not found :(</b>`;
+  } else {
+    document.getElementById("pokedex").innerHTML = `<b>nicht gefunden :(</b>`;
+  }
+}
+
+function generateFavouriteButton(id) {
+  let index = validationFavorites(id);
+  document.getElementById(`favouriteButtonCard${id}`).src = ``;
+  if (index === -1) {
+    document.getElementById(`favouriteButtonCard${id}`).src = `./img/pokemonballblack.png`;
+  } else {
+    document.getElementById(`favouriteButtonCard${id}`).src = `./img/pokemonball.png`;
+  }
+}
+
+function generateFavouriteButtonPupUpCard(id) {
+  let index = validationFavorites(id);
+  document.getElementById(`favouriteButtonCardPupUpCard${id}`).src = ``;
+  if (index === -1) {
+    document.getElementById(`favouriteButtonCardPupUpCard${id}`).src = `./img/pokemonballblack.png`;
+  } else {
+    document.getElementById(`favouriteButtonCardPupUpCard${id}`).src = `./img/pokemonball.png`;
+  }
+}
+
+function toFavorites(id) {
+  let index = validationFavorites(id);
+  addOrRemovePokemonFavorites(index, id)
+  generateFavouriteButton(id);
+}
+
+function toFavoritesPopUpCard(id) {
+  let index = validationFavorites(id);
+  addOrRemovePokemonFavorites(index, id)
+  generateFavouriteButton(id);
+  generateFavouriteButtonPupUpCard(id);
+}
+
+function validationFavorites(id) {
+  let index  = pokemonFavorites.indexOf(id);
+  return index;
+}
+
+function addOrRemovePokemonFavorites(index, id) {
+  if (index === -1) {
+    pokemonFavorites.push(id);
+  } else {
+    pokemonFavorites.splice(index);
+  }
+  if (myPokemonIsLoaded) {
+  renderFavouritesCard();
+  }
+}
+
+function doNotOpen(event) {
+  event.stopPropagation();
+}
+
+function doNotClose(event) {
+  event.stopPropagation();
+}
+
+function emptyArray() {
+  typeFromPokemon = [];
+  apiLabels = [];
+  apiData = [];
+  resultSearchPokemon = [];
+  startPokemon = 1;
+  amountPokemon = 30;
+}
+
+function errorFunction() {
+  console.log("not available");
+}
+
 function generateNamePokemon() {
   if (!specificationsOfThePokemon["names"]) {
     console.log("names not available");

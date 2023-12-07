@@ -1,5 +1,6 @@
 async function init() {
   renderLoadScreen();
+  myPokemonIsLoaded = false;
   document.getElementById("pokedex").innerHTML = ``;
   await generateImportPokemon();
   renderInputField();
@@ -15,17 +16,6 @@ async function renderContent() {
   renderCloseLoadScreen();
 }
 
-function loadPokemon() {
-  generateNamePokemon();
-  generateType();
-  generateBackgroundColor();
-  generateGeneraPokemon();
-  generateHeightPokemon();
-  generateWeightPokemon();
-  generateHabitat();
-  generateDataChart();
-}
-
 async function renderCard(i) {
   await generateImportData(i);
   document.getElementById("pokedex").innerHTML += generateCard(i);
@@ -35,54 +25,22 @@ async function renderCard(i) {
   renderIdPokemon(i);
   renderImagePokemon(i);
   renderType(i);
+  generateFavouriteButton(i);
 }
 
-async function searchPokemon() {
-  emptyArray();
+async function renderFavouritesCard() {
+  myPokemonIsLoaded = true;
   renderLoadButton();
-  document.getElementById("pokedex").innerHTML = generateLoadScreenSearch();
-  searchInputNumber = +document.getElementById("inputField").value;
-  searchInputText = document.getElementById("inputField").value;
-  document.getElementById("pokedex").innerHTML = "";
-  if (searchInputNumber) {
-    if (searchInputNumber < 1011) {
-      await renderCard(searchInputNumber);
-    } else {
-      notFound();
-    }
+  document.getElementById("pokedex").innerHTML = ``;
+  if (pokemonFavorites.length === 0) {
+    document.getElementById("pokedex").innerHTML = generateTextFavouritesEmpty();
   } else {
-    if (!theLanguageIsGerman) {
-      await generateSearchTextInputgEnglish(searchInputText);
-    } else {
-      await generateSearchTextInputgGerman(searchInputText);
+    for (let i = 0; i < pokemonFavorites.length; i++) {
+      let id = pokemonFavorites[i];
+      console.log("pokemonID", id);
+      await renderCard(id);
     }
   }
-}
-
-function notFound() {
-  renderCloseLoadScreenSearch();
-  if (!theLanguageIsGerman) {
-    document.getElementById("pokedex").innerHTML = `<b>not found :(</b>`;
-  } else {
-    document.getElementById("pokedex").innerHTML = `<b>nicht gefunden :(</b>`;
-  }
-}
-
-function doNotClose(event) {
-  event.stopPropagation();
-}
-
-function emptyArray() {
-  typeFromPokemon = [];
-  apiLabels = [];
-  apiData = [];
-  resultSearchPokemon = [];
-  startPokemon = 1;
-  amountPokemon = 30;
-}
-
-function errorFunction() {
-  console.log("not available");
 }
 
 function renderNextPokemon() {
@@ -134,6 +92,7 @@ async function renderPopUpCard(id) {
   renderBackgroundColorPopUpCard(id);
   renderSelectionPopUpCard(id);
   renderAboutPopUpCard(id);
+  generateFavouriteButtonPupUpCard(id);
 }
 
 function closePopUpCard() {

@@ -1,17 +1,27 @@
 function generateInputField() {
-    if (!theLanguageIsGerman) {
-        return /*html*/ ` 
+  if (!theLanguageIsGerman) {
+    return /*html*/ ` 
+          <button onclick="renderFavouritesCard()" class="my-pokemon-button">My Pokémon</button>
           <form onsubmit="event.preventDefault(); searchPokemon();">
             <input type="text" id="inputField" placeholder="Enter name or ID" required>
             <button class="search-button">Search</button>
           </form>`;
-    } else {
+  } else {
     return /*html*/ ` 
+      <button onclick="renderFavouritesCard()" class="my-pokemon-button">Meine Pokémon</button>
       <form onsubmit="event.preventDefault(); searchPokemon();">
         <input type="text" id="inputField" placeholder="Name oder ID eingeben">
         <button class="search-button">Suchen</button>
       </form>`;
-    }
+  }
+}
+
+function generateTextFavouritesEmpty() {
+  if (!theLanguageIsGerman) {
+    return /*htmal*/ `<b class="text-favourites-empty">You have not yet caught a Pokémon. A grey Pokéball will appear next to each Pokémon in your Pokédex. Click on it to catch a Pokémon and the ball will turn colourful. If you click on a coloured ball, you release the Pokémon and the ball turns grey again. You can find all the Pokémon you have caught in the "My Pokémon" section of your Pokédex.</b>`;
+  } else {
+    return /*htmal*/ `<b class="text-favourites-empty">Du hast noch kein Pokémon gefangen. In deinem Pokédex wird bei jedem Pokémon ein grauer Pokéball angezeigt. Klicke darauf, um ein Pokémon zu fangen, dann wird der Ball bunt. Wenn du auf einen bunten Ball klickst, lässt du das Pokémon frei und der Ball wird wieder grau. Alle deine gefangenen Pokémon findest du im Bereich "Meine Pokémon" in deinem Pokédex.</b>`;
+  }
 }
 
 function generateLoadButton() {
@@ -22,7 +32,6 @@ function generateLoadButton() {
   }
 }
 
-
 function generateLoadMoreButton() {
   if (!theLanguageIsGerman) {
     return /*htmal*/ `<button onclick="renderNextPokemon()" class="load-button">Load more Pokémon</button>`;
@@ -30,7 +39,6 @@ function generateLoadMoreButton() {
     return /*htmal*/ `<button onclick="renderNextPokemon()" class="load-button">Weitere Pokémon laden</button>`;
   }
 }
-
 
 function generateLoadScreen() {
   let textLoadin;
@@ -71,6 +79,7 @@ function generateCard(id) {
       <b id="idPokemon${id}" class="id-pokemon"></b>
       <div id="typePokemon${id}" class="type-pokemon"></div>
     </div>
+    <img onclick="doNotOpen(event), toFavorites(${id})" id="favouriteButtonCard${id}" alt="pokemonball" class="favourite-button" >
     <div>
       <img id="pokemonImage${id}" class="pokemon-image" />
     </div>`;
@@ -85,6 +94,7 @@ function generatePopUpCard(id) {
           <div class="head-line-container">
             <h1 id="pokemonNamePopUpCard"></h1>
             <h1 id="idPokemonPopUpCard"></h1>
+            <img onclick="toFavoritesPopUpCard(${id})" id="favouriteButtonCardPupUpCard${id}" alt="pokemonball" class="favourite-button-pup-up-card" >
           </div>
           <div>
             <div id="typePokemonPopUpCard"></div>
@@ -168,5 +178,4 @@ function generateEvolutionStep1Content(imagePokemonStep, namePokemonPopUpCard, i
    </div>
    </div>
   `;
- 
 }

@@ -38,6 +38,7 @@ header {
 }
 
 .input-container {
+  display: flex;
   margin-top: 48px;
   z-index: 900;
 }
@@ -48,7 +49,7 @@ header {
   border-radius: 48px;
   filter: drop-shadow(1px 3px 4px rgba(0, 0, 0.2));
   border: 8px solid black;
-  background-color: #D61309;
+  background-color: #d61309;
   color: black;
   padding-left: 16px;
   font-weight: bold;
@@ -58,6 +59,21 @@ header {
 input::placeholder {
   color: black;
   opacity: 1;
+}
+
+.my-pokemon-button {
+  margin-right: 120px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 12px;
+  padding-right: 12px;
+  border-radius: 24px;
+  font-weight: bold;
+  font-size: 18px;
+  border: 8px solid black;
+  background-color: #d61309;
+  cursor: pointer;
+  transition: all 125ms ease-in-out;
 }
 
 .search-button {
@@ -142,6 +158,50 @@ input::placeholder {
 .id-pokemon {
   padding-left: 12px;
   font-size: 24px;
+}
+
+.favourite-button {
+  height: 32px;
+  position: absolute;
+  margin-top: 16px;
+  margin-left: 388px;
+}
+
+.favourite-button:hover {
+  animation: tilt-shaking 1s;
+}
+
+.favourite-button-pup-up-card {
+  height: 32px;
+  position: absolute;
+  margin-top: 16px;
+  margin-left: 324px;
+}
+
+.favourite-button-pup-up-card:hover {
+  animation: tilt-shaking 1s;
+}
+
+.text-favourites-empty {
+  padding: 48px;
+}
+
+@keyframes tilt-shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .type-pokemon {
