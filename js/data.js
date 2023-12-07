@@ -65,3 +65,14 @@ function loadPokemon() {
   generateHabitat();
   generateDataChart();
 }
+
+function save() {
+  let pokemonFavoritesAtText = JSON.stringify(pokemonFavorites);
+  localStorage.setItem("pokemonfavorites", pokemonFavoritesAtText);
+}
+function load() {
+  let pokemonFavoritesAtText = localStorage.getItem("pokemonfavorites");
+  if (pokemonFavoritesAtText) {
+    pokemonFavorites = JSON.parse(pokemonFavoritesAtText);
+  }
+}

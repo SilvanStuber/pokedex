@@ -1,4 +1,5 @@
 async function init() {
+  load();
   renderLoadScreen();
   myPokemonIsLoaded = false;
   document.getElementById("pokedex").innerHTML = ``;
@@ -29,6 +30,7 @@ async function renderCard(i) {
 }
 
 async function renderFavouritesCard() {
+  load();
   myPokemonIsLoaded = true;
   renderLoadButton();
   document.getElementById("pokedex").innerHTML = ``;

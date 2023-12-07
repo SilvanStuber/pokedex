@@ -72,8 +72,9 @@ function addOrRemovePokemonFavorites(index, id) {
   if (index === -1) {
     pokemonFavorites.push(id);
   } else {
-    pokemonFavorites.splice(index);
+    pokemonFavorites.splice(index, 1);
   }
+  save();
   if (myPokemonIsLoaded) {
   renderFavouritesCard();
   }
