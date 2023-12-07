@@ -1,7 +1,6 @@
 async function init() {
   load();
   renderLoadScreen();
-  myPokemonIsLoaded = false;
   document.getElementById("pokedex").innerHTML = ``;
   await generateImportPokemon();
   renderInputField();

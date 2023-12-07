@@ -1,14 +1,14 @@
 function generateInputField() {
   if (!theLanguageIsGerman) {
     return /*html*/ ` 
-          <button onclick="renderFavouritesCard()" class="my-pokemon-button">My Pokémon</button>
+          <button onclick="renderFavouritesCard()" class="my-pokemon-button">My captured Pokémon</button>
           <form onsubmit="event.preventDefault(); searchPokemon();">
             <input type="text" id="inputField" placeholder="Enter name or ID" required>
             <button class="search-button">Search</button>
           </form>`;
   } else {
     return /*html*/ ` 
-      <button onclick="renderFavouritesCard()" class="my-pokemon-button">Meine Pokémon</button>
+      <button onclick="renderFavouritesCard()" class="my-pokemon-button">Meine gefangenen Pokémone</button>
       <form onsubmit="event.preventDefault(); searchPokemon();">
         <input type="text" id="inputField" placeholder="Name oder ID eingeben">
         <button class="search-button">Suchen</button>

@@ -1,23 +1,31 @@
 async function searchPokemon() {
   emptyArray();
-  myPokemonIsLoaded = false;
   renderLoadButton();
   document.getElementById("pokedex").innerHTML = generateLoadScreenSearch();
   searchInputNumber = +document.getElementById("inputField").value;
   searchInputText = document.getElementById("inputField").value;
-  document.getElementById("pokedex").innerHTML = "";
+  document.getElementById('inputField').value = '';
+  document.getElementById("pokedex").innerHTML = '';
   if (searchInputNumber) {
-    if (searchInputNumber < 1011) {
-      await renderCard(searchInputNumber);
-    } else {
-      notFound();
-    }
+    await generateSearchNumberInput(searchInputNumber)
   } else {
-    if (!theLanguageIsGerman) {
-      await generateSearchTextInputgEnglish(searchInputText);
-    } else {
-      await generateSearchTextInputgGerman(searchInputText);
-    }
+    await generateSearchTextInput(searchInputText)
+  }
+}
+
+async function generateSearchNumberInput(searchInputNumber) {
+  if (searchInputNumber < 1011) {
+    await renderCard(searchInputNumber);
+  } else {
+    notFound();
+  }
+}
+
+async function generateSearchTextInput(searchInputText) {
+  if (!theLanguageIsGerman) {
+    await generateSearchTextInputgEnglish(searchInputText);
+  } else {
+    await generateSearchTextInputgGerman(searchInputText);
   }
 }
 
@@ -89,6 +97,7 @@ function doNotClose(event) {
 }
 
 function emptyArray() {
+  myPokemonIsLoaded = false;
   typeFromPokemon = [];
   apiLabels = [];
   apiData = [];
