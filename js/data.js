@@ -35,17 +35,17 @@ let resultSearchPokemon = [];
 let idFromTextSearch;
 let searchIsSuccessful = false;
 
-async function generateImportPokemon() {
+async function generateImportPokemon(id) {
   let urlPokemon = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`;
   currentPokemon = await generateJSON(urlPokemon).catch(errorFunction);
+  
 }
 
 async function generateImportData(id) {
   let urlIdPokemon = `https://pokeapi.co/api/v2/pokemon/${id}/`;
   currentIdPokemon = await generateJSON(urlIdPokemon).catch(errorFunction);
   idFromPokemon = currentIdPokemon["id"];
-  nameUrlFromPokemon = currentIdPokemon["name"];
-  urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${nameUrlFromPokemon}`;
+  urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
   specificationsOfThePokemon = await generateJSON(urlFromSpecies).catch(errorFunction);
   if (!specificationsOfThePokemon) {
     console.log("evolution not available");
@@ -55,15 +55,15 @@ async function generateImportData(id) {
   }
 }
 
-function loadPokemon() {
-  generateNamePokemon();
-  generateType();
-  generateBackgroundColor();
-  generateGeneraPokemon();
-  generateHeightPokemon();
-  generateWeightPokemon();
-  generateHabitat();
-  generateDataChart();
+function loadPokemon(id) {
+  generateNamePokemon(id);
+  generateType(id);
+  generateBackgroundColor(id);
+  generateGeneraPokemon(id);
+  generateHeightPokemon(id);
+  generateWeightPokemon(id);
+  generateHabitat(id);
+  generateDataChart(id);
 }
 
 function save() {

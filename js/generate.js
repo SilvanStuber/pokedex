@@ -407,27 +407,29 @@ function generateNamePokemeonEvolution(pokemonStep) {
 }
 
 async function generateSearchTextInputgEnglish(searchInputText) {
-  renderLoadScreenSearch();
+  renderLoadScreen();
   searchInputText = searchInputText.toLowerCase();
   searchIsSuccessful = false;
-  for (let i = 0; i < 1010; i++) {
-    let pokemonNameSearch = currentPokemon["results"][i]["name"];
-    if (pokemonNameSearch.toLowerCase().includes(searchInputText)) {
+  for (let i = 1; i < 1010; i++) {
+    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
+    specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);
+    let nameFromPokemonEnglisch = specificationsOfThePokemon["names"]["8"]["name"].toLowerCase();
+    if (nameFromPokemonEnglisch.toLowerCase().includes(searchInputText)) {
       await generateExistingPokemon(i);
     }
   }
   if (!searchIsSuccessful) {
     notFound();
   }
+  renderCloseLoadScreen();
 }
 
 async function generateSearchTextInputgGerman(searchInputText) {
-  renderLoadScreenSearch();
+  renderLoadScreen();
   searchInputText = searchInputText.toLowerCase();
   searchIsSuccessful = false;
-  for (let i = 0; i < 1010; i++) {
-    let pokemonNameSearch = currentPokemon["results"][i]["name"];
-    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${pokemonNameSearch}`;
+  for (let i = 1; i < 1010; i++) {
+    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
     specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);
     let nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"].toLowerCase();
     if (nameFromPokemonGerman.toLowerCase().includes(searchInputText)) {
@@ -437,12 +439,10 @@ async function generateSearchTextInputgGerman(searchInputText) {
   if (!searchIsSuccessful) {
     notFound();
   }
+  renderCloseLoadScreen();
 }
 
 async function generateExistingPokemon(i) {
-  let pokemonSearchURL = currentPokemon["results"][i]["url"];
-  dataNamePokemon = await generateJSON(pokemonSearchURL);
-  await renderCard(dataNamePokemon["id"]);
+  await renderCard(i);
   searchIsSuccessful = true;
-  renderCloseLoadScreenSearch();
 }

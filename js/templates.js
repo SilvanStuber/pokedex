@@ -18,9 +18,9 @@ function generateInputField() {
 
 function generateTextFavouritesEmpty() {
   if (!theLanguageIsGerman) {
-    return /*htmal*/ `<b class="text-favourites-empty">You have not yet caught a Pokémon. A grey Pokéball will appear next to each Pokémon in your Pokédex. Click on it to catch a Pokémon and the ball will turn colourful. If you click on a coloured ball, you release the Pokémon and the ball turns grey again. You can find all the Pokémon you have caught in the "My Pokémon" section of your Pokédex.</b>`;
+    return /*htmal*/ `<b class="text-favourites-empty">You have not yet caught a Pokémon. A grey Pokéball will appear next to each Pokémon in your Pokédex. Click on it to catch a Pokémon and the ball will turn colourful. If you click on a coloured ball, you release the Pokémon and the ball turns grey again. You can find all the Pokémon you have caught in the "My captured Pokémon" section of your Pokédex.</b>`;
   } else {
-    return /*htmal*/ `<b class="text-favourites-empty">Du hast noch kein Pokémon gefangen. In deinem Pokédex wird bei jedem Pokémon ein grauer Pokéball angezeigt. Klicke darauf, um ein Pokémon zu fangen, dann wird der Ball bunt. Wenn du auf einen bunten Ball klickst, lässt du das Pokémon frei und der Ball wird wieder grau. Alle deine gefangenen Pokémon findest du im Bereich "Meine Pokémon" in deinem Pokédex.</b>`;
+    return /*htmal*/ `<b class="text-favourites-empty">Du hast noch kein Pokémon gefangen. In deinem Pokédex wird bei jedem Pokémon ein grauer Pokéball angezeigt. Klicke darauf, um ein Pokémon zu fangen, dann wird der Ball bunt. Wenn du auf einen bunten Ball klickst, lässt du das Pokémon frei und der Ball wird wieder grau. Alle deine gefangenen Pokémon findest du im Bereich "Meine gefangenen Pokémone" in deinem Pokédex.</b>`;
   }
 }
 

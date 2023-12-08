@@ -35,6 +35,7 @@ header {
   position: absolute;
   z-index: 3;
   top: 0;
+  background-color: #d61309;
 }
 
 .input-container {
@@ -63,7 +64,7 @@ input::placeholder {
 
 .my-pokemon-button {
   position: absolute;
-  top: 48px;
+  top: 56px;
   left: 48px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -169,6 +170,7 @@ input::placeholder {
   position: absolute;
   margin-top: 16px;
   margin-left: 388px;
+  cursor: pointer;
 }
 
 .favourite-button:hover {
@@ -180,6 +182,7 @@ input::placeholder {
   position: absolute;
   margin-top: 16px;
   margin-left: 324px;
+  cursor: pointer;
 }
 
 .favourite-button-pup-up-card:hover {
