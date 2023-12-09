@@ -35,10 +35,10 @@ let resultSearchPokemon = [];
 let idFromTextSearch;
 let searchIsSuccessful = false;
 
+
 async function generateImportPokemon(id) {
   let urlPokemon = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`;
   currentPokemon = await generateJSON(urlPokemon).catch(errorFunction);
-  
 }
 
 async function generateImportData(id) {
@@ -48,7 +48,7 @@ async function generateImportData(id) {
   urlFromSpecies = `https://pokeapi.co/api/v2/pokemon-species/${id}`;
   specificationsOfThePokemon = await generateJSON(urlFromSpecies).catch(errorFunction);
   if (!specificationsOfThePokemon) {
-    console.log("evolution not available");
+    console.info("evolution not available");
   } else {
     let urlFromEvolution = specificationsOfThePokemon["evolution_chain"]["url"];
     evolutionOfThePokemon = await generateJSON(urlFromEvolution);

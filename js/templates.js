@@ -1,7 +1,7 @@
 function generateInputField() {
   if (!theLanguageIsGerman) {
     return /*html*/ ` 
-          <button onclick="renderFavouritesCard()" class="my-pokemon-button">My captured Pokémon</button>
+          <button onclick="renderFavouritesCard()" class="my-pokemon-button" enable>My captured Pokémon</button>
           <form onsubmit="event.preventDefault(); searchPokemon();">
             <input type="text" id="inputField" placeholder="Enter name or ID" required>
             <button class="search-button">Search</button>
@@ -9,7 +9,7 @@ function generateInputField() {
   } else {
     return /*html*/ ` 
       <button onclick="renderFavouritesCard()" class="my-pokemon-button">Meine gefangenen Pokémone</button>
-      <form onsubmit="event.preventDefault(); searchPokemon();">
+      <form onsubmit="event.preventDefault(); searchPokemon();" enable>
         <input type="text" id="inputField" placeholder="Name oder ID eingeben">
         <button class="search-button">Suchen</button>
       </form>`;
@@ -79,7 +79,7 @@ function generateCard(id) {
       <b id="idPokemon${id}" class="id-pokemon"></b>
       <div id="typePokemon${id}" class="type-pokemon"></div>
     </div>
-    <img onclick="doNotOpen(event), toFavorites(${id})" id="favouriteButtonCard${id}" alt="pokemonball" class="favourite-button" >
+    <img onclick="doNotCloseOrOpen(event), toFavorites(${id})" id="favouriteButtonCard${id}" alt="pokemonball" class="favourite-button" >
     <div>
       <img id="pokemonImage${id}" class="pokemon-image" />
     </div>`;
@@ -89,7 +89,7 @@ function generatePopUpCard(id) {
   return /*html*/ `
     <div class="pop-up-card-container" onclick="closePopUpCard()">
        <img onclick="closePopUpCard()" src="./img/cross.png" alt="cross" class="close-cross-pop-up-card">
-       <div onclick="doNotClose(event)" class="pop-up-card">
+       <div onclick="doNotCloseOrOpen(event)" class="pop-up-card">
         <div id="headContainerPopUpCard">
           <div class="head-line-container">
             <h1 id="pokemonNamePopUpCard"></h1>

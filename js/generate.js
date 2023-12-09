@@ -4,12 +4,12 @@ async function searchPokemon() {
   document.getElementById("pokedex").innerHTML = generateLoadScreenSearch();
   searchInputNumber = +document.getElementById("inputField").value;
   searchInputText = document.getElementById("inputField").value;
-  document.getElementById('inputField').value = '';
-  document.getElementById("pokedex").innerHTML = '';
+  document.getElementById("inputField").value = "";
+  document.getElementById("pokedex").innerHTML = "";
   if (searchInputNumber) {
-    await generateSearchNumberInput(searchInputNumber)
+    await generateSearchNumberInput(searchInputNumber);
   } else {
-    await generateSearchTextInput(searchInputText)
+    await generateSearchTextInput(searchInputText);
   }
 }
 
@@ -40,7 +40,6 @@ function notFound() {
 
 function generateFavouriteButton(id) {
   let index = validationFavorites(id);
-  document.getElementById(`favouriteButtonCard${id}`).src = ``;
   if (index === -1) {
     document.getElementById(`favouriteButtonCard${id}`).src = `./img/pokemonballblack.png`;
   } else {
@@ -60,19 +59,19 @@ function generateFavouriteButtonPupUpCard(id) {
 
 function toFavorites(id) {
   let index = validationFavorites(id);
-  addOrRemovePokemonFavorites(index, id)
+  addOrRemovePokemonFavorites(index, id);
   generateFavouriteButton(id);
 }
 
 function toFavoritesPopUpCard(id) {
   let index = validationFavorites(id);
-  addOrRemovePokemonFavorites(index, id)
+  addOrRemovePokemonFavorites(index, id);
   generateFavouriteButton(id);
   generateFavouriteButtonPupUpCard(id);
 }
 
 function validationFavorites(id) {
-  let index  = pokemonFavorites.indexOf(id);
+  let index = pokemonFavorites.indexOf(id);
   return index;
 }
 
@@ -84,15 +83,11 @@ function addOrRemovePokemonFavorites(index, id) {
   }
   save();
   if (myPokemonIsLoaded) {
-  renderFavouritesCard();
+    renderFavouritesCard();
   }
 }
 
-function doNotOpen(event) {
-  event.stopPropagation();
-}
-
-function doNotClose(event) {
+function doNotCloseOrOpen(event) {
   event.stopPropagation();
 }
 
@@ -107,12 +102,12 @@ function emptyArray() {
 }
 
 function errorFunction() {
-  console.log("not available");
+  console.info("not available");
 }
 
 function generateNamePokemon() {
   if (!specificationsOfThePokemon["names"]) {
-    console.log("names not available");
+    console.info("names not available");
   } else {
     if (!theLanguageIsGerman) {
       nameFromPokemon = specificationsOfThePokemon["names"]["8"]["name"];
@@ -125,13 +120,13 @@ function generateNamePokemon() {
 function generateGeneraPokemon() {
   if (!theLanguageIsGerman) {
     if (!specificationsOfThePokemon["genera"]["7"]) {
-      console.log("genera not available");
+      console.info("genera not available");
     } else {
       generaOfThePokemon = specificationsOfThePokemon["genera"]["7"]["genus"];
     }
   } else {
     if (!specificationsOfThePokemon["genera"]["4"]) {
-      console.log("genera not available");
+      console.info("genera not available");
     } else {
       generaOfThePokemon = specificationsOfThePokemon["genera"]["4"]["genus"];
     }
@@ -155,7 +150,7 @@ async function generateJSON(url) {
 
 function generateBackgroundColor() {
   if (!specificationsOfThePokemon["color"]) {
-    console.log("color not available");
+    console.info("color not available");
   } else {
     backgroundColorFromPokemon = specificationsOfThePokemon["color"]["name"];
     switch (backgroundColorFromPokemon) {
@@ -197,7 +192,7 @@ function generateType() {
   typeFromPokemon = [];
   for (let i = 0; i < currentIdPokemon["types"].length; i++) {
     if (!currentIdPokemon["types"][i]["type"]) {
-      console.log("types not available");
+      console.info("types not available");
     } else {
       const typePokemon = currentIdPokemon["types"][i]["type"]["name"];
       if (!theLanguageIsGerman) {
@@ -277,7 +272,7 @@ function generateGermanType(typePokemon) {
 
 function generateHabitat() {
   if (!specificationsOfThePokemon["habitat"]) {
-    console.log("habitat not available");
+    console.info("habitat not available");
   } else {
     habitatPokemon = specificationsOfThePokemon["habitat"]["name"];
     if (!theLanguageIsGerman) {

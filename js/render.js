@@ -6,6 +6,7 @@ async function init() {
   renderInputField();
   renderContent();
   renderLoadMoreButton();
+  myPokemonIsLoaded = false;
 }
 
 async function renderContent() {
@@ -38,7 +39,6 @@ async function renderFavouritesCard() {
   } else {
     for (let i = 0; i < pokemonFavorites.length; i++) {
       let id = pokemonFavorites[i];
-      console.log("pokemonID", id);
       await renderCard(id);
     }
   }
