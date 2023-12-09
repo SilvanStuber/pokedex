@@ -5,14 +5,57 @@ function generateInputField() {
           <form onsubmit="event.preventDefault(); searchPokemon();">
             <input type="text" id="inputField" placeholder="Enter name or ID" required>
             <button class="search-button">Search</button>
-          </form>`;
+          </form>
+          <button onclick="renderImpressum()" class="impressum-button">Legal Notice</button>
+          `;
   } else {
     return /*html*/ ` 
       <button onclick="renderFavouritesCard()" class="my-pokemon-button">Meine gefangenen Pokémone</button>
       <form onsubmit="event.preventDefault(); searchPokemon();" enable>
         <input type="text" id="inputField" placeholder="Name oder ID eingeben">
         <button class="search-button">Suchen</button>
-      </form>`;
+      </form>
+      <button onclick="renderImpressum()" class="impressum-button">Impressum</button>
+      `;
+  }
+}
+
+function generateImpressum() {
+  if (!theLanguageIsGerman) {
+    return /*html*/ `
+        <div class="impressum">
+          <h1 class="impressum-headline">Legal Notice</h1>
+          <p class="impressum-text">
+            Silvan Stuber<br />
+            Bernstrasse 46<br />
+            3267 Seedorf
+           </p>
+          <h2 class="second-headline-impressum">Contact</h2>
+          <a class="link-impressum" href="mailto:silvan.stuber1@gmail.com"
+           >E-Mail: silvan.stuber1@gmail.com</a>
+          <h2 class="second-headline-impressum">The icons comes from</h2>
+          <a class="link-impressum" href="https://logomakr.com/" rel="nofollow" target="_blank">logomakr</a>
+          <h2 class="second-headline-impressum">The data comes from PokeAPI</h2>
+          <a class="link-impressum" href="https://pokeapi.co//" rel="nofollow" target="_blank">PokeAPI</a>
+        </div>
+    `;
+  } else {
+    return /*html*/ `
+    <div class="impressum">
+      <h1 class="impressum-headline">Impressum</h1>
+      <p class="impressum-text">
+        Silvan Stuber<br />
+        Bernstrasse 46<br />
+        3267 Seedorf
+      </p>
+      <h2 class="second-headline-impressum">Kontakt</h2>
+      <a class="link-impressum" href="mailto:silvan.stuber1@gmail.com">E-Mail: silvan.stuber1@gmail.com</a>
+      <h2 class="second-headline-impressum">Die Icons stammen von</h2>
+      <a class="link-impressum" href="https://logomakr.com/" rel="nofollow" target="_blank">logomakr</a>
+      <h2 class="second-headline-impressum">Die Daten stammen von PokeAPI</h2>
+      <a class="link-impressum" href="https://pokeapi.co//" rel="nofollow" target="_blank">PokeAPI</>
+    </div>
+    `;
   }
 }
 

@@ -15,10 +15,16 @@
   </head>
   <body onload="init()">
     <header>
-      <div class="language-selection">
-        <img onclick="renderGerman()" class="language-img" src="./img/german.png" alt="germanflag" />
-        <img onclick="renderEnglish()" class="language-img" src="./img/english.png" alt="englishflag" />
+      <div>
+        <div>
+          <b class="headline">Pokédex</b>
+        </div>
+        <div class="language-selection">
+          <img onclick="renderGerman()" class="language-img" src="./img/german.png" alt="germanflag" />
+          <img onclick="renderEnglish()" class="language-img" src="./img/english.png" alt="englishflag" />
+        </div>
       </div>
+      <img class="circle-pokeball" src="./img/circlepokeball.png" alt="circlepokeball" />
     </header>
     <div id="inputFieldContainer" class="input-container"></div>
     <div id="loadScreen"></div>

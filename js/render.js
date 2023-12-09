@@ -81,6 +81,11 @@ function renderLoadMoreButton() {
   document.getElementById("buttonLoadPokemon").innerHTML = generateLoadMoreButton();
 }
 
+function renderImpressum() {
+  renderLoadButton();
+  document.getElementById("pokedex").innerHTML = generateImpressum();
+}
+
 async function renderPopUpCard(id) {
   await generateImportData(id);
   loadPokemon(id);
