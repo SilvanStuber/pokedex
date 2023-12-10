@@ -1,6 +1,5 @@
 async function searchPokemon() {
   emptyArray();
-  renderLoadButton();
   document.getElementById("pokedex").innerHTML = generateLoadScreenSearch();
   searchInputNumber = +document.getElementById("inputField").value;
   searchInputText = document.getElementById("inputField").value;
@@ -41,7 +40,7 @@ async function generateSearchTextInputgEnglish(searchInputText) {
     }
   }
   if (!searchIsSuccessful) {
-    notFound(); 
+    notFound();
   }
 }
 
@@ -62,10 +61,10 @@ async function generateSearchTextInputgGerman(searchInputText) {
 }
 
 async function generateExistingPokemon(i) {
-  renderUpperLimit++
-  if ( renderUpperLimit >= 30 ) { 
-    return; 
-  }  else {
+  renderUpperLimit++;
+  if (renderUpperLimit >= 30) {
+    return;
+  } else {
     await renderCard(i);
   }
   searchIsSuccessful = true;

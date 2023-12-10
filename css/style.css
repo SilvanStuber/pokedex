@@ -39,12 +39,12 @@ header {
   background-color: #d61309;
   display: flex;
   justify-content: center;
-  border-bottom:solid 10px #000000;
+  border-bottom: solid 10px #000000;
   padding-top: 16px;
 }
 
 .headline {
-  font-family: 'Aclonica';
+  font-family: "Aclonica";
   font-size: 48px;
   cursor: pointer;
   transition: all 125ms ease-in-out;
@@ -75,7 +75,7 @@ header {
 
 #inputField {
   height: 48px;
-  width: 150px;
+  width: 185px;
   border-radius: 48px;
   filter: drop-shadow(1px 3px 4px rgba(0, 0, 0.2));
   border: 8px solid black;
