@@ -86,7 +86,8 @@
   .favourite-button-pup-up-card {
     position: absolute;
     margin-top: -20px;
-    margin-left: 310px;
+    right: 32px;
+    
   }
 
   #pokemonImagePopUpCard {
