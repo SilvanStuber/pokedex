@@ -1,15 +1,15 @@
 let url;
 let urlFromSpecies;
 let startPokemon = 1;
-let amountPokemon = 30;
+let amountPokemon = 21;
 let currentPokemon;
+let myPokemonIsLoaded = false;
 let currentIdPokemon;
 let nameUrlFromPokemon;
 let specificationsOfThePokemon;
 let nameFromPokemon;
 let idFromPokemon;
 let pokemonFavorites = [];
-let myPokemonIsLoaded = false;
 let backgroundColor;
 let generaOfThePokemon;
 let heightFromPokemonMeter;
@@ -34,6 +34,7 @@ let pokemonName;
 let resultSearchPokemon = [];
 let idFromTextSearch;
 let searchIsSuccessful = false;
+let renderUpperLimit;
 
 
 async function generateImportPokemon(id) {
@@ -64,6 +65,17 @@ function loadPokemon(id) {
   generateWeightPokemon(id);
   generateHabitat(id);
   generateDataChart(id);
+}
+
+function emptyArray() {
+  myPokemonIsLoaded = false;
+  typeFromPokemon = [];
+  apiLabels = [];
+  apiData = [];
+  resultSearchPokemon = [];
+  startPokemon = 1;
+  amountPokemon = 21;
+  renderUpperLimit = 0;
 }
 
 function save() {

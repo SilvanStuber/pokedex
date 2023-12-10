@@ -1,12 +1,12 @@
 async function init() {
   load();
+  emptyArray();
   renderLoadScreen();
   document.getElementById("pokedex").innerHTML = ``;
   await generateImportPokemon();
   renderInputField();
   renderContent();
   renderLoadMoreButton();
-  myPokemonIsLoaded = false;
 }
 
 async function renderContent() {
@@ -45,8 +45,8 @@ async function renderFavouritesCard() {
 }
 
 function renderNextPokemon() {
-  startPokemon = startPokemon + 29;
-  amountPokemon = amountPokemon + 29;
+  startPokemon = startPokemon + 20;
+  amountPokemon = amountPokemon + 20;
   renderLoadScreen();
   renderContent();
 }
@@ -71,6 +71,7 @@ function renderCloseLoadScreenSearch() {
 
 function renderInputField() {
   document.getElementById("inputFieldContainer").innerHTML = generateInputField();
+  document.getElementById("inputFieldContainer").innerHTML += generateResponsiveButton();
 }
 
 function renderLoadButton() {
@@ -89,8 +90,7 @@ function renderImpressum() {
 async function renderPopUpCard(id) {
   await generateImportData(id);
   loadPokemon(id);
-  document.getElementById("popUpCard").innerHTML = generatePopUpCard(id);
-  document.getElementById("descriptionContainerPopUpCard").innerHTML = generateAboutSectionPopUpCard(id);
+  renderContentPopUpCard(id);
   renderNamePokemonPopUpCard(id);
   renderIdPokemonPopUpCard(id);
   renderTypePopUpCard(id);
@@ -99,6 +99,18 @@ async function renderPopUpCard(id) {
   renderSelectionPopUpCard(id);
   renderAboutPopUpCard(id);
   generateFavouriteButtonPupUpCard(id);
+}
+
+function renderContentPopUpCard(id) {
+  document.getElementById("popUpCard").innerHTML = generatePopUpCard(id);
+  document.getElementById("descriptionContainerPopUpCard").innerHTML = generateAboutSectionPopUpCard(id);
+  if (!myPokemonIsLoaded) {
+    document.getElementById("arrowLeftPopUpCard").classList.remove("d-none");
+    document.getElementById("arrowRightPopUpCard").classList.remove("d-none");
+  } else {
+    document.getElementById("arrowLeftPopUpCard").classList.add("d-none");
+    document.getElementById("arrowRightPopUpCard").classList.add("d-none");
+  }
 }
 
 function closePopUpCard() {

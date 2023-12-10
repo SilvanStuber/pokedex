@@ -34,7 +34,7 @@ html {
 }
 
 header {
-  height: 80px;
+  height: 85px;
   width: 100%;
   background-color: #d61309;
   display: flex;
@@ -46,12 +46,18 @@ header {
 .headline {
   font-family: 'Aclonica';
   font-size: 48px;
+  cursor: pointer;
+  transition: all 125ms ease-in-out;
+}
+
+.headline:hover {
+  transform: scale(1.1);
 }
 
 .circle-pokeball {
   position: absolute;
   z-index: 3;
-  top: 70px;
+  top: 75px;
   height: 64px;
 }
 
@@ -69,7 +75,7 @@ header {
 
 #inputField {
   height: 48px;
-  width: 480px;
+  width: 150px;
   border-radius: 48px;
   filter: drop-shadow(1px 3px 4px rgba(0, 0, 0.2));
   border: 8px solid black;
@@ -87,7 +93,7 @@ input::placeholder {
 
 .my-pokemon-button {
   position: absolute;
-  top: 74px;
+  top: 82px;
   left: 48px;
   padding-top: 8px;
   padding-bottom: 8px;
@@ -109,7 +115,7 @@ input::placeholder {
 
 .impressum-button {
   position: absolute;
-  top: 74px;
+  top: 82px;
   right: 48px;
   padding-top: 8px;
   padding-bottom: 8px;

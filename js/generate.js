@@ -22,11 +22,53 @@ async function generateSearchNumberInput(searchInputNumber) {
 }
 
 async function generateSearchTextInput(searchInputText) {
+  searchIsSuccessful = false;
   if (!theLanguageIsGerman) {
     await generateSearchTextInputgEnglish(searchInputText);
   } else {
     await generateSearchTextInputgGerman(searchInputText);
   }
+}
+
+async function generateSearchTextInputgEnglish(searchInputText) {
+  searchInputText = searchInputText.toLowerCase();
+  for (let i = 1; i < 1010; i++) {
+    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
+    specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);
+    let nameFromPokemonEnglisch = specificationsOfThePokemon["names"]["8"]["name"].toLowerCase();
+    if (nameFromPokemonEnglisch.toLowerCase().includes(searchInputText)) {
+      await generateExistingPokemon(i);
+    }
+  }
+  if (!searchIsSuccessful) {
+    notFound(); 
+  }
+}
+
+async function generateSearchTextInputgGerman(searchInputText) {
+  renderLoadScreen();
+  searchInputText = searchInputText.toLowerCase();
+  for (let i = 1; i < 1010; i++) {
+    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
+    specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);
+    let nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"].toLowerCase();
+    if (nameFromPokemonGerman.toLowerCase().includes(searchInputText)) {
+      await generateExistingPokemon(i);
+    }
+  }
+  if (!searchIsSuccessful) {
+    notFound();
+  }
+}
+
+async function generateExistingPokemon(i) {
+  renderUpperLimit++
+  if ( renderUpperLimit >= 30 ) { 
+    return; 
+  }  else {
+    await renderCard(i);
+  }
+  searchIsSuccessful = true;
 }
 
 function notFound() {
@@ -49,7 +91,6 @@ function generateFavouriteButton(id) {
 
 function generateFavouriteButtonPupUpCard(id) {
   let index = validationFavorites(id);
-  document.getElementById(`favouriteButtonCardPupUpCard${id}`).src = ``;
   if (index === -1) {
     document.getElementById(`favouriteButtonCardPupUpCard${id}`).src = `./img/pokemonballblack.png`;
   } else {
@@ -66,8 +107,11 @@ function toFavorites(id) {
 function toFavoritesPopUpCard(id) {
   let index = validationFavorites(id);
   addOrRemovePokemonFavorites(index, id);
-  generateFavouriteButton(id);
-  generateFavouriteButtonPupUpCard(id);
+  if (!myPokemonIsLoaded) {
+    renderPopUpCard(id);
+  } else {
+    document.getElementById("popUpCard").innerHTML = "";
+  }
 }
 
 function validationFavorites(id) {
@@ -89,16 +133,6 @@ function addOrRemovePokemonFavorites(index, id) {
 
 function doNotCloseOrOpen(event) {
   event.stopPropagation();
-}
-
-function emptyArray() {
-  myPokemonIsLoaded = false;
-  typeFromPokemon = [];
-  apiLabels = [];
-  apiData = [];
-  resultSearchPokemon = [];
-  startPokemon = 1;
-  amountPokemon = 30;
 }
 
 function errorFunction() {
@@ -363,7 +397,7 @@ async function generateEvolutionStep1() {
   let currentPokemonStep1 = await generateJSON(urlIdStep1);
   let imagePokemonStep1 = currentPokemonStep1["sprites"]["other"]["official-artwork"]["front_default"];
   namePokemonPopUpCard = generateNamePokemeonEvolution(pokemonStep1);
-  document.getElementById("evolutionStep1").innerHTML = generateEvolutionStep1Content(imagePokemonStep1, namePokemonPopUpCard, idPokemonStep1);
+  document.getElementById("evolutionStep1").innerHTML = generateEvolutionStepContent(imagePokemonStep1, namePokemonPopUpCard, idPokemonStep1);
 }
 
 async function generateEvolutionStep2() {
@@ -374,7 +408,7 @@ async function generateEvolutionStep2() {
   let currentPokemonStep2 = await generateJSON(urlIdStep2);
   let imagePokemonStep2 = currentPokemonStep2["sprites"]["other"]["official-artwork"]["front_default"];
   let namePokemonPopUpCard = generateNamePokemeonEvolution(pokemonStep2);
-  document.getElementById("evolutionStep2").innerHTML = generateEvolutionStep1Content(imagePokemonStep2, namePokemonPopUpCard, idPokemonStep2);
+  document.getElementById("evolutionStep2").innerHTML = generateEvolutionStepContent(imagePokemonStep2, namePokemonPopUpCard, idPokemonStep2);
 }
 
 async function generateEvolutionStep3() {
@@ -389,7 +423,7 @@ async function generateEvolutionStep3() {
     let currentPokemonStep3 = await generateJSON(urlIdStep3);
     let imagePokemonStep3 = currentPokemonStep3["sprites"]["other"]["official-artwork"]["front_default"];
     let namePokemonPopUpCard = generateNamePokemeonEvolution(pokemonStep3);
-    document.getElementById("evolutionStep3").innerHTML = generateEvolutionStep1Content(imagePokemonStep3, namePokemonPopUpCard, idPokemonStep3);
+    document.getElementById("evolutionStep3").innerHTML = generateEvolutionStepContent(imagePokemonStep3, namePokemonPopUpCard, idPokemonStep3);
   }
 }
 
@@ -399,45 +433,4 @@ function generateNamePokemeonEvolution(pokemonStep) {
   } else {
     return (namePokemonPopUpCard = pokemonStep["names"]["5"]["name"]);
   }
-}
-
-async function generateSearchTextInputgEnglish(searchInputText) {
-  renderLoadScreen();
-  searchInputText = searchInputText.toLowerCase();
-  searchIsSuccessful = false;
-  for (let i = 1; i < 1010; i++) {
-    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
-    specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);
-    let nameFromPokemonEnglisch = specificationsOfThePokemon["names"]["8"]["name"].toLowerCase();
-    if (nameFromPokemonEnglisch.toLowerCase().includes(searchInputText)) {
-      await generateExistingPokemon(i);
-    }
-  }
-  if (!searchIsSuccessful) {
-    notFound();
-  }
-  renderCloseLoadScreen();
-}
-
-async function generateSearchTextInputgGerman(searchInputText) {
-  renderLoadScreen();
-  searchInputText = searchInputText.toLowerCase();
-  searchIsSuccessful = false;
-  for (let i = 1; i < 1010; i++) {
-    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
-    specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);
-    let nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"].toLowerCase();
-    if (nameFromPokemonGerman.toLowerCase().includes(searchInputText)) {
-      await generateExistingPokemon(i);
-    }
-  }
-  if (!searchIsSuccessful) {
-    notFound();
-  }
-  renderCloseLoadScreen();
-}
-
-async function generateExistingPokemon(i) {
-  await renderCard(i);
-  searchIsSuccessful = true;
 }

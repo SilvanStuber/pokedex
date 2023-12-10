@@ -20,6 +20,17 @@ function generateInputField() {
   }
 }
 
+function generateResponsiveButton() {
+  return /*html*/ ` 
+  <button onclick="renderFavouritesCard()" class="my-pokemon-button-responsive" enable>
+    <img src="./img/pokemonball.png" alt="pokemonball" class="img-button-responsive">
+  </button>
+  <button onclick="renderImpressum()" class="impressum-button-responsive">
+    <img src="./img/impressum.png" alt="impressum" class="img-button-responsive">
+  </button>
+  `;
+}
+
 function generateImpressum() {
   if (!theLanguageIsGerman) {
     return /*html*/ `
@@ -211,7 +222,7 @@ function generateEvolutionSectionPopUpCard() {
    `;
 }
 
-function generateEvolutionStep1Content(imagePokemonStep, namePokemonPopUpCard, idPokemonStep) {
+function generateEvolutionStepContent(imagePokemonStep, namePokemonPopUpCard, idPokemonStep) {
   return /*html*/ `
   <div onclick="renderPopUpCard(${idPokemonStep})">
    <img src="${imagePokemonStep}" class="img-evolution">
