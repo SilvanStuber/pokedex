@@ -1,5 +1,6 @@
 async function searchPokemon() {
   emptyArray();
+  renderLoadScreen();
   document.getElementById("pokedex").innerHTML = generateLoadScreenSearch();
   searchInputNumber = +document.getElementById("inputField").value;
   searchInputText = document.getElementById("inputField").value;
@@ -18,6 +19,7 @@ async function generateSearchNumberInput(searchInputNumber) {
   } else {
     notFound();
   }
+  renderCloseLoadScreen();
 }
 
 async function generateSearchTextInput(searchInputText) {
@@ -67,6 +69,7 @@ async function generateExistingPokemon(i) {
   } else {
     await renderCard(i);
   }
+  renderCloseLoadScreen();
   searchIsSuccessful = true;
 }
 
