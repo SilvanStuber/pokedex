@@ -33,7 +33,7 @@ async function generateSearchTextInput(searchInputText) {
 
 async function generateSearchTextInputgEnglish(searchInputText) {
   searchInputText = searchInputText.toLowerCase();
-  for (let id = 1; id < 1010; id++) {
+  for (let id = 1; id < pokemonDataSearchPokemonMap.length; id++) {
     let pokemondataSearchPokemon = pokemonDataSearchPokemonMap[id];
     nameFromPokemonEnglisch = pokemondataSearchPokemon["names"]["8"]["name"].toLowerCase();
     if (nameFromPokemonEnglisch.toLowerCase().includes(searchInputText)) {
@@ -47,7 +47,7 @@ async function generateSearchTextInputgEnglish(searchInputText) {
 
 async function generateSearchTextInputgGerman(searchInputText) {
   searchInputText = searchInputText.toLowerCase();
-  for (let id = 1; id < 1010; id++) {
+  for (let id = 1; id < pokemonDataSearchPokemonMap.length; id++) {
     let pokemondataSearchPokemon = pokemonDataSearchPokemonMap[id];
     nameFromPokemonGerman = pokemondataSearchPokemon["names"]["5"]["name"].toLowerCase();
     if (nameFromPokemonGerman.toLowerCase().includes(searchInputText)) {
