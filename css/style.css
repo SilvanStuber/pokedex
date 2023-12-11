@@ -75,7 +75,7 @@ header {
 
 #inputField {
   height: 48px;
-  width: 185px;
+  width: 130px;
   border-radius: 48px;
   filter: drop-shadow(1px 3px 4px rgba(0, 0, 0.2));
   border: 8px solid black;
@@ -457,6 +457,7 @@ input::placeholder {
   z-index: 999;
   position: absolute;
   left: 0;
+  cursor: pointer;
 }
 
 .arrow-right-pop-up-card {
@@ -466,6 +467,7 @@ input::placeholder {
   z-index: 999;
   position: absolute;
   right: 0;
+  cursor: pointer;
 }
 
 .card-selection-container {

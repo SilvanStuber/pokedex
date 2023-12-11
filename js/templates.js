@@ -3,7 +3,7 @@ function generateInputField() {
     return /*html*/ ` 
           <button onclick="renderFavouritesCard()" class="my-pokemon-button" enable>My captured Pokémon</button>
           <form onsubmit="event.preventDefault(); searchPokemon();">
-            <input type="text" id="inputField" placeholder="Enter name or ID" required>
+            <input type="text" id="inputField" placeholder="Name or ID" required>
             <button class="search-button">Search</button>
           </form>
           <button onclick="renderImpressum()" class="impressum-button">Legal Notice</button>
@@ -12,7 +12,7 @@ function generateInputField() {
     return /*html*/ ` 
       <button onclick="renderFavouritesCard()" class="my-pokemon-button">Meine gefangenen Pokémone</button>
       <form onsubmit="event.preventDefault(); searchPokemon();" enable>
-        <input type="text" id="inputField" placeholder="Name oder ID eingeben">
+        <input type="text" id="inputField" placeholder="Name oder ID">
         <button class="search-button">Suchen</button>
       </form>
       <button onclick="renderImpressum()" class="impressum-button">Impressum</button>

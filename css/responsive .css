@@ -56,6 +56,7 @@
   .headline {
     position: absolute;
     left: 12px;
+    font-size: 24px;
   }
 
   .second-headline-impressum {
@@ -74,7 +75,7 @@
 
 @media (max-width: 500px) {
   .pokemon-card {
-    width: 305px;
+    width: 280px;
   }
 
   .close-cross-pop-up-card {
@@ -89,11 +90,18 @@
     right: 32px;
   }
 
+  .pokemon-image {
+    padding-top: 24px;
+    margin-right: 12px;
+    height: 130px;
+    padding-right: 0;
+  }
+
   #pokemonImagePopUpCard {
-    height: 260px;
+    height: 200px;
   }
   .favourite-button {
-    margin-left: 250px;
+    margin-left: 230px;
   }
 
   .head-line-container {
