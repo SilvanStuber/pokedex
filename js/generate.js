@@ -24,42 +24,26 @@ async function generateSearchNumberInput(searchInputNumber) {
 }
 
 async function generateSearchTextInput(searchInputText) {
+  searchInputText = searchInputText.toLowerCase();
   searchIsSuccessful = false;
+  for (let id = 1; id < 1010; id++) {
+    await generateSearchLanguage(id);
+  }
+  if (!searchIsSuccessful) {
+    notFound();
+  }
+}
+
+async function generateSearchLanguage(id) {
+  let pokemondataSearchPokemon = pokemonDataSearchPokemonMap[id];
   if (!theLanguageIsGerman) {
-    await generateSearchTextInputgEnglish(searchInputText);
+    nameFromPokemon = pokemondataSearchPokemon["names"]["8"]["name"].toLowerCase();
   } else {
-    await generateSearchTextInputgGerman(searchInputText);
+    nameFromPokemon = pokemondataSearchPokemon["names"]["5"]["name"].toLowerCase();
   }
-}
-
-async function generateSearchTextInputgEnglish(searchInputText) {
-  searchInputText = searchInputText.toLowerCase();
-  for (let i = 1; i < 1010; i++) {
-    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
-    specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);
-    let nameFromPokemonEnglisch = specificationsOfThePokemon["names"]["8"]["name"].toLowerCase();
-    if (nameFromPokemonEnglisch.toLowerCase().includes(searchInputText)) {
-      await generateExistingPokemon(i);
-    }
-  }
-  if (!searchIsSuccessful) {
-    notFound();
-  }
-}
-
-async function generateSearchTextInputgGerman(searchInputText) {
-  renderLoadScreen();
-  searchInputText = searchInputText.toLowerCase();
-  for (let i = 1; i < 1010; i++) {
-    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
-    specificationsOfThePokemon = await generateJSON(urlFromSpeciesSearch);
-    let nameFromPokemonGerman = specificationsOfThePokemon["names"]["5"]["name"].toLowerCase();
-    if (nameFromPokemonGerman.toLowerCase().includes(searchInputText)) {
-      await generateExistingPokemon(i);
-    }
-  }
-  if (!searchIsSuccessful) {
-    notFound();
+  if (nameFromPokemon.toLowerCase().includes(searchInputText)) {
+    searchIsSuccessful = true;
+    await generateExistingPokemon(id);
   }
 }
 
@@ -70,7 +54,6 @@ async function generateExistingPokemon(i) {
   } else {
     await renderCard(i);
   }
-  searchIsSuccessful = true;
 }
 
 function notFound() {

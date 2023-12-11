@@ -3,10 +3,10 @@ async function init() {
   emptyArray();
   renderLoadScreen();
   document.getElementById("pokedex").innerHTML = ``;
-  await generateImportPokemon();
   renderInputField();
-  renderContent();
+  await renderContent();
   renderLoadMoreButton();
+  await generateImportPokemon();
 }
 
 async function renderContent() {
@@ -45,8 +45,8 @@ async function renderFavouritesCard() {
 }
 
 function renderNextPokemon() {
-  startPokemon = startPokemon + 20;
-  amountPokemon = amountPokemon + 20;
+  startPokemon = startPokemon + 10;
+  amountPokemon = amountPokemon + 10;
   renderLoadScreen();
   renderContent();
 }

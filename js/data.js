@@ -1,10 +1,10 @@
 let url;
 let urlFromSpecies;
 let startPokemon = 1;
-let amountPokemon = 21;
+let amountPokemon = 11;
 let currentPokemon;
+let pokemonDataSearchPokemonMap = {};
 let myPokemonIsLoaded = false;
-let currentIdPokemon;
 let nameUrlFromPokemon;
 let specificationsOfThePokemon;
 let nameFromPokemon;
@@ -36,10 +36,12 @@ let idFromTextSearch;
 let searchIsSuccessful = false;
 let renderUpperLimit;
 
-
-async function generateImportPokemon(id) {
-  let urlPokemon = `https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0`;
-  currentPokemon = await generateJSON(urlPokemon).catch(errorFunction);
+async function generateImportPokemon() {
+  for (let i = 1; i < 1010; i++) {
+    let urlFromSpeciesSearch = `https://pokeapi.co/api/v2/pokemon-species/${i}`;
+    let dataSearchPokemon = await generateJSON(urlFromSpeciesSearch);
+    pokemonDataSearchPokemonMap[dataSearchPokemon["id"]] = dataSearchPokemon;
+  }
 }
 
 async function generateImportData(id) {
@@ -74,7 +76,7 @@ function emptyArray() {
   apiData = [];
   resultSearchPokemon = [];
   startPokemon = 1;
-  amountPokemon = 21;
+  amountPokemon = 11;
   renderUpperLimit = 0;
 }
 
