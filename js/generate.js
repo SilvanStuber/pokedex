@@ -1,6 +1,6 @@
 async function searchPokemon() {
-  emptyArray();
   renderLoadScreen();
+  emptyArray();
   renderLoadButton();
   document.getElementById("pokedex").innerHTML = generateLoadScreenSearch();
   searchInputNumber = +document.getElementById("inputField").value;
@@ -14,7 +14,6 @@ async function searchPokemon() {
   }
   renderCloseLoadScreen();
 }
-
 async function generateSearchNumberInput(searchInputNumber) {
   if (searchInputNumber < 1011) {
     await renderCard(searchInputNumber);
@@ -24,26 +23,39 @@ async function generateSearchNumberInput(searchInputNumber) {
 }
 
 async function generateSearchTextInput(searchInputText) {
-  searchInputText = searchInputText.toLowerCase();
   searchIsSuccessful = false;
+  if (!theLanguageIsGerman) {
+    await generateSearchTextInputgEnglish(searchInputText);
+  } else {
+    await generateSearchTextInputgGerman(searchInputText);
+  }
+}
+
+async function generateSearchTextInputgEnglish(searchInputText) {
+  searchInputText = searchInputText.toLowerCase();
   for (let id = 1; id < 1010; id++) {
-    await generateSearchLanguage(id);
+    let pokemondataSearchPokemon = pokemonDataSearchPokemonMap[id];
+    nameFromPokemonEnglisch = pokemondataSearchPokemon["names"]["8"]["name"].toLowerCase();
+    if (nameFromPokemonEnglisch.toLowerCase().includes(searchInputText)) {
+      await generateExistingPokemon(id);
+    }
   }
   if (!searchIsSuccessful) {
     notFound();
   }
 }
 
-async function generateSearchLanguage(id) {
-  let pokemondataSearchPokemon = pokemonDataSearchPokemonMap[id];
-  if (!theLanguageIsGerman) {
-    nameFromPokemon = pokemondataSearchPokemon["names"]["8"]["name"].toLowerCase();
-  } else {
-    nameFromPokemon = pokemondataSearchPokemon["names"]["5"]["name"].toLowerCase();
+async function generateSearchTextInputgGerman(searchInputText) {
+  searchInputText = searchInputText.toLowerCase();
+  for (let id = 1; id < 1010; id++) {
+    let pokemondataSearchPokemon = pokemonDataSearchPokemonMap[id];
+    nameFromPokemonGerman = pokemondataSearchPokemon["names"]["5"]["name"].toLowerCase();
+    if (nameFromPokemonGerman.toLowerCase().includes(searchInputText)) {
+      await generateExistingPokemon(id);
+    }
   }
-  if (nameFromPokemon.toLowerCase().includes(searchInputText)) {
-    searchIsSuccessful = true;
-    await generateExistingPokemon(id);
+  if (!searchIsSuccessful) {
+    notFound();
   }
 }
 
@@ -54,6 +66,7 @@ async function generateExistingPokemon(i) {
   } else {
     await renderCard(i);
   }
+  searchIsSuccessful = true;
 }
 
 function notFound() {
