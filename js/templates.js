@@ -38,8 +38,8 @@ function generateImpressum() {
           <h1 class="impressum-headline">Legal Notice</h1>
           <p class="impressum-text">
             Silvan Stuber<br />
-            Bernstrasse 46<br />
-            3267 Seedorf
+            Hühnerhubelstrasse 12<br />
+            3123 Belp
            </p>
           <h2 class="second-headline-impressum">Contact</h2>
           <a class="link-impressum" href="mailto:silvan.stuber1@gmail.com"
@@ -56,8 +56,8 @@ function generateImpressum() {
       <h1 class="impressum-headline">Impressum</h1>
       <p class="impressum-text">
         Silvan Stuber<br />
-        Bernstrasse 46<br />
-        3267 Seedorf
+        Hühnerhubelstrasse 12<br />
+        3123 Belp
       </p>
       <h2 class="second-headline-impressum">Kontakt</h2>
       <a class="link-impressum" href="mailto:silvan.stuber1@gmail.com">E-Mail: silvan.stuber1@gmail.com</a>
